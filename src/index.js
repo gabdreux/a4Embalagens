@@ -1,11 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom/client'; // Importar o cliente de renderização
 import App from './App';
-// import './styles.css';
 
-// Criar uma raiz com o método createRoot
+// Criando um root usando createRoot
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-
-// Renderizar o componente App
-root.render(<App />);
+// Renderizando o componente App
+root.render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
+);
