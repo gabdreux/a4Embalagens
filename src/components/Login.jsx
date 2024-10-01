@@ -1,120 +1,105 @@
 import React, { useState } from 'react';
+import '../styles/login.css';
+import { auth } from '../firebase'; // Importar a configuração do Firebase
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'; // Métodos de login e registro
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const styles = {
-    container: {
-      fontFamily: 'Arial, sans-serif',
-      maxWidth: '300px',
-      margin: '20px auto',
-      padding: '20px',
-      border: '1px solid #ccc',
-      borderRadius: '5px',
-    },
-    title: {
-      fontSize: '24px',
-      fontWeight: 'bold',
-      marginBottom: '20px',
-    },
-    tabContainer: {
-      display: 'flex',
-      marginBottom: '20px',
-    },
-    tab: {
-      flex: 1,
-      padding: '10px',
-      border: 'none',
-      background: 'none',
-      cursor: 'pointer',
-    },
-    activeTab: {
-      borderBottom: '2px solid blue',
-      color: 'blue',
-    },
-    input: {
-      width: '100%',
-      padding: '8px',
-      marginBottom: '10px',
-      border: '1px solid #ccc',
-      borderRadius: '3px',
-    },
-    button: {
-      width: '100%',
-      padding: '10px',
-      background: 'blue',
-      color: 'white',
-      border: 'none',
-      borderRadius: '3px',
-      cursor: 'pointer',
-    },
-    eyeIcon: {
-      position: 'absolute',
-      right: '10px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      cursor: 'pointer',
-    },
-    passwordContainer: {
-      position: 'relative',
-    },
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(''); // Resetar erros
+
+    if (!email || !password) {
+      setError('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    try {
+      if (isLogin) {
+        // Login com e-mail e senha
+        await signInWithEmailAndPassword(auth, email, password);
+        alert('Login realizado com sucesso!');
+      } else {
+        // Registro de novo usuário
+        if (password !== confirmPassword) {
+          setError('As senhas não coincidem.');
+          return;
+        }
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert('Usuário registrado com sucesso!');
+      }
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>A4 Embalagens</h1>
-      <div style={styles.tabContainer}>
+    <div className="container">
+      <h1 className="title">A4 Embalagens</h1>
+      <div className="tab-container">
         <button
-          style={{...styles.tab, ...(isLogin ? styles.activeTab : {})}}
+          className={`tab ${isLogin ? 'active-tab' : ''}`}
           onClick={() => setIsLogin(true)}
         >
           Entrar
         </button>
         <button
-          style={{...styles.tab, ...(!isLogin ? styles.activeTab : {})}}
+          className={`tab ${!isLogin ? 'active-tab' : ''}`}
           onClick={() => setIsLogin(false)}
         >
           Registrar
         </button>
       </div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <p>Informe e-mail e senha para realizar o {isLogin ? 'login' : 'cadastro'}.</p>
         <input
           type="email"
           placeholder="Email"
-          style={styles.input}
+          className="input"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        <div style={styles.passwordContainer}>
+        <div className="password-container">
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Senha"
-            style={styles.input}
+            className="input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <span
-            style={styles.eyeIcon}
+            className="eye-icon"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? '👁️' : '👁️‍🗨️'}
           </span>
         </div>
         {!isLogin && (
-          <div style={styles.passwordContainer}>
+          <div className="password-container">
             <input
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirme sua senha"
-              style={styles.input}
+              className="input"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <span
-              style={styles.eyeIcon}
+              className="eye-icon"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
               {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
             </span>
           </div>
         )}
-        <button type="submit" style={styles.button}>
+        {error && <p className="error">{error}</p>}
+        <button type="submit" className="button">
           {isLogin ? 'Entrar' : 'Registrar'}
         </button>
       </form>
