@@ -1,70 +1,87 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import * as XLSX from 'xlsx';
 import '../styles/productList.css';
 
 const ProductList = () => {
-  // Dados fictícios
-  const products = [
-    {
-      supplier: 'Fornecedor A',
-      cost: 100,
-      quantity: 5,
-      material: 'Material A',
-      sellingPrice: 150,
-    },
-    {
-      supplier: 'Fornecedor B',
-      cost: 120,
-      quantity: 10,
-      material: 'Material B',
-      sellingPrice: 180,
-    },
-    {
-      supplier: 'Fornecedor C',
-      cost: 90,
-      quantity: 8,
-      material: 'Material C',
-      sellingPrice: 130,
-    },
-    {
-      supplier: 'Fornecedor D',
-      cost: 110,
-      quantity: 12,
-      material: 'Material D',
-      sellingPrice: 160,
-    },
-    // Adicione mais produtos conforme necessário
-  ];
+  const [minData, setMinData] = useState([]);
+  const [ecoData, setEcoData] = useState([]);
+
+  useEffect(() => {
+    // Função para ler o arquivo Excel
+    const fetchExcelData = async () => {
+      try {
+        const response = await fetch(require('../assets/fornecedores/dados.xlsx'));
+        const blob = await response.blob();
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+          const data = new Uint8Array(event.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+
+          // Ler a aba 'min'
+          const minSheet = workbook.Sheets['min'];
+          const minJson = XLSX.utils.sheet_to_json(minSheet);
+
+          // Ler a aba 'economico'
+          const ecoSheet = workbook.Sheets['economico'];
+          const ecoJson = XLSX.utils.sheet_to_json(ecoSheet);
+
+          // Atualizar estados com dados processados
+          setMinData(minJson);
+          setEcoData(ecoJson);
+        };
+
+        reader.readAsArrayBuffer(blob);
+      } catch (error) {
+        console.error('Erro ao carregar arquivo Excel:', error);
+      }
+    };
+
+    fetchExcelData();
+  }, []);
 
   return (
-    <div class="productListWrapper">
-        <div className="product-list-container">
+    <div className="productListWrapper">
+      {/* Tabela MINIMO */}
+      <h2>MINIMO</h2>
+      <div className="product-list-container">
         <div className="table-header">
-            <div className="table-row">
-            <div className="table-cell"><span>CUSTO S/ NF</span></div>
+          <div className="table-row">
             <div className="table-cell"><span>FORNECEDOR</span></div>
-            <div className="table-cell"><span>CUSTO</span></div>
-            <div className="table-cell"><span>QUANTIDADE</span></div>
             <div className="table-cell"><span>MATERIAL</span></div>
-            <div className="table-cell"><span>VALOR DE VENDA</span></div>
-            </div>
+          </div>
         </div>
-
-        {/* Lista de produtos */}
         <div className="table-body">
-            {products.map((product, index) => (
+          {minData.map((product, index) => (
             <div key={index} className="table-row">
-                <div className="table-cell">{product.cost}</div>
-                <div className="table-cell">{product.supplier}</div>
-                <div className="table-cell">{product.cost}</div>
-                <div className="table-cell">{product.quantity}</div>
-                <div className="table-cell">{product.material}</div>
-                <div className="table-cell">{product.sellingPrice}</div>
+              <div className="table-cell">{product['FORNECEDOR']}</div>
+              <div className="table-cell">{product['MATERIAL']}</div>
             </div>
-            ))}
+          ))}
         </div>
+      </div>
+
+      {/* Tabela ECONOMICO */}
+      <h2>ECONOMICO</h2>
+      <div className="product-list-container">
+        <div className="table-header">
+          <div className="table-row">
+            <div className="table-cell"><span>FORNECEDOR</span></div>
+            <div className="table-cell"><span>MATERIAL</span></div>
+          </div>
         </div>
+        <div className="table-body">
+          {ecoData.map((product, index) => (
+            <div key={index} className="table-row">
+              <div className="table-cell">{product['FORNECEDOR']}</div>
+              <div className="table-cell">{product['MATERIAL']}</div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default ProductList;
+

@@ -4,7 +4,7 @@ import ProductList from '../components/ProductsList';
 const HomePage = () => {
     return (
         <div>
-            <h1>Gerador de Propostas Comerciais!</h1>
+            <h1>NOVA PROPOSTA!</h1>
             <ProductList />
         </div>
     );
