@@ -43,7 +43,7 @@ const ProductList = () => {
   return (
     <div className="productListWrapper">
       {/* Tabela MINIMO */}
-      <h2>MINIMO</h2>
+      <h2>MÍNIMO</h2>
       <div className="product-list-container">
         <div className="table-header">
           <div className="table-row">
@@ -62,7 +62,7 @@ const ProductList = () => {
       </div>
 
       {/* Tabela ECONOMICO */}
-      <h2>ECONOMICO</h2>
+      <h2>ECONÔMICO</h2>
       <div className="product-list-container">
         <div className="table-header">
           <div className="table-row">

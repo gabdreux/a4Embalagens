@@ -1,11 +1,11 @@
 import React from 'react';
-import ProductList from '../components/ProductsList';
+import CreateProposal from '../components/CreateProposal';
 
 const HomePage = () => {
     return (
         <div>
-            <h1>NOVA PROPOSTA!</h1>
-            <ProductList />
+            <h1>Home</h1>
+            <CreateProposal />
         </div>
     );
 };

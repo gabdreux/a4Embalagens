@@ -1,5 +1,5 @@
 .product-list-container {
-  padding: 30px 0;
+  padding: 10px 0;
   overflow-x: auto;
   width: 100%;
   max-width: 1280px;
@@ -15,14 +15,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 16px;
+  padding: 5px 16px;
   border-bottom: 1px solid #e0e0e0;
 }
 
 .table-cell {
   flex: 1;
   min-width: 120px;
-  font-weight: 600;
+  font-size: 14px;
   padding: 8px 0;
   box-sizing: border-box;
 }
@@ -42,6 +42,14 @@
 .table-cell:nth-child(6) {
   min-width: 70px;
 }
+
+.table-cell:nth-child(1),
+.table-cell:nth-child(3),
+.table-cell:nth-child(5),
+.table-cell:nth-child(6) {
+  font-weight: 600;
+}
+
 
 .table-cell:last-child {
   text-align: end; 
