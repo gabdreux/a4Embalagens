@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/ProposalInputs.css'; // Você pode criar um arquivo CSS para estilos
+import '../styles/ProposalInputs.css';
 
 const ProposalInputs = () => {
   const [productName, setProductName] = useState('');

@@ -1,0 +1,96 @@
+/* Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: white;
+  }
+  
+  .header-image img {
+    height: 50px;
+  }
+  
+
+.header-menu {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+  
+  .header-menu ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .header-menu li {
+    margin: 0 10px; /* espaçamento entre os itens do menu */
+  }
+  
+  .header-icon {
+    display: none; /* ocultar ícone por padrão */
+  }
+  
+  .menu-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+
+  .budget-list {
+    list-style: none; /* Remove o estilo da lista */
+    padding: 0; /* Remove o preenchimento padrão */
+
+  }
+  
+  .budget-item {
+    display: flex; /* Define um layout flexível */
+    align-items: center; /* Alinha verticalmente o ícone e o texto */
+    margin-bottom: 10px; /* Espaçamento entre os itens */
+  }
+  
+  .budget-title {
+    margin-left: 10px; /* Espaçamento entre o ícone e o texto */
+  }
+  
+  .icon {
+    /* Adicione estilos para o ícone, se necessário */
+    font-size: 18px; /* Exemplo: tamanho do ícone */
+  }
+
+
+  li.budget-item {
+    margin-right: 30px;
+  }
+  
+  
+  /* Estilos para o menu em dispositivos móveis */
+  @media (max-width: 768px) {
+    .header-menu {
+      display: none; /* oculta o menu em dispositivos móveis */
+    }
+  
+    .header-icon {
+      display: block; /* exibe o ícone do menu em dispositivos móveis */
+    }
+  
+    .menu-icon span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #000; /* cor das linhas do ícone */
+      margin: 4px 0;
+    }
+  }
+  
+  /* Estilos para ocultar o ícone em dispositivos desktop */
+  @media (min-width: 769px) {
+    .header-icon {
+      display: none; /* oculta o ícone em dispositivos desktop */
+    }
+  }
+  
