@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/login.css';
 import { auth } from '../firebase'; // Importar a configuração do Firebase
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'; // Métodos de login e registro
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ const Login = () => {
         // Login com e-mail e senha
         await signInWithEmailAndPassword(auth, email, password);
         alert('Login realizado com sucesso!');
+        navigate('/home');
       } else {
         // Registro de novo usuário
         if (password !== confirmPassword) {
@@ -34,6 +37,7 @@ const Login = () => {
         }
         await createUserWithEmailAndPassword(auth, email, password);
         alert('Usuário registrado com sucesso!');
+        navigate('/home');
       }
     } catch (err) {
       setError(err.message);
