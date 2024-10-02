@@ -67,11 +67,26 @@
     margin-right: 60px;
   }
   
-  
+
+
+  .sidebar {
+    position: fixed;
+    top: 73px;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: none;
+  }
+
+
+
   /* Estilos para o menu em dispositivos móveis */
   @media (max-width: 768px) {
     .header-menu {
-      display: none; /* oculta o menu em dispositivos móveis */
+      display: none;
     }
   
     .header-icon {
@@ -85,6 +100,12 @@
       background-color: #000; /* cor das linhas do ícone */
       margin: 4px 0;
     }
+
+    .sidebar {
+      display: flex;
+      justify-content: center;
+    }
+
   }
   
   /* Estilos para ocultar o ícone em dispositivos desktop */
@@ -93,37 +114,8 @@
       display: none; /* oculta o ícone em dispositivos desktop */
     }
   }
-  
 
 
 
 
-  
-.sidebar {
-  width: 200px;
-  background-color: #f8f9fa;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
 
-.sidebar h2 {
-  margin: 0 0 15px;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  margin: 10px 0;
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: #007bff;
-}
-
-.sidebar ul li a:hover {
-  text-decoration: underline;
-}

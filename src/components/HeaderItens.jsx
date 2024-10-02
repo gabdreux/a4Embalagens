@@ -4,7 +4,7 @@ import '../styles/Header.css';
 
 const HeaderItens = () => {
   return (
-    <nav className="header-menu">
+    <nav>
       <ul className="budget-list">
         <li className="budget-item">
           <FaPlus className="icon" />
