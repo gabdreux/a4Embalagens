@@ -61,7 +61,9 @@ const UpdateOptionsInputs = () => {
   if (loading) return <div>Carregando...</div>; // Exibe mensagem de carregamento
 
   return (
+    
     <div className="product-input-wrapper">
+      <h3 className="sectionTitle">OPÇÕES</h3>
       {/* Grupo LOTE */}
       <div className="group">
         <h3>LOTE</h3>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaPlus, FaList, FaCog } from 'react-icons/fa';
+import { FaPlus, FaList, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import '../styles/Header.css';
 
 const HeaderItens = () => {
@@ -8,7 +8,7 @@ const HeaderItens = () => {
       <ul className="budget-list">
         <li className="budget-item">
           <FaPlus className="icon" />
-          <h5 className="budget-title">NOVO ORÇAMENTO</h5>
+          <h5 className="budget-title">CRIAR ORÇAMENTO</h5>
         </li>
         <li className="budget-item">
           <FaList className="icon" />
@@ -16,11 +16,19 @@ const HeaderItens = () => {
         </li>
         <li className="budget-item">
           <FaPlus className="icon" />
-          <h5 className="budget-title">NOVO PRODUTO</h5>
+          <h5 className="budget-title">CRIAR PRODUTO</h5>
+        </li>
+        <li className="budget-item">
+          <FaList className="icon" />
+          <h5 className="budget-title">PRODUTOS</h5>
         </li>
         <li className="budget-item">
           <FaCog className="icon" />
           <h5 className="budget-title">OPÇÕES</h5>
+        </li>
+        <li className="budget-item logout">
+          <FaSignOutAlt className="icon" />
+          <h5 className="budget-title">Sair</h5>
         </li>
       </ul>
     </nav>

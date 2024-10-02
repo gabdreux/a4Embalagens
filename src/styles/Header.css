@@ -58,12 +58,12 @@
   }
   
   .icon {
-    font-size: 18px;
+    font-size: 14px;
   }
 
 
   li.budget-item {
-    margin-right: 60px;
+    margin-right: 30px;
   }
   
 
@@ -84,6 +84,10 @@
     margin-right: 0;
   }
 
+  .logout {
+    margin-right: 10px !important;
+    margin-left: 50px !important;
+  }
 
 
   /* Estilos para o menu em dispositivos móveis */

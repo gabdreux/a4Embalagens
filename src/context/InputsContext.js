@@ -9,8 +9,12 @@ export const InputProvider = ({ children }) => {
     setInputValues((prev) => ({ ...prev, [name]: value }));
   };
 
+  const resetInputs = () => {
+    setInputValues({}); // Resetar para um objeto vazio
+  };
+
   return (
-    <InputContext.Provider value={{ inputValues, handleInputChange }}>
+    <InputContext.Provider value={{ inputValues, handleInputChange, resetInputs }}>
       {children}
     </InputContext.Provider>
   );

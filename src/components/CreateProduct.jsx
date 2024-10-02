@@ -41,9 +41,10 @@ const CreateProductInputs = () => {
 
   return (
     <div className="product-input-wrapper">
+      <h3 className='sectionTitle'>NOVO PRODUTO</h3>
       {/* Grupo MATERIAL */}
       <div className="group">
-        <h3>MATERIAL</h3>
+        <h3>Material</h3>
         <input
           type="text"
           placeholder="Material"
@@ -54,7 +55,7 @@ const CreateProductInputs = () => {
 
       {/* Grupo FORNECEDOR */}
       <div className="group">
-        <h3>FORNECEDOR</h3>
+        <h3>Fornecedor</h3>
         <input
           type="text"
           placeholder="Fornecedor"
@@ -65,7 +66,7 @@ const CreateProductInputs = () => {
 
       {/* Grupo COLUNA */}
       <div className="group">
-        <h3>COLUNA</h3>
+        <h3>Coluna</h3>
         <input
           type="text"
           placeholder="Coluna"
@@ -76,7 +77,7 @@ const CreateProductInputs = () => {
 
       {/* Grupo GRAMATURA */}
       <div className="group">
-        <h3>GRAMATURA</h3>
+        <h3>Gramatura</h3>
         <input
           type="text"
           placeholder="Gramatura"
@@ -87,7 +88,7 @@ const CreateProductInputs = () => {
 
       {/* Grupo PREÇO M² */}
       <div className="group">
-        <h3>PREÇO M²</h3>
+        <h3>Preço M²</h3>
         <input
           type="number"
           placeholder="Preço M²"
@@ -109,7 +110,7 @@ const CreateProductInputs = () => {
 
       {/* Grupo CATEGORIA */}
       <div className="group">
-        <h3>CATEGORIA</h3>
+        <h3>Categoria</h3>
         <select
           value={categoria}
           onChange={(e) => setCategoria(e.target.value)}
