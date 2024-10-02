@@ -26,11 +26,11 @@
   }
   
   .header-menu li {
-    margin: 0 10px; /* espaçamento entre os itens do menu */
+    margin: 0 10px;
   }
   
   .header-icon {
-    display: none; /* ocultar ícone por padrão */
+    display: none;
   }
   
   .menu-icon {
@@ -42,24 +42,23 @@
 
 
   .budget-list {
-    list-style: none; /* Remove o estilo da lista */
-    padding: 0; /* Remove o preenchimento padrão */
+    list-style: none;
+    padding: 0;
 
   }
   
   .budget-item {
-    display: flex; /* Define um layout flexível */
-    align-items: center; /* Alinha verticalmente o ícone e o texto */
-    margin-bottom: 10px; /* Espaçamento entre os itens */
+    display: flex; 
+    align-items: center;
+    margin-bottom: 10px;
   }
   
   .budget-title {
-    margin-left: 10px; /* Espaçamento entre o ícone e o texto */
+    margin-left: 10px;
   }
   
   .icon {
-    /* Adicione estilos para o ícone, se necessário */
-    font-size: 18px; /* Exemplo: tamanho do ícone */
+    font-size: 18px;
   }
 
 
@@ -81,6 +80,10 @@
     display: none;
   }
 
+  .sidebar li.budget-item {
+    margin-right: 0;
+  }
+
 
 
   /* Estilos para o menu em dispositivos móveis */
@@ -90,14 +93,14 @@
     }
   
     .header-icon {
-      display: block; /* exibe o ícone do menu em dispositivos móveis */
+      display: block;
     }
   
     .menu-icon span {
       display: block;
       width: 25px;
       height: 3px;
-      background-color: #000; /* cor das linhas do ícone */
+      background-color: #000;
       margin: 4px 0;
     }
 
@@ -111,7 +114,7 @@
   /* Estilos para ocultar o ícone em dispositivos desktop */
   @media (min-width: 769px) {
     .header-icon {
-      display: none; /* oculta o ícone em dispositivos desktop */
+      display: none; 
     }
   }
 
