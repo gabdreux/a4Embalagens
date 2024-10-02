@@ -7,7 +7,8 @@ const CreateProposal = () => {
   return (
     <div>
       <ProposalInputs />
-        <PdfButton />
+      <PdfButton buttonText="Visualizar PDF" />
+      <PdfButton buttonText="Baixar PDF" />
       <ProductList />
     </div>
   );
