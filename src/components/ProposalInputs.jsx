@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/ProposalInputs.css';
+import { useInputContext } from '../context/InputsContext'; // Importe o contexto
 
 const ProposalInputs = () => {
-  const [productName, setProductName] = useState('');
-  const [simple, setSimple] = useState('');
-  const [length, setLength] = useState('');
-  const [height, setHeight] = useState('');
-  const [width, setWidth] = useState('');
-  const [marginContribution, setMarginContribution] = useState('');
+  const { handleInputChange } = useInputContext(); // Use o contexto
+
+  const logInputChange = (name, value) => {
+    // console.log(`${name}: ${value}`); // Log dos valores alterados
+    handleInputChange(name, value); // Envie o valor para o contexto
+  };
 
   return (
     <div className="product-input-wrapper">
@@ -17,8 +18,7 @@ const ProposalInputs = () => {
         <input
           type="text"
           placeholder="Nome do Produto"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
+          onChange={(e) => logInputChange('productName', e.target.value)} // Envie o valor para o contexto
         />
       </div>
 
@@ -28,8 +28,7 @@ const ProposalInputs = () => {
         <input
           type="text"
           placeholder="Simples"
-          value={simple}
-          onChange={(e) => setSimple(e.target.value)}
+          onChange={(e) => logInputChange('simple', e.target.value)} // Envie o valor para o contexto
         />
       </div>
 
@@ -39,20 +38,17 @@ const ProposalInputs = () => {
         <input
           type="number"
           placeholder="Comprimento"
-          value={length}
-          onChange={(e) => setLength(e.target.value)}
+          onChange={(e) => logInputChange('Comprimento', e.target.value)} // Envie o valor para o contexto
         />
         <input
           type="number"
           placeholder="Altura"
-          value={height}
-          onChange={(e) => setHeight(e.target.value)}
+          onChange={(e) => logInputChange('Altura', e.target.value)} // Envie o valor para o contexto
         />
         <input
           type="number"
           placeholder="Largura"
-          value={width}
-          onChange={(e) => setWidth(e.target.value)}
+          onChange={(e) => logInputChange('Largura', e.target.value)} // Envie o valor para o contexto
         />
       </div>
 
@@ -61,8 +57,7 @@ const ProposalInputs = () => {
         <input
           type="number"
           placeholder="% MARGEM CONTRIB. OBJETIVA"
-          value={marginContribution}
-          onChange={(e) => setMarginContribution(e.target.value)}
+          onChange={(e) => logInputChange('margem', e.target.value)} // Envie o valor para o contexto
         />
       </div>
     </div>

@@ -4,6 +4,8 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import { AuthProvider } from './context/AuthContext'; // Importar o AuthProvider
 import ProtectedRoute from './components/ProtectedRoute'; // Importar a rota protegida
+import { InputProvider } from './context/InputsContext'; // Importar o contexto
+
 
 
 function App() {
@@ -16,7 +18,9 @@ function App() {
             path="/home"
             element={
               <ProtectedRoute>
+                <InputProvider>
                 <HomePage />
+                </InputProvider>
               </ProtectedRoute>
             }
           />
