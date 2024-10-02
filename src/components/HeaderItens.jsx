@@ -15,6 +15,10 @@ const HeaderItens = () => {
           <h5 className="budget-title">ORÇAMENTOS</h5>
         </li>
         <li className="budget-item">
+          <FaPlus className="icon" />
+          <h5 className="budget-title">NOVO PRODUTO</h5>
+        </li>
+        <li className="budget-item">
           <FaCog className="icon" />
           <h5 className="budget-title">OPÇÕES</h5>
         </li>

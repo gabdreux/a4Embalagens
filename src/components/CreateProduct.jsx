@@ -24,6 +24,7 @@ const CreateProductInputs = () => {
         categoria,
       });
       console.log('Produto salvo com ID: ', docRef.id);
+      alert('Produto salvo com sucesso!'); // Alerta de sucesso
       // Limpar os campos após o salvamento
       setMaterial('');
       setFornecedor('');
@@ -34,6 +35,7 @@ const CreateProductInputs = () => {
       setCategoria('');
     } catch (error) {
       console.error('Erro ao adicionar produto: ', error);
+      alert('Erro ao salvar produto. Tente novamente.'); // Alerta de erro
     }
   };
 
@@ -94,12 +96,12 @@ const CreateProductInputs = () => {
         />
       </div>
 
-      {/* Grupo infoss */}
+      {/* Grupo Infos */}
       <div className="group">
         <h3>Infos</h3>
         <input
           type="text"
-          placeholder="infosrmações"
+          placeholder="Informações"
           value={infos}
           onChange={(e) => setInfos(e.target.value)}
         />

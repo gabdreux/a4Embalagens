@@ -3,6 +3,7 @@ import CreateProposal from '../components/CreateProposal';
 import Header from '../components/Header';
 import SaveProposalButton from '../components/SaveProposal';
 import { useInputContext } from '../context/InputsContext';
+import UpdateOptionsInputs from '../components/Options';
 
 
 const HomePage = () => {
@@ -17,6 +18,7 @@ const HomePage = () => {
         <div>
             <Header />
             <h1>Home</h1>
+            <UpdateOptionsInputs />
             <CreateProposal />
             <SaveProposalButton />
         </div>
