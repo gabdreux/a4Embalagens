@@ -64,7 +64,7 @@
 
 
   li.budget-item {
-    margin-right: 30px;
+    margin-right: 60px;
   }
   
   
@@ -94,3 +94,36 @@
     }
   }
   
+
+
+
+
+  
+.sidebar {
+  width: 200px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  margin: 0 0 15px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
