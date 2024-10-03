@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Importa a configuração do Firebase
-import { collection, getDocs, query, where } from 'firebase/firestore'; // Importa funções do Firestore
+import { db } from '../firebase';
+import { collection, getDocs, query, where, deleteDoc, doc } from 'firebase/firestore';
 import '../styles/Lists.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -34,6 +34,31 @@ const ProductsList = () => {
     fetchProductData();
   }, []);
 
+
+
+    // Função para deletar um produto
+  const handleDelete = async (id, category) => {
+    const confirmDelete = window.confirm('Você tem certeza que deseja deletar este produto?');
+    
+    if (!confirmDelete) {
+      return; // Se o usuário cancelar, sai da função
+    }
+
+    try {
+      await deleteDoc(doc(db, 'produtos', id)); // Deleta o documento do Firestore
+      console.log(`Produto ${id} deletado com sucesso`);
+
+      // Atualiza a lista após a exclusão
+      if (category === 'pedido-minimo') {
+        setMinData(minData.filter(product => product.id !== id));
+      } else if (category === 'economico') {
+        setEcoData(ecoData.filter(product => product.id !== id));
+      }
+    } catch (error) {
+      console.error('Erro ao deletar o produto:', error);
+    }
+  };
+
   return (
     <div className="listWrapper">
       {/* Tabela MÍNIMO */}
@@ -59,7 +84,13 @@ const ProductsList = () => {
               <div className="table-cell">{product['gramagem']}</div>
               <div className="table-cell">{product['precoM2']}</div>
               <div className="table-cell">{product['infos']}</div>
-              <div className="table-cell"><FontAwesomeIcon icon={faTrash}/></div>
+              <div className="table-cell">
+                <FontAwesomeIcon 
+                  icon={faTrash} 
+                  onClick={() => handleDelete(product.id, 'pedido-minimo')} 
+                  className="delete-icon"
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -88,7 +119,13 @@ const ProductsList = () => {
               <div className="table-cell">{product['gramagem']}</div>
               <div className="table-cell">{product['precoM2']}</div>
               <div className="table-cell">{product['infos']}</div>
-              <div className="table-cell"><FontAwesomeIcon icon={faTrash}/></div>
+              <div className="table-cell">
+                <FontAwesomeIcon 
+                  icon={faTrash} 
+                  onClick={() => handleDelete(product.id, 'economico')} 
+                  className="delete-icon"
+                />
+              </div>
             </div>
           ))}
         </div>

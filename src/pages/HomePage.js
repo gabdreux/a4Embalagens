@@ -21,8 +21,7 @@ const HomePage = () => {
             <Header />
             <h1>Home</h1>
 
-            {/* Renderizar componentes com base na view ativa */}
-            {/* {activeView === 'CRIAR ORÇAMENTO' && <CreateProposal />}
+            {activeView === 'CRIAR ORÇAMENTO' && <CreateProposal />}
 
             {activeView === 'ORÇAMENTOS' && <ProposalList />}
             
@@ -30,12 +29,12 @@ const HomePage = () => {
 
             {activeView === 'PRODUTOS' && <ProductsList />}
 
-            {activeView === 'OPÇÕES' && <UpdateOptionsInputs />} */}
+            {activeView === 'OPÇÕES' && <UpdateOptionsInputs />}
 
             {/* <ProductsList />
-            <ProposalList /> */}
+            <ProposalList />
             <UpdateOptionsInputs />
-            <CreateProposal />
+            <CreateProposal /> */}
         </div>
     );
 };
