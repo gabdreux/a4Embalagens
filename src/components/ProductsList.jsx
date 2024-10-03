@@ -47,6 +47,7 @@ const ProductsList = () => {
     try {
       await deleteDoc(doc(db, 'produtos', id)); // Deleta o documento do Firestore
       console.log(`Produto ${id} deletado com sucesso`);
+      alert('Produto deletedo com sucesso!');
 
       // Atualiza a lista após a exclusão
       if (category === 'pedido-minimo') {
