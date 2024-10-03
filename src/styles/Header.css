@@ -1,14 +1,14 @@
 /* Header.css */
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 10px 30px;
     background-color: white;
   }
   
   .header-image img {
-    height: 50px;
+    width: 150px;
   }
   
 
@@ -38,6 +38,7 @@
     border: none;
     cursor: pointer;
     padding: 0;
+
   }
 
 
@@ -63,6 +64,7 @@
   
   .icon {
     font-size: 14px;
+    color: #FFC100;
   }
 
 
@@ -96,6 +98,17 @@
 
   /* Estilos para o menu em dispositivos móveis */
   @media (max-width: 768px) {
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+
+    }
+
+    .header-image img {
+      width: 90px;
+    }
+
     .header-menu {
       display: none;
     }

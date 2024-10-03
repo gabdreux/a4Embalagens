@@ -11,6 +11,7 @@ const CreateProductInputs = () => {
   const [precoM2, setPrecoM2] = useState('');
   const [infos, setInfos] = useState('');
   const [categoria, setCategoria] = useState('');
+  const [onda, setOnda] = useState('');
 
   const handleSave = async () => {
     try {
@@ -22,6 +23,7 @@ const CreateProductInputs = () => {
         precoM2,
         infos,
         categoria,
+        onda,
       });
       console.log('Produto salvo com ID: ', docRef.id);
       alert('Produto salvo com sucesso!'); // Alerta de sucesso
@@ -33,6 +35,7 @@ const CreateProductInputs = () => {
       setPrecoM2('');
       setInfos('');
       setCategoria('');
+      setOnda('');
     } catch (error) {
       console.error('Erro ao adicionar produto: ', error);
       alert('Erro ao salvar produto. Tente novamente.'); // Alerta de erro
@@ -40,14 +43,21 @@ const CreateProductInputs = () => {
   };
 
   return (
+
+    <div>
+
+          <div className="center">
+            <h3 className='viewTitle'>NOVO PRODUTO</h3>
+          </div>
+
     <div className="input-wrapper">
-      <h3 className='sectionTitle'>NOVO PRODUTO</h3>
+
+
       {/* Grupo MATERIAL */}
       <div className="groupBox">
         <h3>Material</h3>
         <input
           type="text"
-          placeholder="Material"
           value={material}
           onChange={(e) => setMaterial(e.target.value)}
         />
@@ -58,7 +68,6 @@ const CreateProductInputs = () => {
         <h3>Fornecedor</h3>
         <input
           type="text"
-          placeholder="Fornecedor"
           value={fornecedor}
           onChange={(e) => setFornecedor(e.target.value)}
         />
@@ -69,7 +78,6 @@ const CreateProductInputs = () => {
         <h3>Coluna</h3>
         <input
           type="text"
-          placeholder="Coluna"
           value={coluna}
           onChange={(e) => setColuna(e.target.value)}
         />
@@ -80,7 +88,6 @@ const CreateProductInputs = () => {
         <h3>Gramatura</h3>
         <input
           type="text"
-          placeholder="Gramatura"
           value={gramagem}
           onChange={(e) => setGramagem(e.target.value)}
         />
@@ -91,7 +98,6 @@ const CreateProductInputs = () => {
         <h3>Preço M²</h3>
         <input
           type="number"
-          placeholder="Preço M²"
           value={precoM2}
           onChange={(e) => setPrecoM2(e.target.value)}
         />
@@ -102,7 +108,6 @@ const CreateProductInputs = () => {
         <h3>Infos</h3>
         <input
           type="text"
-          placeholder="Informações"
           value={infos}
           onChange={(e) => setInfos(e.target.value)}
         />
@@ -121,11 +126,27 @@ const CreateProductInputs = () => {
         </select>
       </div>
 
+        {/* Grupo ONDA */}
+        <div className="groupBox">
+        <h3>Onda</h3>
+        <select
+          value={onda}
+          onChange={(e) => setOnda(e.target.value)}
+        >
+          <option value="">Selecione uma onda</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="B">BC</option>
+        </select>
+      </div>
+
       {/* Botão de Salvar */}
       <div className="groupBox">
         <button onClick={handleSave}>Salvar</button>
       </div>
     </div>
+
+  </div>
   );
 };
 
