@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Inputs.css';
+import '../styles/Styles.css';
 import { db } from '../firebase'; // Importe a configuração do Firebase
 import { collection, addDoc } from 'firebase/firestore';
 import { useInputContext } from '../context/InputsContext'; // Importe o contexto
@@ -33,14 +34,16 @@ const ProposalInputs = () => {
   return (
     <div>
 
-          <h3 className='sectionTitle'>NOVO ORÇAMENTO</h3>
+          <div className="center">
+            <h3 className='viewTitle'>NOVO ORÇAMENTO</h3>
+          </div>
         
 
 
           <div className="input-wrapper wrap">
                   <div className="infosNewProposal">
                     <div className="groupBox">
-                      <h3>Nome do Cliente</h3>
+                      <h3 className="sectionTitle">Nome do Cliente</h3>
                       <input
                         type="text"
                         onChange={(e) => logInputChange('nomeCliente', e.target.value)} // Envie o valor para o contexto
@@ -50,7 +53,7 @@ const ProposalInputs = () => {
               
                     {/* Grupo NOVA PROPOSTA */}
                     <div className="groupBox">
-                      <h3>Nome do Produto</h3>
+                      <h3 className="sectionTitle">Nome do Produto</h3>
                       <input
                         type="text"
                         onChange={(e) => logInputChange('nomeProduto', e.target.value)} // Envie o valor para o contexto
@@ -60,7 +63,7 @@ const ProposalInputs = () => {
               
                     {/* Grupo ALÍQUOTAS */}
                     <div className="groupBox">
-                      <h3>Alíquotas</h3>
+                      <h3 className="sectionTitle">Alíquotas</h3>
                       <div className="shortInput">
                         <p>Simples</p>
                         <input
@@ -78,7 +81,7 @@ const ProposalInputs = () => {
 
                   {/* Grupo MEDIDAS */}
                   <div className="groupBox medidasGroup">
-                    <h3>Medidas</h3>
+                    <h3 className="sectionTitle">Medidas</h3>
                     <div className="shortInput">
                       <p>Comprimento</p>
                       <input
@@ -127,9 +130,9 @@ const ProposalInputs = () => {
               </div>
           
               <div className="actionsButtons">
-                <button onClick={handleSave}>Salvar Orçamento</button>
                 <GenerateDocButton buttonText="Visualizar" />
                 <GenerateDocButton buttonText="Baixar" />
+                <button onClick={handleSave}>Salvar</button>
               </div>
           </div>
 

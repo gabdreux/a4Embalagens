@@ -25,12 +25,34 @@ body {
     justify-content: center;
 }
 
+
+button {
+    background-color: #004AAD;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    border: none;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
 .actionsButtons {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 30px
 }
+
+
+.viewTitle {
+    color: #FFC100;
+}
+
+
+.sectionTitle {
+    color: #004AAD;
+}
+
 
 
 

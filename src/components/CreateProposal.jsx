@@ -1,7 +1,6 @@
 import React from 'react';
 import ProposalInputs from '../components/ProposalInputs';
 import ProposalView from '../components/ProposalView';
-import GenerateDocButton from './generateDocButton';
 
 
 const CreateProposal = () => {

@@ -1,8 +1,19 @@
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
 .list-container {
   padding: 10px 0;
   overflow-x: auto;
   width: 100%;
   max-width: 1280px;
+
+  
 }
 
 .table-header {
@@ -64,11 +75,4 @@
 
 .table-body {
   width: 1280px;
-}
-
-.listWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
