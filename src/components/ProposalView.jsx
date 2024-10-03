@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Importa a configuração do Firebase
 import { collection, getDocs, query, where } from 'firebase/firestore'; // Importa funções do Firestore
 import '../styles/Lists.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-
-const ProductsList = () => {
+const ProposalView = () => {
   const [minData, setMinData] = useState([]);
   const [ecoData, setEcoData] = useState([]);
 
@@ -41,25 +38,23 @@ const ProductsList = () => {
       <div className="list-container">
         <div className="table-header">
           <div className="table-row">
-            <div className="table-cell"><span>MATERIAL</span></div>
+            <div className="table-cell"><span>CUSTO S/ NF</span></div>
             <div className="table-cell"><span>FORNECEDOR</span></div>
-            <div className="table-cell"><span>COLUNA</span></div>
-            <div className="table-cell"><span>GRAMATURA</span></div>
-            <div className="table-cell"><span>VALOR M²</span></div>
-            <div className="table-cell"><span>INFOS</span></div>
-            <div className="table-cell"><span>DELETAR</span></div>
+            <div className="table-cell"><span>CUSTO</span></div>
+            <div className="table-cell"><span>QUANTIDADE</span></div>
+            <div className="table-cell"><span>MATERIAL</span></div>
+            <div className="table-cell"><span>VALOR DE VENDA</span></div>
           </div>
         </div>
         <div className="table-body">
           {minData.map((product) => (
             <div key={product.id} className="table-row">
-              <div className="table-cell">{product['material']}</div>
-              <div className="table-cell">{product['fornecedor']}</div>
-              <div className="table-cell">{product['coluna']}</div>
-              <div className="table-cell">{product['gramagem']}</div>
               <div className="table-cell">{product['precoM2']}</div>
-              <div className="table-cell">{product['infos']}</div>
-              <div className="table-cell"><FontAwesomeIcon icon={faTrash}/></div>
+              <div className="table-cell">{product['fornecedor']}</div>
+              <div className="table-cell">{product['precoM2']}</div>
+              <div className="table-cell">{product['precoM2']}</div>
+              <div className="table-cell">{product['material']}</div>
+              <div className="table-cell">{product['precoM2']}</div>
             </div>
           ))}
         </div>
@@ -70,25 +65,23 @@ const ProductsList = () => {
       <div className="list-container">
         <div className="table-header">
           <div className="table-row">
-            <div className="table-cell"><span>MATERIAL</span></div>
+          <div className="table-cell"><span>CUSTO S/ NF</span></div>
             <div className="table-cell"><span>FORNECEDOR</span></div>
-            <div className="table-cell"><span>COLUNA</span></div>
-            <div className="table-cell"><span>GRAMATURA</span></div>
-            <div className="table-cell"><span>VALOR M²</span></div>
-            <div className="table-cell"><span>INFOS</span></div>
-            <div className="table-cell"><span>DELETAR</span></div>
+            <div className="table-cell"><span>CUSTO</span></div>
+            <div className="table-cell"><span>QUANTIDADE</span></div>
+            <div className="table-cell"><span>MATERIAL</span></div>
+            <div className="table-cell"><span>VALOR DE VENDA</span></div>
           </div>
         </div>
         <div className="table-body">
           {ecoData.map((product) => (
             <div key={product.id} className="table-row">
-              <div className="table-cell">{product['material']}</div>
-              <div className="table-cell">{product['fornecedor']}</div>
-              <div className="table-cell">{product['coluna']}</div>
-              <div className="table-cell">{product['gramagem']}</div>
               <div className="table-cell">{product['precoM2']}</div>
-              <div className="table-cell">{product['infos']}</div>
-              <div className="table-cell"><FontAwesomeIcon icon={faTrash}/></div>
+              <div className="table-cell">{product['fornecedor']}</div>
+              <div className="table-cell">{product['precoM2']}</div>
+              <div className="table-cell">{product['precoM2']}</div>
+              <div className="table-cell">{product['material']}</div>
+              <div className="table-cell">{product['precoM2']}</div>
             </div>
           ))}
         </div>
@@ -97,4 +90,4 @@ const ProductsList = () => {
   );
 };
 
-export default ProductsList;
+export default ProposalView;

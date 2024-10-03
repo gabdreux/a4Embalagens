@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/login.css';
+import '../styles/Login.css';
 import { auth } from '../firebase'; // Importar a configuração do Firebase
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'; // Métodos de login e registro
 import { useNavigate } from 'react-router-dom';

@@ -1,8 +1,8 @@
 import React from 'react';
 import ProposalInputs from '../components/ProposalInputs';
-import ProductList from '../components/ProductsList';
+import ProposalView from '../components/ProposalView';
 import GenerateDocButton from './generateDocButton';
-import FileUpload from './FileUpload';
+
 import CreateProductInputs from './CreateProduct';
 
 const CreateProposal = () => {
@@ -11,8 +11,8 @@ const CreateProposal = () => {
       <ProposalInputs />
       <GenerateDocButton buttonText="Visualizar" />
       <GenerateDocButton buttonText="Baixar" />
-      <CreateProductInputs />
-      <ProductList />
+      {/* <CreateProductInputs /> */}
+      <ProposalView />
     </div>
   );
 };

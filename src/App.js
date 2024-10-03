@@ -2,9 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
-import { AuthProvider } from './context/AuthContext'; // Importar o AuthProvider
-import ProtectedRoute from './components/ProtectedRoute'; // Importar a rota protegida
-import { InputProvider } from './context/InputsContext'; // Importar o contexto
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import { InputProvider } from './context/InputsContext';
+import { ViewProvider } from './context/ViewContext';
 
 
 
@@ -18,9 +19,11 @@ function App() {
             path="/home"
             element={
               <ProtectedRoute>
-                <InputProvider>
-                <HomePage />
-                </InputProvider>
+                <ViewProvider>
+                  <InputProvider>
+                    <HomePage />
+                  </InputProvider>
+                </ViewProvider>
               </ProtectedRoute>
             }
           />
