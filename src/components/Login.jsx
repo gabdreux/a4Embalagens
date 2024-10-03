@@ -3,6 +3,10 @@ import '../styles/Login.css';
 import { auth } from '../firebase'; // Importar a configuração do Firebase
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'; // Métodos de login e registro
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/imgs/LOGO A4 Embalagens -Cortada.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -45,8 +49,15 @@ const Login = () => {
   };
 
   return (
+
+
     <div className="container">
-      <h1 className="title">A4 Embalagens</h1>
+
+      <div className="center">
+        <img src={logo} alt="A4 Embalagens" className="loginLogo" />
+      </div>
+
+
       <div className="tab-container">
         <button
           className={`tab ${isLogin ? 'active-tab' : ''}`}
@@ -61,8 +72,15 @@ const Login = () => {
           Registrar
         </button>
       </div>
+
+      <p>Por favor, faça o {isLogin ? 'login' : 'cadastro'} para continuar.</p>
+
+      <div className="loginFormBox">
+
       <form onSubmit={handleSubmit}>
-        <p>Informe e-mail e senha para realizar o {isLogin ? 'login' : 'cadastro'}.</p>
+        
+
+
         <input
           type="email"
           placeholder="Email"
@@ -70,6 +88,9 @@ const Login = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+
+
+
         <div className="password-container">
           <input
             type={showPassword ? 'text' : 'password'}
@@ -78,13 +99,16 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <span
             className="eye-icon"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? '👁️' : '👁️‍🗨️'}
+            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
           </span>
         </div>
+
+
         {!isLogin && (
           <div className="password-container">
             <input
@@ -98,15 +122,19 @@ const Login = () => {
               className="eye-icon"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
+              <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
             </span>
           </div>
         )}
+
         {error && <p className="error">{error}</p>}
+
         <button type="submit" className="button">
           {isLogin ? 'Entrar' : 'Registrar'}
         </button>
+
       </form>
+      </div>
     </div>
   );
 };

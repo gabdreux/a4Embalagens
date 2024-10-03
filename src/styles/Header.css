@@ -55,6 +55,10 @@
   
   .budget-title {
     margin-left: 10px;
+    cursor: pointer;
+    color: #004AAD;
+    font-weight: 700;
+
   }
   
   .icon {

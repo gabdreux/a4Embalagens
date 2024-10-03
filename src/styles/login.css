@@ -1,21 +1,27 @@
 .container {
-    font-family: 'Arial, sans-serif';
-    max-width: 300px;
-    margin: 20px auto;
+    max-width: 450px;
+    margin: 30px auto;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
+    background-color: white;
+  }
+
+  .loginLogo {
+    width: 180px;
+    margin-bottom: 20px;
   }
   
   .title {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 800;
     margin-bottom: 20px;
+
   }
   
   .tab-container {
     display: flex;
     margin-bottom: 20px;
+    margin-right: 80px;
   }
   
   .tab {
@@ -24,40 +30,38 @@
     border: none;
     background: none;
     cursor: pointer;
+    color: black;
+    font-size: 18px;
   }
   
   .active-tab {
     border-bottom: 2px solid blue;
-    color: blue;
+    border-radius: 0px;
+    font-weight: 700;
+    color: black;
+    font-size: 18px;
   }
-  
+
+  .loginFormBox {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .loginFormBox button {
+    margin-top: 20px;
+
+  }
+    
   .input {
-    width: 100%;
-    padding: 8px;
+    width: 95%;
+    padding: 10px 0px 10px 20px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 30px;
+    margin-right: -30px;
+    height: 30px;
   }
+
   
-  .button {
-    width: 100%;
-    padding: 10px;
-    background: blue;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .password-container {
-    position: relative;
-  }
-  
-  .eye-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-  
+
+
