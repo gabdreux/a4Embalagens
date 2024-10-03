@@ -3,7 +3,7 @@ import { db } from '../firebase'; // Importa a configuração do Firebase
 import { collection, getDocs, query, where } from 'firebase/firestore'; // Importa funções do Firestore
 import '../styles/Lists.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare} from '@fortawesome/free-solid-svg-icons';
 
 const ProposalList = () => {
   const [data, setData] = useState([]);
@@ -40,8 +40,7 @@ const ProposalList = () => {
             <div className="table-cell"><span>PRODUTO</span></div>
             <div className="table-cell"><span>MARGEM</span></div>
             <div className="table-cell"><span>SIMPLES</span></div>
-            <div className="table-cell"><span>VISUALIZAR</span></div>
-            <div className="table-cell"><span>BAIXAR</span></div>
+            <div className="table-cell"><span>ABRIR</span></div>
           </div>
         </div>
         <div className="table-body">
@@ -52,8 +51,7 @@ const ProposalList = () => {
               <div className="table-cell">{proposal['nomeProduto']}</div>
               <div className="table-cell">{proposal['margem']}</div>
               <div className="table-cell">{proposal['simples']}</div>
-              <div className="table-cell"><FontAwesomeIcon icon={faEye}/></div>
-              <div className="table-cell"><FontAwesomeIcon icon={faDownload}/></div>
+              <div className="table-cell"><FontAwesomeIcon icon={faArrowUpRightFromSquare}/></div>
             </div>
           ))}
         </div>
