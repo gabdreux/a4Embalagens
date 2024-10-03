@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase'; // Importa a configuração do Firebase
 import { doc, updateDoc, getDoc } from 'firebase/firestore'; // Importa funções do Firestore
-import '../styles/ProposalInputs.css';
+import '../styles/Inputs.css';
 
 const UpdateOptionsInputs = () => {
   const [lote, setLote] = useState('');
@@ -62,10 +62,10 @@ const UpdateOptionsInputs = () => {
 
   return (
     
-    <div className="product-input-wrapper">
+    <div className="input-wrapper">
       <h3 className="sectionTitle">OPÇÕES</h3>
       {/* Grupo LOTE */}
-      <div className="group">
+      <div className="groupBox">
         <h3>LOTE</h3>
         <input
           type="text"
@@ -77,7 +77,7 @@ const UpdateOptionsInputs = () => {
       </div>
 
       {/* Grupo PEDIDO MÍNIMO */}
-      <div className="group">
+      <div className="groupBox">
         <h3>PEDIDO MÍNIMO</h3>
         <input
           type="number"
@@ -89,7 +89,7 @@ const UpdateOptionsInputs = () => {
       </div>
 
       {/* Botão de Atualizar */}
-      <div className="group">
+      <div className="groupBox">
         <button onClick={handleUpdate} disabled={lote === '' || pedidoMinimo === ''}>
           Atualizar
         </button>

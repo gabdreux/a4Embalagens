@@ -6,11 +6,13 @@ import '../styles/Header.css';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { useInputContext } from '../context/InputsContext';
 
 
 const HeaderItens = () => {
   const { changeView } = useView(); // Acessa a função para mudar a visualização
   const navigate = useNavigate();
+  const { resetInputs } = useInputContext();
 
 
   const handleLogout = async () => {
@@ -24,10 +26,16 @@ const HeaderItens = () => {
     }
   };
 
+
+  const handleCreateBudget = () => {
+    resetInputs(); // Resetar os inputs ao criar orçamento
+    changeView('CRIAR ORÇAMENTO'); // Mudar a visualização
+  };
+
   return (
     <nav>
       <ul className="budget-list">
-        <li className="budget-item" onClick={() => changeView('CRIAR ORÇAMENTO')}>
+        <li className="budget-item" onClick={handleCreateBudget}>
           <FaPlus className="icon" />
           <h5 className="budget-title">CRIAR ORÇAMENTO</h5>
         </li>

@@ -32,7 +32,7 @@ const ProposalView = () => {
   }, []);
 
   return (
-    <div className="listWrapper">
+    <div className="listWrapper" id="print">
       {/* Tabela MÍNIMO */}
       <h2>MÍNIMO</h2>
       <div className="list-container">

@@ -3,6 +3,32 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #d3d3d3d3;
+    
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.viewBox {
+    padding: 40px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 8px;
+    max-width: 1480px;
+    
+}
+
+.center {
+    display: flex;
+    justify-content: center;
 }
 
 
+
+@media (max-width: 768px) {
+    .content {
+        display: block;
+    }
+}

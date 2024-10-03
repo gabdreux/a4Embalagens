@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { db } from '../firebase'; // Importa a configuração do Firebase
 import { collection, addDoc } from 'firebase/firestore'; // Importa funções do Firestore
-import '../styles/ProposalInputs.css';
+import '../styles/Inputs.css';
 
 const CreateProductInputs = () => {
   const [material, setMaterial] = useState('');
@@ -40,10 +40,10 @@ const CreateProductInputs = () => {
   };
 
   return (
-    <div className="product-input-wrapper">
+    <div className="input-wrapper">
       <h3 className='sectionTitle'>NOVO PRODUTO</h3>
       {/* Grupo MATERIAL */}
-      <div className="group">
+      <div className="groupBox">
         <h3>Material</h3>
         <input
           type="text"
@@ -54,7 +54,7 @@ const CreateProductInputs = () => {
       </div>
 
       {/* Grupo FORNECEDOR */}
-      <div className="group">
+      <div className="groupBox">
         <h3>Fornecedor</h3>
         <input
           type="text"
@@ -65,7 +65,7 @@ const CreateProductInputs = () => {
       </div>
 
       {/* Grupo COLUNA */}
-      <div className="group">
+      <div className="groupBox">
         <h3>Coluna</h3>
         <input
           type="text"
@@ -76,7 +76,7 @@ const CreateProductInputs = () => {
       </div>
 
       {/* Grupo GRAMATURA */}
-      <div className="group">
+      <div className="groupBox">
         <h3>Gramatura</h3>
         <input
           type="text"
@@ -87,7 +87,7 @@ const CreateProductInputs = () => {
       </div>
 
       {/* Grupo PREÇO M² */}
-      <div className="group">
+      <div className="groupBox">
         <h3>Preço M²</h3>
         <input
           type="number"
@@ -98,7 +98,7 @@ const CreateProductInputs = () => {
       </div>
 
       {/* Grupo Infos */}
-      <div className="group">
+      <div className="groupBox">
         <h3>Infos</h3>
         <input
           type="text"
@@ -109,7 +109,7 @@ const CreateProductInputs = () => {
       </div>
 
       {/* Grupo CATEGORIA */}
-      <div className="group">
+      <div className="groupBox">
         <h3>Categoria</h3>
         <select
           value={categoria}
@@ -122,7 +122,7 @@ const CreateProductInputs = () => {
       </div>
 
       {/* Botão de Salvar */}
-      <div className="group">
+      <div className="groupBox">
         <button onClick={handleSave}>Salvar</button>
       </div>
     </div>

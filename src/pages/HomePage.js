@@ -19,7 +19,8 @@ const HomePage = () => {
     return (
         <div>
             <Header />
-            <h1>Home</h1>
+            
+            <div className='content'>
 
             {activeView === 'CRIAR ORÇAMENTO' && <CreateProposal />}
 
@@ -31,10 +32,8 @@ const HomePage = () => {
 
             {activeView === 'OPÇÕES' && <UpdateOptionsInputs />}
 
-            {/* <ProductsList />
-            <ProposalList />
-            <UpdateOptionsInputs />
-            <CreateProposal /> */}
+            </div>
+
         </div>
     );
 };

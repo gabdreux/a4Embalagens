@@ -3,15 +3,13 @@ import ProposalInputs from '../components/ProposalInputs';
 import ProposalView from '../components/ProposalView';
 import GenerateDocButton from './generateDocButton';
 
-import CreateProductInputs from './CreateProduct';
 
 const CreateProposal = () => {
   return (
-    <div>
+    <div className='viewBox proposalBox'>
       <ProposalInputs />
       <GenerateDocButton buttonText="Visualizar" />
       <GenerateDocButton buttonText="Baixar" />
-      {/* <CreateProductInputs /> */}
       <ProposalView />
     </div>
   );

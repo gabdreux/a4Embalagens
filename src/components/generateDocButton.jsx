@@ -1,12 +1,12 @@
 import React from 'react';
 import html2pdf from 'html2pdf.js';
-import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
 
 const GenerateDocButton = ({ buttonText }) => {
 
   const handleGeneratePDF = () => {
-    const content = document.body; // Ajuste conforme necessário
+    // const content = document.body;
+    const content = document.getElementById('print');
 
     const options = {
       margin: 0,
@@ -20,12 +20,10 @@ const GenerateDocButton = ({ buttonText }) => {
     return html2pdf().set(options).from(content).output('blob');
   };
 
-  // const handleGenerateWord = () => {
-
-  // };
 
   const handleClick = async () => {
     const pdfBlob = await handleGeneratePDF(); // Gera o PDF
+    
 
     if (buttonText === "Visualizar") {
       const pdfUrl = URL.createObjectURL(pdfBlob);
@@ -34,8 +32,6 @@ const GenerateDocButton = ({ buttonText }) => {
     } else {
       saveAs(pdfBlob, 'pagina.pdf'); // Baixa o PDF
 
-      // const wordBlob = await handleGenerateWord(); // Gera o Word
-      // saveAs(wordBlob, 'pagina.docx'); // Baixa o Word
     }
   };
 
