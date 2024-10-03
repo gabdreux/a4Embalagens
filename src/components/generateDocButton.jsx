@@ -1,6 +1,7 @@
 import React from 'react';
 import html2pdf from 'html2pdf.js';
 import { saveAs } from 'file-saver';
+import '../styles/Styles.css';
 
 const GenerateDocButton = ({ buttonText }) => {
 

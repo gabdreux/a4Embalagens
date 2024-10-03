@@ -8,8 +8,6 @@ const CreateProposal = () => {
   return (
     <div className='viewBox proposalBox'>
       <ProposalInputs />
-      <GenerateDocButton buttonText="Visualizar" />
-      <GenerateDocButton buttonText="Baixar" />
       <ProposalView />
     </div>
   );

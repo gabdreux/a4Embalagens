@@ -25,10 +25,23 @@ body {
     justify-content: center;
 }
 
+.actionsButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px
+}
+
 
 
 @media (max-width: 768px) {
     .content {
         display: block;
+    }
+
+    .actionsButtons {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 }

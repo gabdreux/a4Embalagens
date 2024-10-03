@@ -54,6 +54,11 @@ input {
   min-width: 250px;
 }
 
+
+#mco {
+  gap: 30px;
+}
+
 @media (max-width: 768px) {
   .wrap {
     display: block;
@@ -62,4 +67,9 @@ input {
   .medidasGroup {
     min-width: 50px;
   }
+
+  #mco {
+    gap: 0px;
+  }
+  
 }
