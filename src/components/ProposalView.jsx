@@ -2,10 +2,41 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Importa a configuração do Firebase
 import { collection, getDocs, query, where } from 'firebase/firestore'; // Importa funções do Firestore
 import '../styles/Lists.css';
+import { useInputContext } from '../context/InputsContext'; 
 
 const ProposalView = () => {
   const [minData, setMinData] = useState([]);
   const [ecoData, setEcoData] = useState([]);
+  const { inputValues } = useInputContext();
+
+  const simples = parseFloat(inputValues.simples || 0);
+  const margem = parseFloat(inputValues.margem || 0);
+  const comprimento = parseFloat(inputValues.comprimento || 0);
+  const altura = parseFloat(inputValues.altura || 0);
+  const largura = parseFloat(inputValues.largura || 0);
+
+
+  const calculateFinalValue = (precoM2) => {
+    const simplesPercentual = simples / 100;
+    const margemPercentual = margem / 100;
+  
+    return (precoM2 - (precoM2 * simplesPercentual) - (precoM2 * margemPercentual)).toFixed(2);
+  };
+
+
+  const calculateCost = (onda, precoM2) => {
+    let area = 0;
+    if (onda === "B") {
+      area = (((comprimento * 2) + (largura * 2) + 40) * (altura + largura + 10)) / 1000000;
+    } else if (onda === "C") {
+      area = (((comprimento * 2) + (largura * 2) + 48) * (altura + largura + 15)) / 1000000;
+    } else if (onda === "BC") {
+      area = (((comprimento * 2) + (largura * 2) + 58) * (altura + largura + 25)) / 1000000;
+    }
+    
+    return area * precoM2; // Retorna a área multiplicada pelo preço por metro quadrado
+  };
+  
 
   useEffect(() => {
     // Função para buscar dados da coleção "produtos"
@@ -49,12 +80,12 @@ const ProposalView = () => {
         <div className="table-body">
           {minData.map((product) => (
             <div key={product.id} className="table-row">
-              <div className="table-cell">{product['precoM2']}</div>
+              <div className="table-cell">{(product['precoM2'] * 0.93).toFixed(2)}</div>
               <div className="table-cell">{product['fornecedor']}</div>
-              <div className="table-cell">{product['precoM2']}</div>
+              <div className="table-cell">{calculateCost(product['onda'], product['precoM2']).toFixed(2)}</div>
               <div className="table-cell">{product['precoM2']}</div>
               <div className="table-cell">{product['material']}</div>
-              <div className="table-cell">{product['precoM2']}</div>
+              <div className="table-cell">{calculateFinalValue(product['precoM2'])}</div>
             </div>
           ))}
         </div>
@@ -76,12 +107,12 @@ const ProposalView = () => {
         <div className="table-body">
           {ecoData.map((product) => (
             <div key={product.id} className="table-row">
-              <div className="table-cell">{product['precoM2']}</div>
+              <div className="table-cell">{(product['precoM2'] * 0.93).toFixed(2)}</div>
               <div className="table-cell">{product['fornecedor']}</div>
               <div className="table-cell">{product['precoM2']}</div>
               <div className="table-cell">{product['precoM2']}</div>
               <div className="table-cell">{product['material']}</div>
-              <div className="table-cell">{product['precoM2']}</div>
+              <div className="table-cell">{calculateFinalValue(product['precoM2'])}</div>
             </div>
           ))}
         </div>
