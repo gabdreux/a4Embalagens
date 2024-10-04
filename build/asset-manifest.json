@@ -1,10 +1,18 @@
 {
   "files": {
-    "main.js": "/static/js/main.ec8a18e7.js",
+    "main.css": "/static/css/main.251fe6cf.css",
+    "main.js": "/static/js/main.872b0569.js",
+    "static/js/213.de1b7b22.chunk.js": "/static/js/213.de1b7b22.chunk.js",
+    "static/js/732.78c950e0.chunk.js": "/static/js/732.78c950e0.chunk.js",
+    "static/media/LOGO A4 Embalagens -Cortada.png": "/static/media/LOGO A4 Embalagens -Cortada.86eb1d6885088a7b5591.png",
     "index.html": "/index.html",
-    "main.ec8a18e7.js.map": "/static/js/main.ec8a18e7.js.map"
+    "main.251fe6cf.css.map": "/static/css/main.251fe6cf.css.map",
+    "main.872b0569.js.map": "/static/js/main.872b0569.js.map",
+    "213.de1b7b22.chunk.js.map": "/static/js/213.de1b7b22.chunk.js.map",
+    "732.78c950e0.chunk.js.map": "/static/js/732.78c950e0.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.ec8a18e7.js"
+    "static/css/main.251fe6cf.css",
+    "static/js/main.872b0569.js"
   ]
 }

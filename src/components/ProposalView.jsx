@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Importa a configuração do Firebase
-import { collection, getDocs, query, where } from 'firebase/firestore'; // Importa funções do Firestore
+import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'; // Importa funções do Firestore
 import '../styles/Lists.css';
 import { useInputContext } from '../context/InputsContext';
 
@@ -15,13 +15,25 @@ const ProposalView = () => {
   const altura = parseFloat(inputValues.altura || 0);
   const largura = parseFloat(inputValues.largura || 0);
 
-  const calculateFinalValue = (precoM2) => {
+
+  const [pedidoMinimo, setPedidoMinimo] = useState(0);
+  const [lote, setLote] = useState(0);  
+  const [opcoesData, setOpcoesData] = useState({ lote: null, pedido_minimo: null });
+
+
+
+  const calculateFinalValue = (cost) => {
     const simplesPercentual = simples / 100;
     const margemPercentual = margem / 100;
 
-    const precoM2Float = parseFloat(precoM2) || 0; // Se não for um número, usa 0
+    const costFloat = parseFloat(cost) || 0; // Se não for um número, usa 0
+    
+     const finalValue = (costFloat / (1 - simplesPercentual - margemPercentual)).toFixed(2);
 
-    return (precoM2Float + (precoM2Float * simplesPercentual) + (precoM2Float * margemPercentual)).toFixed(2);
+
+     console.log(`${costFloat} / (${costFloat} * ${simplesPercentual}) - (${costFloat} * ${margemPercentual}) = ${finalValue}`);
+
+    return finalValue;
   };
 
   const calculateCost = (onda, precoM2) => {
@@ -53,8 +65,23 @@ const ProposalView = () => {
         const ecoProducts = ecoSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setEcoData(ecoProducts);
 
+
+
+        // Busca os dados da coleção "opcoes" no documento com ID específico
+        const opcoesRef = doc(db, 'opcoes', 'HqAt4LQUIahw3W51yXoH');
+        const opcoesSnapshot = await getDoc(opcoesRef);
+        if (opcoesSnapshot.exists()) {
+          const data = opcoesSnapshot.data();
+          setOpcoesData(data);
+          setPedidoMinimo(data.pedido_minimo || 0); // Armazena o valor de pedido_minimo
+          console.log('Dados das opções:', data);
+        } else {
+          console.log("Nenhum documento encontrado!");
+        }
+
+
       } catch (error) {
-        console.error('Erro ao carregar produtos do Firestore:', error);
+        console.error('Erro ao carregar produtos do Firestore:', error.message);
       }
     };
 
@@ -79,17 +106,18 @@ const ProposalView = () => {
         <div className="table-body">
           {minData.map((product) => {
             const custo = calculateCost(product['onda'], product['precoM2']);
-            const costWithoutTax = (custo * 0.93).toFixed(2); 
+            const costWithoutTax = (custo * 0.93).toFixed(2);
+            const quantidade = Math.ceil(pedidoMinimo / custo);
+
 
             return (
               <div key={product.id} className="table-row">
                 <div className="table-cell">{costWithoutTax}</div>
                 <div className="table-cell">{product['fornecedor']}</div>
                 <div className="table-cell">{custo.toFixed(2)}</div>
-                <div className="table-cell">{product['precoM2']}</div>
+                <div className="table-cell">{quantidade}</div>
                 <div className="table-cell">{product['material']}</div>
-                <div className="table-cell">{calculateFinalValue(product['precoM2'])}</div>
-                {/* <div className="table-cell">{calculateFinalValue(custo)}</div> */}
+                <div className="table-cell">{calculateFinalValue(custo)}</div>
               </div>
             );
           })}
@@ -111,16 +139,18 @@ const ProposalView = () => {
         </div>
         <div className="table-body">
           {ecoData.map((product) => {
-            const custo = calculateCost(product['onda'], product['precoM2']); // Calcula o custo
+            const custo = calculateCost(product['onda'], product['precoM2']);
+            const costWithoutTax = (custo * 0.93).toFixed(2);
+            const quantidade = Math.ceil(pedidoMinimo / custo);
 
             return (
               <div key={product.id} className="table-row">
-                <div className="table-cell">{(product['precoM2'] * 0.93).toFixed(2)}</div>
+                <div className="table-cell">{costWithoutTax}</div>
                 <div className="table-cell">{product['fornecedor']}</div>
                 <div className="table-cell">{custo.toFixed(2)}</div>
-                <div className="table-cell">{product['precoM2']}</div>
+                <div className="table-cell">{quantidade}</div>
                 <div className="table-cell">{product['material']}</div>
-                <div className="table-cell">{calculateFinalValue(product['precoM2'])}</div>
+                <div className="table-cell">{calculateFinalValue(custo)}</div>
               </div>
             );
           })}

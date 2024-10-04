@@ -64,18 +64,8 @@ const UpdateOptionsInputs = () => {
     
     <div className="input-wrapper">
       <h3 className="sectionTitle">OPÇÕES</h3>
-      {/* Grupo LOTE */}
-      <div className="groupBox">
-        <h3>LOTE</h3>
-        <input
-          type="text"
-          placeholder="Lote"
-          value={lote}
-          onChange={(e) => setLote(e.target.value)}
-          required
-        />
-      </div>
 
+      
       {/* Grupo PEDIDO MÍNIMO */}
       <div className="groupBox">
         <h3>PEDIDO MÍNIMO</h3>
@@ -84,6 +74,18 @@ const UpdateOptionsInputs = () => {
           placeholder="Pedido Mínimo"
           value={pedidoMinimo}
           onChange={(e) => setPedidoMinimo(e.target.value)}
+          required
+        />
+      </div>
+
+      {/* Grupo LOTE */}
+      <div className="groupBox">
+        <h3>LOTE</h3>
+        <input
+          type="text"
+          placeholder="Lote"
+          value={lote}
+          onChange={(e) => setLote(e.target.value)}
           required
         />
       </div>
