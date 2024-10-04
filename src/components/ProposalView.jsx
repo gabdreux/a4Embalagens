@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Importa a configuração do Firebase
 import { collection, getDocs, query, where } from 'firebase/firestore'; // Importa funções do Firestore
 import '../styles/Lists.css';
-import { useInputContext } from '../context/InputsContext'; 
+import { useInputContext } from '../context/InputsContext';
 
 const ProposalView = () => {
   const [minData, setMinData] = useState([]);
@@ -15,14 +15,14 @@ const ProposalView = () => {
   const altura = parseFloat(inputValues.altura || 0);
   const largura = parseFloat(inputValues.largura || 0);
 
-
   const calculateFinalValue = (precoM2) => {
     const simplesPercentual = simples / 100;
     const margemPercentual = margem / 100;
-  
-    return (precoM2 - (precoM2 * simplesPercentual) - (precoM2 * margemPercentual)).toFixed(2);
-  };
 
+    const precoM2Float = parseFloat(precoM2) || 0; // Se não for um número, usa 0
+
+    return (precoM2Float + (precoM2Float * simplesPercentual) + (precoM2Float * margemPercentual)).toFixed(2);
+  };
 
   const calculateCost = (onda, precoM2) => {
     let area = 0;
@@ -33,10 +33,9 @@ const ProposalView = () => {
     } else if (onda === "BC") {
       area = (((comprimento * 2) + (largura * 2) + 58) * (altura + largura + 25)) / 1000000;
     }
-    
+
     return area * precoM2; // Retorna a área multiplicada pelo preço por metro quadrado
   };
-  
 
   useEffect(() => {
     // Função para buscar dados da coleção "produtos"
@@ -78,16 +77,22 @@ const ProposalView = () => {
           </div>
         </div>
         <div className="table-body">
-          {minData.map((product) => (
-            <div key={product.id} className="table-row">
-              <div className="table-cell">{(product['precoM2'] * 0.93).toFixed(2)}</div>
-              <div className="table-cell">{product['fornecedor']}</div>
-              <div className="table-cell">{calculateCost(product['onda'], product['precoM2']).toFixed(2)}</div>
-              <div className="table-cell">{product['precoM2']}</div>
-              <div className="table-cell">{product['material']}</div>
-              <div className="table-cell">{calculateFinalValue(product['precoM2'])}</div>
-            </div>
-          ))}
+          {minData.map((product) => {
+            const custo = calculateCost(product['onda'], product['precoM2']);
+            const costWithoutTax = (custo * 0.93).toFixed(2); 
+
+            return (
+              <div key={product.id} className="table-row">
+                <div className="table-cell">{costWithoutTax}</div>
+                <div className="table-cell">{product['fornecedor']}</div>
+                <div className="table-cell">{custo.toFixed(2)}</div>
+                <div className="table-cell">{product['precoM2']}</div>
+                <div className="table-cell">{product['material']}</div>
+                <div className="table-cell">{calculateFinalValue(product['precoM2'])}</div>
+                {/* <div className="table-cell">{calculateFinalValue(custo)}</div> */}
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -96,7 +101,7 @@ const ProposalView = () => {
       <div className="list-container">
         <div className="table-header">
           <div className="table-row">
-          <div className="table-cell"><span>CUSTO S/ NF</span></div>
+            <div className="table-cell"><span>CUSTO S/ NF</span></div>
             <div className="table-cell"><span>FORNECEDOR</span></div>
             <div className="table-cell"><span>CUSTO</span></div>
             <div className="table-cell"><span>QUANTIDADE</span></div>
@@ -105,16 +110,20 @@ const ProposalView = () => {
           </div>
         </div>
         <div className="table-body">
-          {ecoData.map((product) => (
-            <div key={product.id} className="table-row">
-              <div className="table-cell">{(product['precoM2'] * 0.93).toFixed(2)}</div>
-              <div className="table-cell">{product['fornecedor']}</div>
-              <div className="table-cell">{product['precoM2']}</div>
-              <div className="table-cell">{product['precoM2']}</div>
-              <div className="table-cell">{product['material']}</div>
-              <div className="table-cell">{calculateFinalValue(product['precoM2'])}</div>
-            </div>
-          ))}
+          {ecoData.map((product) => {
+            const custo = calculateCost(product['onda'], product['precoM2']); // Calcula o custo
+
+            return (
+              <div key={product.id} className="table-row">
+                <div className="table-cell">{(product['precoM2'] * 0.93).toFixed(2)}</div>
+                <div className="table-cell">{product['fornecedor']}</div>
+                <div className="table-cell">{custo.toFixed(2)}</div>
+                <div className="table-cell">{product['precoM2']}</div>
+                <div className="table-cell">{product['material']}</div>
+                <div className="table-cell">{calculateFinalValue(product['precoM2'])}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
