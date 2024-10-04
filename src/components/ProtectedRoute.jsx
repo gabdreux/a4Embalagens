@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   const { currentUser } = useAuth();
 
   if (!currentUser) {
-    return <Navigate to="/" />; // Redirecionar para a página de login
+    return <Navigate to="/login" />; // Redirecionar para a página de login
   }
 
   return children; // Renderizar o componente se o usuário estiver logado

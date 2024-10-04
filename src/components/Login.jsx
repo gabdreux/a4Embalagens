@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/Login.css';
 import { auth } from '../firebase'; // Importar a configuração do Firebase
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'; // Métodos de login e registro
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth'; // Métodos de login e registro
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/imgs/LOGO A4 Embalagens -Cortada.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,6 +16,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [showResetConfirmation, setShowResetConfirmation] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,8 +32,8 @@ const Login = () => {
       if (isLogin) {
         // Login com e-mail e senha
         await signInWithEmailAndPassword(auth, email, password);
-        alert('Login realizado com sucesso!');
-        navigate('/home');
+        alert('Bem-Vindo!');
+        navigate('/');
       } else {
         // Registro de novo usuário
         if (password !== confirmPassword) {
@@ -41,8 +42,25 @@ const Login = () => {
         }
         await createUserWithEmailAndPassword(auth, email, password);
         alert('Usuário registrado com sucesso!');
-        navigate('/home');
+        navigate('/');
       }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handlePasswordReset = async () => {
+    setError(''); // Resetar erros
+
+    if (!email) {
+      alert('Por favor, insira seu e-mail.');
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      alert('E-mail de redefinição de senha enviado!'); // Mensagem de confirmação
+      setShowResetConfirmation(true); // Mostrar a confirmação de envio
     } catch (err) {
       setError(err.message);
     }
@@ -129,11 +147,20 @@ const Login = () => {
 
         {error && <p className="error">{error}</p>}
 
-        <button type="submit" className="button">
-          {isLogin ? 'Entrar' : 'Registrar'}
-        </button>
+        <div className="center">
+          <button type="submit" className="button loginButton">
+            {isLogin ? 'Entrar' : 'Registrar'}
+          </button>
+        </div>
 
       </form>
+
+      <div className="center forgotPassword">
+        <p onClick={handlePasswordReset} style={{ cursor: 'pointer'}}>
+              Esqueci minha senha
+        </p>
+      </div>
+
       </div>
     </div>
   );

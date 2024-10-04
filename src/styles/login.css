@@ -27,11 +27,13 @@
   .tab {
     flex: 1;
     padding: 10px;
+    margin-bottom: 5px;
     border: none;
     background: none;
     cursor: pointer;
     color: black;
-    font-size: 18px;
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
   }
   
   .active-tab {
@@ -39,7 +41,7 @@
     border-radius: 0px;
     font-weight: 700;
     color: black;
-    font-size: 18px;
+    font-size: 24px;
   }
 
   .loginFormBox {
@@ -62,6 +64,15 @@
     height: 30px;
   }
 
-  
+  .loginButton {
+    width: 250px;
+    height: 50px;
+    border-radius: 100px;
+  }
+
+
+  .forgotPassword p {
+    font-size: 14px;
+  }
 
 

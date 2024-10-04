@@ -20,7 +20,7 @@ const HeaderItens = () => {
       await signOut(auth);
 
       console.log('Usuário deslogado com sucesso');
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       console.error('Erro ao deslogar:', error);
     }
