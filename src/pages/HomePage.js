@@ -22,6 +22,8 @@ const HomePage = () => {
             
             <div className='content'>
 
+                <div className='viewBox'>
+
             {activeView === 'CRIAR ORÇAMENTO' && <CreateProposal />}
 
             {activeView === 'ORÇAMENTOS' && <ProposalList />}
@@ -31,6 +33,8 @@ const HomePage = () => {
             {activeView === 'PRODUTOS' && <ProductsList />}
 
             {activeView === 'OPÇÕES' && <UpdateOptionsInputs />}
+
+            </div>
 
             </div>
 

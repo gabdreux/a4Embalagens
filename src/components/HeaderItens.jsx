@@ -1,4 +1,3 @@
-// src/components/HeaderItens.js
 import React from 'react';
 import { FaPlus, FaList, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import { useView } from '../context/ViewContext';
@@ -10,7 +9,7 @@ import { useInputContext } from '../context/InputsContext';
 
 
 const HeaderItens = () => {
-  const { changeView } = useView(); // Acessa a função para mudar a visualização
+  const { changeView } = useView();
   const navigate = useNavigate();
   const { resetInputs } = useInputContext();
 
@@ -28,8 +27,8 @@ const HeaderItens = () => {
 
 
   const handleCreateBudget = () => {
-    resetInputs(); // Resetar os inputs ao criar orçamento
-    changeView('CRIAR ORÇAMENTO'); // Mudar a visualização
+    resetInputs();
+    changeView('CRIAR ORÇAMENTO');
   };
 
   return (

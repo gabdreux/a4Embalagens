@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '../firebase'; // Importa a configuração do Firebase
-import { doc, updateDoc, getDoc } from 'firebase/firestore'; // Importa funções do Firestore
+import { db } from '../firebase';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import '../styles/Inputs.css';
 
 const UpdateOptionsInputs = () => {
   const [lote, setLote] = useState('');
   const [pedidoMinimo, setPedidoMinimo] = useState('');
-  const [loading, setLoading] = useState(true); // Estado para controle de carregamento
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const docRef = doc(db, 'opcoes', 'HqAt4LQUIahw3W51yXoH'); // Referência ao documento específico
+        const docRef = doc(db, 'opcoes', 'HqAt4LQUIahw3W51yXoH');
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          // Atualiza os estados com os dados do Firestore
           setLote(docSnap.data().lote || ''); 
           setPedidoMinimo(docSnap.data().pedido_minimo || '');
         } else {
@@ -24,41 +23,35 @@ const UpdateOptionsInputs = () => {
       } catch (error) {
         console.error('Erro ao buscar documento: ', error);
       } finally {
-        setLoading(false); // Finaliza o carregamento
+        setLoading(false);
       }
     };
 
-    fetchData(); // Chama a função para buscar os dados
+    fetchData();
   }, []);
 
   const handleUpdate = async () => {
     try {
-      const docRef = doc(db, 'opcoes', 'HqAt4LQUIahw3W51yXoH'); // Referência ao documento específico
+      const docRef = doc(db, 'opcoes', 'HqAt4LQUIahw3W51yXoH');
 
-      // Cria um objeto de atualização com os valores atuais
       const updates = {};
-      if (lote !== '') updates.lote = lote; // Adiciona lote se não estiver vazio
-      if (pedidoMinimo !== '') updates.pedido_minimo = pedidoMinimo; // Adiciona pedido_minimo se não estiver vazio
-
-      // Atualiza o documento se houver mudanças
+      if (lote !== '') updates.lote = lote;
+      if (pedidoMinimo !== '') updates.pedido_minimo = pedidoMinimo;
       if (Object.keys(updates).length > 0) {
         await updateDoc(docRef, updates);
         console.log('Documento atualizado com ID: ', docRef.id);
-        alert('Documento atualizado com sucesso!'); // Alerta de sucesso
+        alert('Documento atualizado com sucesso!');
       } else {
-        alert('Nenhuma alteração feita.'); // Alerta se não houver alterações
+        alert('Nenhuma alteração feita.');
       }
 
-      // Limpar os campos após a atualização
-    //   setLote('');
-    //   setPedidoMinimo('');
     } catch (error) {
       console.error('Erro ao atualizar documento: ', error);
-      alert('Erro ao atualizar documento. Tente novamente.'); // Alerta de erro
+      alert('Erro ao atualizar documento. Tente novamente.');
     }
   };
 
-  if (loading) return <div>Carregando...</div>; // Exibe mensagem de carregamento
+  if (loading) return <div>Carregando...</div>;
 
   return (
     

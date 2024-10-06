@@ -17,22 +17,20 @@ const GenerateDocButton = ({ buttonText }) => {
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
 
-    // Gera e salva o PDF
     return html2pdf().set(options).from(content).output('blob');
   };
 
 
   const handleClick = async () => {
-    const pdfBlob = await handleGeneratePDF(); // Gera o PDF
+    const pdfBlob = await handleGeneratePDF();
     
 
     if (buttonText === "Visualizar") {
       const pdfUrl = URL.createObjectURL(pdfBlob);
-      window.open(pdfUrl); // Abre o PDF em uma nova aba
+      window.open(pdfUrl);
 
     } else {
-      saveAs(pdfBlob, 'pagina.pdf'); // Baixa o PDF
-
+      saveAs(pdfBlob, 'pagina.pdf');
     }
   };
 

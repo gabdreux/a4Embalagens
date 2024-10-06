@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { db } from '../firebase'; // Importa a configuração do Firebase
-import { collection, addDoc } from 'firebase/firestore'; // Importa funções do Firestore
+import { db } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 import '../styles/Inputs.css';
 
 const CreateProductInputs = () => {
@@ -26,8 +26,7 @@ const CreateProductInputs = () => {
         onda,
       });
       console.log('Produto salvo com ID: ', docRef.id);
-      alert('Produto salvo com sucesso!'); // Alerta de sucesso
-      // Limpar os campos após o salvamento
+      alert('Produto salvo com sucesso!');
       setMaterial('');
       setFornecedor('');
       setColuna('');
@@ -38,7 +37,7 @@ const CreateProductInputs = () => {
       setOnda('');
     } catch (error) {
       console.error('Erro ao adicionar produto: ', error);
-      alert('Erro ao salvar produto. Tente novamente.'); // Alerta de erro
+      alert('Erro ao salvar produto. Tente novamente.');
     }
   };
 
@@ -47,15 +46,15 @@ const CreateProductInputs = () => {
     <div>
 
           <div className="center">
-            <h3 className='viewTitle'>NOVO PRODUTO</h3>
+            <h2 className='viewTitle'>NOVO PRODUTO</h2>
           </div>
 
-    <div className="input-wrapper">
+    <div className="input-wrapper ">
 
 
       {/* Grupo MATERIAL */}
       <div className="groupBox">
-        <h3>Material</h3>
+        <h3 className="sectionTitle">Material</h3>
         <input
           type="text"
           value={material}
@@ -65,7 +64,7 @@ const CreateProductInputs = () => {
 
       {/* Grupo FORNECEDOR */}
       <div className="groupBox">
-        <h3>Fornecedor</h3>
+        <h3 className="sectionTitle">Fornecedor</h3>
         <input
           type="text"
           value={fornecedor}
@@ -73,39 +72,50 @@ const CreateProductInputs = () => {
         />
       </div>
 
+
+      <div id="createProduct_CGP_wrap" className="wrap">
+
       {/* Grupo COLUNA */}
       <div className="groupBox">
-        <h3>Coluna</h3>
+        <h3 className="sectionTitle">Coluna</h3>
+        <div className="shortInput">
         <input
           type="text"
           value={coluna}
           onChange={(e) => setColuna(e.target.value)}
         />
+        </div>
       </div>
 
       {/* Grupo GRAMATURA */}
       <div className="groupBox">
-        <h3>Gramatura</h3>
+        <h3 className="sectionTitle">Gramatura</h3>
+        <div className="shortInput">
         <input
           type="text"
           value={gramagem}
           onChange={(e) => setGramagem(e.target.value)}
         />
+        </div>
       </div>
 
       {/* Grupo PREÇO M² */}
       <div className="groupBox">
-        <h3>Preço M²</h3>
+        <h3 className="sectionTitle">Preço M²</h3>
+        <div className="shortInput">
         <input
           type="number"
           value={precoM2}
           onChange={(e) => setPrecoM2(e.target.value)}
         />
+        </div>
       </div>
+      </div>
+
 
       {/* Grupo Infos */}
       <div className="groupBox">
-        <h3>Infos</h3>
+        <h3 className="sectionTitle">Infos</h3>
         <input
           type="text"
           value={infos}
@@ -115,7 +125,7 @@ const CreateProductInputs = () => {
 
       {/* Grupo CATEGORIA */}
       <div className="groupBox">
-        <h3>Categoria</h3>
+        <h3 className="sectionTitle">Categoria</h3>
         <select
           value={categoria}
           onChange={(e) => setCategoria(e.target.value)}
@@ -128,7 +138,7 @@ const CreateProductInputs = () => {
 
         {/* Grupo ONDA */}
         <div className="groupBox">
-        <h3>Onda</h3>
+        <h3 className="sectionTitle">Onda</h3>
         <select
           value={onda}
           onChange={(e) => setOnda(e.target.value)}
@@ -142,7 +152,7 @@ const CreateProductInputs = () => {
 
       {/* Botão de Salvar */}
       <div className="groupBox">
-        <button onClick={handleSave}>Salvar</button>
+        <button id="createProductBtn" onClick={handleSave}>Salvar</button>
       </div>
     </div>
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Importa a configuração do Firebase
-import { collection, getDocs, query, deleteDoc, doc } from 'firebase/firestore'; // Importa funções do Firestore
+import { db } from '../firebase';
+import { collection, getDocs, query, deleteDoc, doc } from 'firebase/firestore';
 import '../styles/Lists.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +13,6 @@ const ProposalList = () => {
   const { changeView } = useView();
 
   useEffect(() => {
-    // Função para buscar dados da coleção "orcamentos"
     const fetchProposalData = async () => {
       try {
         const proposalQuery = query(collection(db, 'orcamentos'));
@@ -26,7 +25,7 @@ const ProposalList = () => {
     };
 
     fetchProposalData();
-  }, []); // Executa uma vez ao montar o componente
+  }, []);
 
   const handleOpenClick = (proposal) => {
     Object.keys(proposal).forEach(key => {
@@ -39,15 +38,14 @@ const ProposalList = () => {
     const confirmDelete = window.confirm('Você tem certeza que deseja deletar este orçamento?');
     
     if (!confirmDelete) {
-      return; // Se o usuário cancelar, sai da função
+      return;
     }
 
     try {
-      await deleteDoc(doc(db, 'orcamentos', id)); // Deleta o documento do Firestore
+      await deleteDoc(doc(db, 'orcamentos', id));
       console.log(`Orçamento ${id} deletado com sucesso`);
       alert('Orçamento deletado com sucesso!');
 
-      // Atualiza a lista após a exclusão
       setData(prevData => prevData.filter(proposal => proposal.id !== id));
     
     } catch (error) {
@@ -56,8 +54,14 @@ const ProposalList = () => {
   };
 
   return (
+
+    <div>
+    
+    <div className="center">
+       <h2 className="viewTitle">ORÇAMENTOS</h2>
+    </div>
+
     <div className="listWrapper">
-      <h2>ORÇAMENTOS</h2>
       <div className="list-container">
         <div className="table-header">
           <div className="table-row">
@@ -96,6 +100,7 @@ const ProposalList = () => {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 };

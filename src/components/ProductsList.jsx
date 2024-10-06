@@ -11,16 +11,13 @@ const ProductsList = () => {
   const [ecoData, setEcoData] = useState([]);
 
   useEffect(() => {
-    // Função para buscar dados da coleção "produtos"
     const fetchProductData = async () => {
       try {
-        // Consulta para produtos da categoria "pedido mínimo"
         const minQuery = query(collection(db, 'produtos'), where('categoria', '==', 'pedido-minimo'));
         const minSnapshot = await getDocs(minQuery);
         const minProducts = minSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setMinData(minProducts);
 
-        // Consulta para produtos da categoria "econômico"
         const ecoQuery = query(collection(db, 'produtos'), where('categoria', '==', 'economico'));
         const ecoSnapshot = await getDocs(ecoQuery);
         const ecoProducts = ecoSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -36,20 +33,17 @@ const ProductsList = () => {
 
 
 
-    // Função para deletar um produto
   const handleDelete = async (id, category) => {
     const confirmDelete = window.confirm('Você tem certeza que deseja deletar este produto?');
     
     if (!confirmDelete) {
-      return; // Se o usuário cancelar, sai da função
+      return;
     }
 
     try {
-      await deleteDoc(doc(db, 'produtos', id)); // Deleta o documento do Firestore
+      await deleteDoc(doc(db, 'produtos', id));
       console.log(`Produto ${id} deletado com sucesso`);
       alert('Produto deletedo com sucesso!');
-
-      // Atualiza a lista após a exclusão
       if (category === 'pedido-minimo') {
         setMinData(minData.filter(product => product.id !== id));
       } else if (category === 'economico') {
@@ -61,6 +55,13 @@ const ProductsList = () => {
   };
 
   return (
+
+    <div>
+
+      <div className="center">
+        <h2 className="viewTitle">PRODUTOS</h2>
+      </div>
+
     <div className="listWrapper">
       {/* Tabela MÍNIMO */}
       <h2>MÍNIMO</h2>
@@ -131,6 +132,7 @@ const ProductsList = () => {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/Login.css';
-import { auth } from '../firebase'; // Importar a configuração do Firebase
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth'; // Métodos de login e registro
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/imgs/LOGO A4 Embalagens -Cortada.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,7 +21,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Resetar erros
+    setError('');
 
     if (!email || !password) {
       setError('Por favor, preencha todos os campos.');
@@ -30,12 +30,11 @@ const Login = () => {
 
     try {
       if (isLogin) {
-        // Login com e-mail e senha
+
         await signInWithEmailAndPassword(auth, email, password);
         alert('Bem-Vindo!');
         navigate('/');
       } else {
-        // Registro de novo usuário
         if (password !== confirmPassword) {
           setError('As senhas não coincidem.');
           return;
@@ -50,7 +49,7 @@ const Login = () => {
   };
 
   const handlePasswordReset = async () => {
-    setError(''); // Resetar erros
+    setError('');
 
     if (!email) {
       alert('Por favor, insira seu e-mail.');
@@ -59,8 +58,8 @@ const Login = () => {
 
     try {
       await sendPasswordResetEmail(auth, email);
-      alert('E-mail de redefinição de senha enviado!'); // Mensagem de confirmação
-      setShowResetConfirmation(true); // Mostrar a confirmação de envio
+      alert('E-mail de redefinição de senha enviado!');
+      setShowResetConfirmation(true);
     } catch (err) {
       setError(err.message);
     }

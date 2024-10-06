@@ -14,7 +14,7 @@ body {
 
 .viewBox {
     padding: 40px;
-    margin: 20px;
+    margin: 40px;
     background-color: white;
     border-radius: 8px;
     max-width: 1480px;
@@ -36,6 +36,12 @@ button {
     letter-spacing: 1px;
     font-size: 16px;
     cursor: pointer;
+}
+
+#createProductBtn {
+    margin-top: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
 }
 
 .actionsButtons {

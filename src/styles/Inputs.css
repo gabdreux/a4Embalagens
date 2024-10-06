@@ -3,7 +3,7 @@
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  
+  min-width: 680px;
 }
 
 .wrap {
@@ -56,14 +56,35 @@ input {
   min-width: 250px;
 }
 
+select {
+  width: 200px;
+  border-radius: 30px;
+  padding: 8px;
+}
+
+
+#createProduct_CGP_wrap {
+  justify-content: flex-start !important;
+  gap: 80px !important;
+
+}
+
+#createProduct_CGP_wrap input {
+  min-width: 120px;
+}
 
 #mco {
   gap: 30px;
 }
 
 @media (max-width: 768px) {
+
   .wrap {
     display: block;
+  }
+
+  .input-wrapper {
+    min-width: 0px;
   }
 
   .medidasGroup {

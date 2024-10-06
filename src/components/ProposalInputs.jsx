@@ -1,30 +1,30 @@
 import React from 'react';
 import '../styles/Inputs.css';
 import '../styles/Styles.css';
-import { db } from '../firebase'; // Importe a configuração do Firebase
+import { db } from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import { useInputContext } from '../context/InputsContext'; // Importe o contexto
+import { useInputContext } from '../context/InputsContext';
 import GenerateDocButton from './generateDocButton';
 
 const ProposalInputs = () => {
-  const { handleInputChange, inputValues, resetInputs } = useInputContext(); // Use o contexto
+  const { handleInputChange, inputValues, resetInputs } = useInputContext();
 
   const logInputChange = (name, value) => {
-    handleInputChange(name, value); // Envie o valor para o contexto
+    handleInputChange(name, value);
   };
 
   const handleSave = async () => {
     try {
-      // Cria um novo objeto que inclui todos os valores de input e a data de criação
+
       const proposalData = {
         ...inputValues,
-        dataCriacao: new Date().toISOString(), // Adiciona a data de criação no formato ISO
+        dataCriacao: new Date().toISOString(),
       };
 
       const docRef = await addDoc(collection(db, "orcamentos"), proposalData);
       console.log("Documento escrito com ID: ", docRef.id);
       alert("Orçamento salvo com sucesso!");
-      resetInputs(); // Redefine os inputs após salvar
+      resetInputs();
     } catch (e) {
       console.error("Erro ao adicionar documento: ", e);
       alert("Erro ao salvar orçamento.");
@@ -35,29 +35,31 @@ const ProposalInputs = () => {
     <div>
 
           <div className="center">
-            <h3 className='viewTitle'>NOVO ORÇAMENTO</h3>
+            <h2 className='viewTitle'>NOVO ORÇAMENTO</h2>
           </div>
         
 
 
           <div className="input-wrapper wrap">
+                  
+                 {/* Grupo NOME CLIENTE */}
                   <div className="infosNewProposal">
                     <div className="groupBox">
                       <h3 className="sectionTitle">Nome do Cliente</h3>
                       <input
                         type="text"
-                        onChange={(e) => logInputChange('nomeCliente', e.target.value)} // Envie o valor para o contexto
-                        value={inputValues.nomeCliente || ''} // Vincule o valor do input ao contexto
+                        onChange={(e) => logInputChange('nomeCliente', e.target.value)}
+                        value={inputValues.nomeCliente || ''} 
                       />
                     </div>
               
-                    {/* Grupo NOVA PROPOSTA */}
+                    {/* Grupo NOME PRODUTO */}
                     <div className="groupBox">
                       <h3 className="sectionTitle">Nome do Produto</h3>
                       <input
                         type="text"
-                        onChange={(e) => logInputChange('nomeProduto', e.target.value)} // Envie o valor para o contexto
-                        value={inputValues.nomeProduto || ''} // Vincule o valor do input ao contexto
+                        onChange={(e) => logInputChange('nomeProduto', e.target.value)}
+                        value={inputValues.nomeProduto || ''}
                       />
                     </div>
               
@@ -68,9 +70,9 @@ const ProposalInputs = () => {
                         <p>Simples</p>
                         <input
                           id="simples"
-                          type="text"
-                          onChange={(e) => logInputChange('simples', e.target.value)} // Envie o valor para o contexto
-                          value={inputValues.simples || ''} // Vincule o valor do input ao contexto
+                          type="number"
+                          onChange={(e) => logInputChange('simples', e.target.value)}
+                          value={inputValues.simples || ''}
                         />
                       </div>
                     </div>
@@ -87,8 +89,8 @@ const ProposalInputs = () => {
                       <input
                         id="comprimento"
                         type="number"
-                        onChange={(e) => logInputChange('comprimento', e.target.value)} // Envie o valor para o contexto
-                        value={inputValues.comprimento || ''} // Vincule o valor do input ao contexto
+                        onChange={(e) => logInputChange('comprimento', e.target.value)}
+                        value={inputValues.comprimento || ''}
                       />
                     </div>
               
@@ -97,8 +99,8 @@ const ProposalInputs = () => {
                       <input
                         id="altura"
                         type="number"
-                        onChange={(e) => logInputChange('altura', e.target.value)} // Envie o valor para o contexto
-                        value={inputValues.altura || ''} // Vincule o valor do input ao contexto
+                        onChange={(e) => logInputChange('altura', e.target.value)}
+                        value={inputValues.altura || ''}
                       />
                     </div>
               
@@ -107,8 +109,8 @@ const ProposalInputs = () => {
                       <input
                         id="largura"
                         type="number"
-                        onChange={(e) => logInputChange('largura', e.target.value)} // Envie o valor para o contexto
-                        value={inputValues.largura || ''} // Vincule o valor do input ao contexto
+                        onChange={(e) => logInputChange('largura', e.target.value)}
+                        value={inputValues.largura || ''}
                       />
                     </div>
                   </div>
@@ -124,8 +126,8 @@ const ProposalInputs = () => {
                 <input
                   id="margem"
                   type="number"
-                  onChange={(e) => logInputChange('margem', e.target.value)} // Envie o valor para o contexto
-                  value={inputValues.margem || ''} // Vincule o valor do input ao contexto
+                  onChange={(e) => logInputChange('margem', e.target.value)}
+                  value={inputValues.margem || ''}
                 />
               </div>
           

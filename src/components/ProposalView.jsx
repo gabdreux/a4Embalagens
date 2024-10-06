@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Importa a configuração do Firebase
-import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'; // Importa funções do Firestore
+import { db } from '../firebase';
+import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore';
 import '../styles/Lists.css';
 import { useInputContext } from '../context/InputsContext';
 
@@ -26,7 +26,7 @@ const ProposalView = () => {
     const simplesPercentual = simples / 100;
     const margemPercentual = margem / 100;
 
-    const costFloat = parseFloat(cost) || 0; // Se não for um número, usa 0
+    const costFloat = parseFloat(cost) || 0;
     
      const finalValue = (costFloat / (1 - simplesPercentual - margemPercentual)).toFixed(2);
 
@@ -46,34 +46,32 @@ const ProposalView = () => {
       area = (((comprimento * 2) + (largura * 2) + 58) * (altura + largura + 25)) / 1000000;
     }
 
-    return area * precoM2; // Retorna a área multiplicada pelo preço por metro quadrado
+    return area * precoM2;
   };
 
   useEffect(() => {
-    // Função para buscar dados da coleção "produtos"
+
     const fetchProductData = async () => {
       try {
-        // Consulta para produtos da categoria "pedido mínimo"
+
         const minQuery = query(collection(db, 'produtos'), where('categoria', '==', 'pedido-minimo'));
         const minSnapshot = await getDocs(minQuery);
         const minProducts = minSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setMinData(minProducts);
 
-        // Consulta para produtos da categoria "econômico"
+
         const ecoQuery = query(collection(db, 'produtos'), where('categoria', '==', 'economico'));
         const ecoSnapshot = await getDocs(ecoQuery);
         const ecoProducts = ecoSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setEcoData(ecoProducts);
 
 
-
-        // Busca os dados da coleção "opcoes" no documento com ID específico
         const opcoesRef = doc(db, 'opcoes', 'HqAt4LQUIahw3W51yXoH');
         const opcoesSnapshot = await getDoc(opcoesRef);
         if (opcoesSnapshot.exists()) {
           const data = opcoesSnapshot.data();
           setOpcoesData(data);
-          setPedidoMinimo(data.pedido_minimo || 0); // Armazena o valor de pedido_minimo
+          setPedidoMinimo(data.pedido_minimo || 0);
           console.log('Dados das opções:', data);
         } else {
           console.log("Nenhum documento encontrado!");

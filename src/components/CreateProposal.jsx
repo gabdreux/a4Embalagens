@@ -5,7 +5,7 @@ import ProposalView from '../components/ProposalView';
 
 const CreateProposal = () => {
   return (
-    <div className='viewBox proposalBox'>
+    <div>
       <ProposalInputs />
       <ProposalView />
     </div>
