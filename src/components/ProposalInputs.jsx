@@ -145,10 +145,11 @@ const ProposalInputs = () => {
               </div>
           
               <div className="actionsButtons">
-                <GenerateDocButton buttonText="Visualizar" />
+                <GenerateDocButton buttonText="Visualizar"/>
                 <GenerateDocButton buttonText="Baixar" />
                 <button onClick={handleSave}>Salvar</button>
               </div>
+
           </div>
 
 

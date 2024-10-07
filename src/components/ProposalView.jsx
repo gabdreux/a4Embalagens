@@ -108,7 +108,8 @@ const ProposalView = () => {
           material: product['material'],
           quantidade: quantidade,
           precoUn: precoUn,
-          valor: finalValue
+          valor: finalValue,
+          modalidade: product['categoria'],
         };
 
         proposals.push(proposal);
@@ -128,6 +129,7 @@ const ProposalView = () => {
           quantidade: quantidade,
           precoUn: precoUn,
           valor: finalValue,
+          modalidade: product['categoria'],
         };
 
         proposals.push(proposal);

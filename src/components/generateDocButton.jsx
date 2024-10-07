@@ -15,6 +15,7 @@ const GenerateDocButton = ({ buttonText }) => {
   const largura = parseFloat(inputValues.largura || 0);
   const nomeCliente = inputValues.nomeCliente || "Nome do Cliente";
   const outrosItens = inputValues.outrosItens || "";
+  const modalidade = inputValues.modalidade || "";
 
   const currentDate = new Date().toLocaleString('pt-BR', {
     day: '2-digit',
@@ -22,6 +23,16 @@ const GenerateDocButton = ({ buttonText }) => {
     year: 'numeric',
   });
   
+  const formatModalidade = (modalidade) => {
+    switch (modalidade) {
+      case 'economico':
+        return 'Econômico';
+      case 'pedido-minimo':
+        return 'Pedido mínimo';
+      default:
+        return modalidade; // Retorna o valor original se não houver formatação
+    }
+  };
   
 
   const generateTableHTML = () => {
@@ -34,6 +45,7 @@ const GenerateDocButton = ({ buttonText }) => {
       <tr>
         <td style="border: 1px solid black; padding: 5px;">${proposal.index}</td>
         <td style="border: 1px solid black; padding: 5px;">${proposal.material}</td>
+        <td style="border: 1px solid black; padding: 5px;">${formatModalidade(proposal.modalidade)}</td>
         <td style="border: 1px solid black; padding: 5px;">${proposal.quantidade}</td>
         <td style="border: 1px solid black; padding: 5px;">${proposal.precoUn}</td>
         <td style="border: 1px solid black; padding: 5px;">${proposal.valor}</td>
@@ -84,8 +96,9 @@ const GenerateDocButton = ({ buttonText }) => {
               <tr>
                 <th style="padding: 20px; text-align: center; border: 1px solid black;">Nº</th>
                 <th style="padding: 20px; text-align: center; border: 1px solid black;">MATERIAL</th>
+                <th style="padding: 20px; text-align: center; border: 1px solid black;">Modalidade</th>
                 <th style="padding: 20px; text-align: center; border: 1px solid black;">QUANTIDADE</th>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">PREÇO POR UNIDADE</th>
+                <th style="padding: 20px; text-align: center; border: 1px solid black;">PREÇO un</th>
                 <th style="padding: 20px; text-align: center; border: 1px solid black;">Valor</th>
               </tr>
             </thead>
@@ -110,7 +123,7 @@ const GenerateDocButton = ({ buttonText }) => {
     <div style="margin-top: 100px;">
       <h4 style="margin-bottom: 10px">Outros Itens:</h4>
       <div style="height: 150px; border: solid; border-width: 1px;">
-      <p style="font-weight: 400;">${outrosItens}</p>
+      <p style="font-weight: 400; white-space: pre-wrap;">${outrosItens}</p>
     </div>
 
 

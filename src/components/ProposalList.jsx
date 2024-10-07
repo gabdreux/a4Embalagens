@@ -53,6 +53,13 @@ const ProposalList = () => {
     }
   };
 
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    return date.toLocaleDateString('pt-BR', options);
+  };
+
   return (
 
     <div>
@@ -78,7 +85,7 @@ const ProposalList = () => {
           {data.map((proposal) => (
             <div key={proposal.id} className="table-row">
               <div className="table-cell">{proposal['nomeCliente']}</div>
-              <div className="table-cell">{proposal['dataCriacao']}</div>
+              <div className="table-cell">{formatDate(proposal['dataCriacao'])}</div>
               <div className="table-cell">{proposal['nomeProduto']}</div>
               <div className="table-cell">{proposal['margem']}</div>
               <div className="table-cell">{proposal['simples']}</div>
