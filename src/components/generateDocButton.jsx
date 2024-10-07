@@ -4,15 +4,15 @@ import { useInputContext } from '../context/InputsContext';
 import html2pdf from 'html2pdf.js';
 import { saveAs } from 'file-saver';
 import '../styles/Styles.css';
+import logo from '../assets/imgs/LOGO A4 Embalagens -Cortada.png';
 
 const GenerateDocButton = ({ buttonText }) => {
   const { proposals } = useProposalContext();
-  
   const { inputValues } = useInputContext();
+
   const comprimento = parseFloat(inputValues.comprimento || 0);
   const altura = parseFloat(inputValues.altura || 0);
   const largura = parseFloat(inputValues.largura || 0);
-
 
   const generateTableHTML = () => {
     const rows = proposals.map((proposal) => `
@@ -26,13 +26,24 @@ const GenerateDocButton = ({ buttonText }) => {
     `).join('');
 
     return `
-    <div>
+    <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+      <img src="${logo}" alt="Logo" style="width: 130px;"/>
+      <div style="text-align: right;">
+        <p>A4 EMBALAGENS E E-COMMERCE LTDA</p>
+        <p>55.131.707/0001-29</p>
+        <p>RUA TUCUMÃ, 538</p>
+        <p>EUCALIPTOS, Fazenda Rio Grande - PR</p>
+        <p>83.820-200</p>
+        <p>91072097-08</p>
+      </div>
+    </div>
+    <div style="padding: 20px 0;"> <!-- Adiciona padding ao conteúdo -->
       <h3>Dimensões</h3>
       <p>Comprimento: ${comprimento}</p>
       <p>Altura: ${altura}</p>
       <p>Largura: ${largura}</p>
     </div>
-    <table>
+    <table style="width: 100%; border-collapse: collapse;">
       <thead>
         <tr>
           <th>Nº</th>
