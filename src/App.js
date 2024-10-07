@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import { InputProvider } from './context/InputsContext';
 import { ViewProvider } from './context/ViewContext';
+import { ProposalProvider } from './context/ProposalContext';
 
 
 
@@ -20,9 +21,11 @@ function App() {
             element={
               <ProtectedRoute>
                 <ViewProvider>
+                <ProposalProvider>
                   <InputProvider>
                     <HomePage />
                   </InputProvider>
+                  </ProposalProvider>
                 </ViewProvider>
               </ProtectedRoute>
             }

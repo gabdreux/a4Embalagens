@@ -38,7 +38,7 @@ button {
     cursor: pointer;
 }
 
-#createProductBtn {
+#saveBtn {
     margin-top: 20px;
     padding-right: 30px;
     padding-left: 30px;
@@ -61,6 +61,10 @@ button {
     color: #004AAD;
 }
 
+.unit {
+    font-size: 14px;
+    margin-left: 5px;
+}
 
 
 

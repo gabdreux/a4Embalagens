@@ -3,11 +3,13 @@ import { db } from '../firebase';
 import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore';
 import '../styles/Lists.css';
 import { useInputContext } from '../context/InputsContext';
+import { useProposalContext } from '../context/ProposalContext';
 
 const ProposalView = () => {
   const [minData, setMinData] = useState([]);
   const [ecoData, setEcoData] = useState([]);
   const { inputValues } = useInputContext();
+  const { addProposal, resetProposals } = useProposalContext();
 
   const simples = parseFloat(inputValues.simples || 0);
   const margem = parseFloat(inputValues.margem || 0);
@@ -31,7 +33,7 @@ const ProposalView = () => {
      const finalValue = (costFloat / (1 - simplesPercentual - margemPercentual)).toFixed(2);
 
 
-     console.log(`${costFloat} / (${costFloat} * ${simplesPercentual}) - (${costFloat} * ${margemPercentual}) = ${finalValue}`);
+    //  console.log(`${costFloat} / (${costFloat} * ${simplesPercentual}) - (${costFloat} * ${margemPercentual}) = ${finalValue}`);
 
     return finalValue;
   };
@@ -72,7 +74,7 @@ const ProposalView = () => {
           const data = opcoesSnapshot.data();
           setOpcoesData(data);
           setPedidoMinimo(data.pedido_minimo || 0);
-          console.log('Dados das opções:', data);
+          // console.log('Dados das opções:', data);
         } else {
           console.log("Nenhum documento encontrado!");
         }
@@ -85,6 +87,61 @@ const ProposalView = () => {
 
     fetchProductData();
   }, []);
+
+
+  
+  useEffect(() => {
+    const handleSaveProposal = () => {
+      resetProposals();
+      let proposals = [];
+
+      // Coletando dados para a tabela MÍNIMO
+      minData.forEach((product, index) => {
+        const custo = calculateCost(product['onda'], product['precoM2']);
+        const costWithoutTax = (custo * 0.93).toFixed(2);
+        const quantidade = Math.ceil(pedidoMinimo / custo);
+        const finalValue = calculateFinalValue(custo);
+        const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(2);
+
+        const proposal = {
+          index: index + 1, // Nº começando em 1
+          material: product['material'],
+          quantidade: quantidade,
+          precoUn: precoUn,
+          valor: finalValue
+        };
+
+        proposals.push(proposal);
+      });
+
+      // Coletando dados para a tabela ECONÔMICO
+      ecoData.forEach((product, index) => {
+        const custo = calculateCost(product['onda'], product['precoM2']);
+        const costWithoutTax = (custo * 0.93).toFixed(2);
+        const quantidade = Math.ceil(pedidoMinimo / custo);
+        const finalValue = calculateFinalValue(custo);
+        const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(2);
+
+        const proposal = {
+          index: minData.length + index + 1, // Continuando a numeração
+          material: product['material'],
+          quantidade: quantidade,
+          precoUn: precoUn,
+          valor: finalValue,
+        };
+
+        proposals.push(proposal);
+      });
+
+      // Salvando propostas no contexto
+      proposals.forEach(proposal => {
+        addProposal(proposal);
+      });
+    };
+
+    // Chama a função sempre que as variáveis que afetam os cálculos mudarem
+    handleSaveProposal();
+  }, [minData, ecoData, simples, margem, comprimento, altura, largura, pedidoMinimo]);
 
   return (
     <div className="listWrapper" id="print">

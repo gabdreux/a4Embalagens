@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import '../styles/Inputs.css';
+import '../styles/Styles.css';
 
 const UpdateOptionsInputs = () => {
   const [lote, setLote] = useState('');
@@ -54,41 +55,50 @@ const UpdateOptionsInputs = () => {
   if (loading) return <div>Carregando...</div>;
 
   return (
+
+    <div>
+
+    <div className="center">
+      <h2 className="viewTitle">OPÇÕES</h2>      
+    </div>
     
     <div className="input-wrapper">
-      <h3 className="sectionTitle">OPÇÕES</h3>
-
-      
+      <div id="createProduct_CGP_wrap" className="wrap">
       {/* Grupo PEDIDO MÍNIMO */}
       <div className="groupBox">
-        <h3>PEDIDO MÍNIMO</h3>
+        <h3>PEDIDO MÍNIMO<span className="unit">(R$)</span></h3>
+        <div className="shortInput">
         <input
           type="number"
-          placeholder="Pedido Mínimo"
           value={pedidoMinimo}
           onChange={(e) => setPedidoMinimo(e.target.value)}
           required
         />
+        </div>
       </div>
 
       {/* Grupo LOTE */}
       <div className="groupBox">
-        <h3>LOTE</h3>
+        <h3>LOTE <span className="unit">(m²)</span></h3>
+        <div className="shortInput">
         <input
           type="text"
-          placeholder="Lote"
           value={lote}
           onChange={(e) => setLote(e.target.value)}
           required
         />
+        </div>
       </div>
+      </div>
+
 
       {/* Botão de Atualizar */}
       <div className="groupBox">
-        <button onClick={handleUpdate} disabled={lote === '' || pedidoMinimo === ''}>
+        <button  id="saveBtn" onClick={handleUpdate} disabled={lote === '' || pedidoMinimo === ''}>
           Atualizar
         </button>
       </div>
+    </div>
     </div>
   );
 };

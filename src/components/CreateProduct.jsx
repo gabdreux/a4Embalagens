@@ -152,7 +152,7 @@ const CreateProductInputs = () => {
 
       {/* Botão de Salvar */}
       <div className="groupBox">
-        <button id="createProductBtn" onClick={handleSave}>Salvar</button>
+        <button id="saveBtn" onClick={handleSave}>Salvar</button>
       </div>
     </div>
 
