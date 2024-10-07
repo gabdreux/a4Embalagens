@@ -1,14 +1,19 @@
-// GenerateDocButton.js
 import React from 'react';
-import { useProposalContext } from '../context/ProposalContext'; // Importa o contexto
+import { useProposalContext } from '../context/ProposalContext';
+import { useInputContext } from '../context/InputsContext';
 import html2pdf from 'html2pdf.js';
 import { saveAs } from 'file-saver';
 import '../styles/Styles.css';
 
 const GenerateDocButton = ({ buttonText }) => {
-  const { proposals } = useProposalContext(); // Acessa as propostas do contexto
+  const { proposals } = useProposalContext();
+  
+  const { inputValues } = useInputContext();
+  const comprimento = parseFloat(inputValues.comprimento || 0);
+  const altura = parseFloat(inputValues.altura || 0);
+  const largura = parseFloat(inputValues.largura || 0);
 
-  // Função para gerar HTML da tabela com base nas propostas
+
   const generateTableHTML = () => {
     const rows = proposals.map((proposal) => `
       <tr>
@@ -18,28 +23,34 @@ const GenerateDocButton = ({ buttonText }) => {
         <td>${proposal.precoUn}</td>
         <td>${proposal.valor}</td>
       </tr>
-    `).join(''); // Cria linhas dinâmicas
+    `).join('');
 
     return `
-      <table>
-        <thead>
-          <tr>
-            <th>Nº</th>
-            <th>MATERIAL</th>
-            <th>QUANTIDADE</th>
-            <th>PREÇO POR UNIDADE</th>
-            <th>Valor</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows} <!-- Insere as linhas dinâmicas -->
-        </tbody>
-      </table>
+    <div>
+      <h3>Dimensões</h3>
+      <p>Comprimento: ${comprimento}</p>
+      <p>Altura: ${altura}</p>
+      <p>Largura: ${largura}</p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nº</th>
+          <th>MATERIAL</th>
+          <th>QUANTIDADE</th>
+          <th>PREÇO POR UNIDADE</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows} <!-- Insere as linhas dinâmicas -->
+      </tbody>
+    </table>
     `;
   };
 
   const handleGeneratePDF = () => {
-    const content = generateTableHTML(); // Obtém o HTML da tabela
+    const content = generateTableHTML();
 
     const options = {
       margin: 0,
@@ -49,24 +60,23 @@ const GenerateDocButton = ({ buttonText }) => {
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
 
-    return html2pdf().set(options).from(content).output('blob'); // Gera o blob do PDF
+    return html2pdf().set(options).from(content).output('blob');
   };
 
   const handleClick = async () => {
-    const pdfBlob = await handleGeneratePDF(); // Chama a função para gerar o PDF
+    const pdfBlob = await handleGeneratePDF();
 
-    // Ação dependendo do texto do botão
     if (buttonText === "Visualizar") {
       const pdfUrl = URL.createObjectURL(pdfBlob);
-      window.open(pdfUrl); // Abre o PDF em uma nova aba
+      window.open(pdfUrl);
     } else {
-      saveAs(pdfBlob, 'pagina.pdf'); // Salva o PDF
+      saveAs(pdfBlob, 'pagina.pdf');
     }
   };
 
   return (
     <button onClick={handleClick}>
-      {buttonText} {/* Retorna apenas o botão */}
+      {buttonText}
     </button>
   );
 };
