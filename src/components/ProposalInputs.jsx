@@ -119,6 +119,19 @@ const ProposalInputs = () => {
           </div>
 
 
+          <div className="center">
+            <div id="outrosItens" className="groupBox">
+              <h3 className="sectionTitle">Outros itens</h3>
+              <textarea
+                onChange={(e) => logInputChange('outrosItens', e.target.value)}
+                value={inputValues.outrosItens || ''}
+                rows={6}
+                style={{ width: '100%', resize: 'vertical' }}
+              />
+            </div>
+          </div>
+
+
         
           <div className="wrap">
               <div className="groupBox shortInput center" id="mco">

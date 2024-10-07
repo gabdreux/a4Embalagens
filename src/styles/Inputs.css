@@ -77,6 +77,13 @@ select {
   gap: 30px;
 }
 
+
+#outrosItens {
+  width: 840px;
+  margin-bottom: 40px;
+}
+
+
 @media (max-width: 768px) {
 
   .wrap {

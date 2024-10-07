@@ -14,6 +14,7 @@ const GenerateDocButton = ({ buttonText }) => {
   const altura = parseFloat(inputValues.altura || 0);
   const largura = parseFloat(inputValues.largura || 0);
   const nomeCliente = inputValues.nomeCliente || "Nome do Cliente";
+  const outrosItens = inputValues.outrosItens || "";
 
   const currentDate = new Date().toLocaleString('pt-BR', {
     day: '2-digit',
@@ -24,6 +25,11 @@ const GenerateDocButton = ({ buttonText }) => {
   
 
   const generateTableHTML = () => {
+
+    const totalItens = proposals.length;
+    const quantidadeTotal = proposals.reduce((total, proposal) => total + proposal.quantidade, 0);
+    const valorTotal =  proposals.reduce((acc, proposal) => acc + parseFloat(proposal.valor || 0), 0);
+  
     const rows = proposals.map((proposal) => `
       <tr>
         <td style="border: 1px solid black; padding: 5px;">${proposal.index}</td>
@@ -36,10 +42,6 @@ const GenerateDocButton = ({ buttonText }) => {
   
 
     return `
-
-    <div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
-
-
 
       <div style=" display: flex; justify-content: space-between; align-items: start">
         <img src="${logo}" alt="Logo" style="width: 160px; height: auto"/>
@@ -77,8 +79,6 @@ const GenerateDocButton = ({ buttonText }) => {
         </div>  
 
 
-
-
           <table style="width: 100%; border-collapse: collapse; border: 1px solid black;">
             <thead style="font-size: 14px; padding-bottom: 20px; margin-bottom: 20px !important;">
               <tr>
@@ -93,11 +93,28 @@ const GenerateDocButton = ({ buttonText }) => {
               ${rows}
             </tbody>
           </table>
+          
+      </div>
 
 
+      
+      <div style="display: flex; justify-content: space-between; align-items: start;">
+        <div>
+          <h4>Total de itens: <span style="font-weight: 400;">${totalItens}</span></h4>
+          <h4>Quantidade total: <span style="font-weight: 400;">${quantidadeTotal}</span></h4>
+        </div>
+        <h4>Valor total: <span style="font-weight: 400;">R$ ${valorTotal}</span></h4>
+      </div>
+
+    
+    <div style="margin-top: 100px;">
+      <h4 style="margin-bottom: 10px">Outros Itens:</h4>
+      <div style="height: 150px; border: solid; border-width: 1px;">
+      <p style="font-weight: 400;">${outrosItens}</p>
+    </div>
 
 
-        <div style="font-size: 12px;">
+      <div style="font-size: 12px;">
                 <h3>Observações</h3>
                 <p>Validade deste orçamento: 15 dias</p>
                 <ol style={{ paddingLeft: '20px' }}>
@@ -119,15 +136,11 @@ const GenerateDocButton = ({ buttonText }) => {
                     </ul>
                   </li>
                 </ol>
-            </div>
+        </div>
+        
+        
 
 
-
-      </div>
-
-
-
-    </div>
     `;
   };
 
@@ -135,7 +148,7 @@ const GenerateDocButton = ({ buttonText }) => {
     const content = generateTableHTML();
 
     const options = {
-      margin: 0,
+      margin: 0.2,
       filename: 'pagina.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 1 },
