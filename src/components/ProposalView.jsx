@@ -180,18 +180,21 @@ const ProposalView = () => {
 
 
   return (
-    <div className="listWrapper" id="print">
+    <div className="listWrapper">
       {/* Tabela MÍNIMO */}
       <h2>MÍNIMO</h2>
       <div className="list-container">
         <div className="table-header">
           <div className="table-row">
-            <div className="table-cell"><span>CUSTO S/ NF</span></div>
-            <div className="table-cell"><span>FORNECEDOR</span></div>
-            <div className="table-cell"><span>CUSTO</span></div>
-            <div className="table-cell"><span>QUANTIDADE</span></div>
-            <div className="table-cell"><span>MATERIAL</span></div>
-            <div className="table-cell"><span>VALOR DE VENDA</span></div>
+            <div className="table-cell proposalView"><span>CUSTO S/ NF</span></div>
+            <div className="table-cell proposalView"><span>FORNECEDOR</span></div>
+            <div className="table-cell proposalView"><span>CUSTO</span></div>
+            <div className="table-cell proposalView"><span>QUANTIDADE</span></div>
+            <div className="table-cell proposalView"><span>MATERIAL</span></div>
+            <div className="table-cell proposalView"><span>IMPRESSÃO</span></div>
+            <div className="table-cell proposalView">MODELO<span></span></div>
+            <div className="table-cell proposalView"><span>VALOR</span></div>
+            <div className="table-cell proposalView"><span>ADD</span></div>
           </div>
         </div>
         <div className="table-body">
@@ -203,12 +206,19 @@ const ProposalView = () => {
 
             return (
               <div key={product.id} className="table-row">
-                <div className={`table-cell ${!hasAccess ? 'blurred' : ''}`}>{costWithoutTax}</div>
-                <div className="table-cell">{product['fornecedor']}</div>
-                <div className="table-cell">{custo.toFixed(3)}</div>
-                <div className="table-cell">{quantidade}</div>
-                <div className="table-cell">{product['material']}</div>
-                <div className="table-cell">{calculateFinalValue(custo)}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{costWithoutTax}</div>
+                <div className="table-cell proposalView">{product['fornecedor']}</div>
+                <div className="table-cell proposalView">{custo.toFixed(3)}</div>
+                <div className="table-cell proposalView">{quantidade}</div>
+                <div className="table-cell proposalView">{product['material']}</div>
+                <input  className="table-cell proposalView" type="checkbox" id="checkbox" name="option" value="selected"></input>
+                <select  className="table-cell proposalView" id="dropdown" name="tipo">
+                  <option value=""></option>
+                  <option value="normal">NORMAL</option>
+                  <option value="corte-vinco">CORTE E VINCO</option>
+                </select>
+                <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
+                <input  className="table-cell proposalView" type="checkbox" id="checkbox" name="option" value="selected"></input>
               </div>
             );
           })}
@@ -220,12 +230,15 @@ const ProposalView = () => {
       <div className="list-container">
         <div className="table-header">
           <div className="table-row">
-            <div className="table-cell"><span>CUSTO S/ NF</span></div>
-            <div className="table-cell"><span>FORNECEDOR</span></div>
-            <div className="table-cell"><span>CUSTO</span></div>
-            <div className="table-cell"><span>QUANTIDADE</span></div>
-            <div className="table-cell"><span>MATERIAL</span></div>
-            <div className="table-cell"><span>VALOR DE VENDA</span></div>
+            <div className="table-cell proposalView"><span>CUSTO S/ NF</span></div>
+            <div className="table-cell proposalView"><span>FORNECEDOR</span></div>
+            <div className="table-cell proposalView"><span>CUSTO</span></div>
+            <div className="table-cell proposalView"><span>QUANTIDADE</span></div>
+            <div className="table-cell proposalView"><span>MATERIAL</span></div>
+            <div className="table-cell proposalView"><span>IMPRESSÃO</span></div>
+            <div className="table-cell proposalView">MODELO<span></span></div>
+            <div className="table-cell proposalView"><span>VALOR</span></div>
+            <div className="table-cell proposalView"><span>ADD</span></div>
           </div>
         </div>
         <div className="table-body">
@@ -236,12 +249,19 @@ const ProposalView = () => {
 
             return (
               <div key={product.id} className="table-row">
-                <div className="table-cell">{costWithoutTax}</div>
-                <div className="table-cell">{product['fornecedor']}</div>
-                <div className="table-cell">{custo.toFixed(3)}</div>
-                <div className="table-cell">{quantidade}</div>
-                <div className="table-cell">{product['material']}</div>
-                <div className="table-cell">{calculateFinalValue(custo)}</div>
+                <div className="table-cell proposalView">{costWithoutTax}</div>
+                <div className="table-cell proposalView">{product['fornecedor']}</div>
+                <div className="table-cell proposalView">{custo.toFixed(3)}</div>
+                <div className="table-cell proposalView">{quantidade}</div>
+                <div className="table-cell proposalView">{product['material']}</div>
+                <input  className="table-cell proposalView" type="checkbox" id="checkbox" name="option" value="selected"></input>
+                <select  className="table-cell proposalView" id="dropdown" name="tipo">
+                  <option value=""></option>
+                  <option value="normal">NORMAL</option>
+                  <option value="corte-vinco">CORTE E VINCO</option>
+                </select>
+                <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
+                <input  className="table-cell proposalView" type="checkbox" id="checkbox" name="option" value="selected"></input>
               </div>
             );
           })}
