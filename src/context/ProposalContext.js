@@ -9,12 +9,12 @@ export const ProposalProvider = ({ children }) => {
 
   const addProposal = (proposal) => {
     setProposals((prevProposals) => [...prevProposals, proposal]);
-    console.log('Proposal added:', proposal);
+    // console.log('Proposal added:', proposal);
   };
 
   const resetProposals = () => {
     setProposals([]);
-    console.log('Proposals reset.');
+    // console.log('Proposals reset.');
   };
 
   return (

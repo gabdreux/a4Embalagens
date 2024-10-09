@@ -62,6 +62,10 @@ button {
     color: #004AAD;
 }
 
+.sectionTitle span {
+    color: black;
+}
+
 .unit {
     font-size: 14px;
     margin-left: 5px;

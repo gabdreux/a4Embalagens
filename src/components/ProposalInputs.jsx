@@ -63,19 +63,7 @@ const ProposalInputs = () => {
                       />
                     </div>
               
-                    {/* Grupo ALÍQUOTAS */}
-                    <div className="groupBox">
-                      <h3 className="sectionTitle">Alíquotas</h3>
-                      <div className="shortInput">
-                        <p>Simples</p>
-                        <input
-                          id="simples"
-                          type="number"
-                          onChange={(e) => logInputChange('simples', e.target.value)}
-                          value={inputValues.simples || ''}
-                        />
-                      </div>
-                    </div>
+
                   </div>
               
 
@@ -93,6 +81,19 @@ const ProposalInputs = () => {
                         value={inputValues.comprimento || ''}
                       />
                     </div>
+
+
+                    <div className="shortInput">
+                      <p>Largura</p>
+                      <input
+                        id="largura"
+                        type="number"
+                        onChange={(e) => logInputChange('largura', e.target.value)}
+                        value={inputValues.largura || ''}
+                      />
+                    </div>
+
+
               
                     <div className="shortInput">
                       <p>Altura</p>
@@ -101,16 +102,6 @@ const ProposalInputs = () => {
                         type="number"
                         onChange={(e) => logInputChange('altura', e.target.value)}
                         value={inputValues.altura || ''}
-                      />
-                    </div>
-              
-                    <div className="shortInput">
-                      <p>Largura</p>
-                      <input
-                        id="largura"
-                        type="number"
-                        onChange={(e) => logInputChange('largura', e.target.value)}
-                        value={inputValues.largura || ''}
                       />
                     </div>
                   </div>
@@ -133,23 +124,12 @@ const ProposalInputs = () => {
 
 
         
-          <div className="wrap">
-              <div className="groupBox shortInput center" id="mco">
-                <h3>% MARGEM CONTRIB. OBJETIVA</h3>
-                <input
-                  id="margem"
-                  type="number"
-                  onChange={(e) => logInputChange('margem', e.target.value)}
-                  value={inputValues.margem || ''}
-                />
-              </div>
-          
+          <div className="wrap">         
               <div className="actionsButtons">
                 <GenerateDocButton buttonText="Visualizar"/>
                 <GenerateDocButton buttonText="Baixar" />
                 <button onClick={handleSave}>Salvar</button>
               </div>
-
           </div>
 
 

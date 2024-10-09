@@ -5,14 +5,17 @@ import '../styles/Lists.css';
 import { useInputContext } from '../context/InputsContext';
 import { useProposalContext } from '../context/ProposalContext';
 
+
+
 const ProposalView = () => {
+  
   const [minData, setMinData] = useState([]);
   const [ecoData, setEcoData] = useState([]);
   const { inputValues } = useInputContext();
   const { addProposal, resetProposals } = useProposalContext();
 
-  const simples = parseFloat(inputValues.simples || 0);
-  const margem = parseFloat(inputValues.margem || 0);
+
+
   const comprimento = parseFloat(inputValues.comprimento || 0);
   const altura = parseFloat(inputValues.altura || 0);
   const largura = parseFloat(inputValues.largura || 0);
@@ -20,23 +23,31 @@ const ProposalView = () => {
 
   const [pedidoMinimo, setPedidoMinimo] = useState(0);
   const [lote, setLote] = useState(0);  
-  const [opcoesData, setOpcoesData] = useState({ lote: null, pedido_minimo: null });
+  const [simples, setSimples] = useState(0);
+  const [margem, setMargem] = useState(0);
+  const [opcoesData, setOpcoesData] = useState({ lote: null, pedido_minimo: null, simples: null, margem: null });
+
+
+  const [hasAccess, setHasAccess] = useState(false);
+
+
+  useEffect(() => {
+    const storedKey = localStorage.getItem('role');
+    setHasAccess(!!storedKey);
+  }, []);
 
 
 
   const calculateFinalValue = (cost) => {
     const simplesPercentual = simples / 100;
     const margemPercentual = margem / 100;
-
     const costFloat = parseFloat(cost) || 0;
-    
-     const finalValue = (costFloat / (1 - simplesPercentual - margemPercentual)).toFixed(2);
-
-
+    const finalValue = (costFloat / (1 - simplesPercentual - margemPercentual)).toFixed(3);
     //  console.log(`${costFloat} / (${costFloat} * ${simplesPercentual}) - (${costFloat} * ${margemPercentual}) = ${finalValue}`);
-
     return finalValue;
   };
+
+
 
   const calculateCost = (onda, precoM2) => {
     let area = 0;
@@ -50,6 +61,21 @@ const ProposalView = () => {
 
     return area * precoM2;
   };
+
+  const calculateAreaLote = (onda) => {
+    let area = 0;
+    if (onda === "B") {
+      area = (((comprimento * 2) + (largura * 2) + 40) * (altura + largura + 10)) / 1000000;
+    } else if (onda === "C") {
+      area = (((comprimento * 2) + (largura * 2) + 48) * (altura + largura + 15)) / 1000000;
+    } else if (onda === "BC") {
+      area = (((comprimento * 2) + (largura * 2) + 58) * (altura + largura + 25)) / 1000000;
+    }
+
+    return area;
+  };
+
+
 
   useEffect(() => {
 
@@ -74,7 +100,10 @@ const ProposalView = () => {
           const data = opcoesSnapshot.data();
           setOpcoesData(data);
           setPedidoMinimo(data.pedido_minimo || 0);
-          // console.log('Dados das opções:', data);
+          setLote(data.lote || 0);
+          setMargem(data.margem || 0);
+          setSimples(data.simples || 0);
+          console.log('Dados das opções:', data);
         } else {
           console.log("Nenhum documento encontrado!");
         }
@@ -90,6 +119,8 @@ const ProposalView = () => {
 
 
   
+
+
   useEffect(() => {
     const handleSaveProposal = () => {
       resetProposals();
@@ -98,10 +129,10 @@ const ProposalView = () => {
       // Coletando dados para a tabela MÍNIMO
       minData.forEach((product, index) => {
         const custo = calculateCost(product['onda'], product['precoM2']);
-        const costWithoutTax = (custo * 0.93).toFixed(2);
+        const costWithoutTax = (custo * 0.93).toFixed(3);
         const quantidade = Math.ceil(pedidoMinimo / custo);
         const finalValue = calculateFinalValue(custo);
-        const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(2);
+        const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
 
         const proposal = {
           index: index + 1, // Nº começando em 1
@@ -118,13 +149,13 @@ const ProposalView = () => {
       // Coletando dados para a tabela ECONÔMICO
       ecoData.forEach((product, index) => {
         const custo = calculateCost(product['onda'], product['precoM2']);
-        const costWithoutTax = (custo * 0.93).toFixed(2);
-        const quantidade = Math.ceil(pedidoMinimo / custo);
+        const costWithoutTax = (custo * 0.93).toFixed(3);
+        const quantidade = Math.ceil(lote / calculateAreaLote(product['onda']));
         const finalValue = calculateFinalValue(custo);
-        const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(2);
+        const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
 
         const proposal = {
-          index: minData.length + index + 1, // Continuando a numeração
+          index: minData.length + index + 1,
           material: product['material'],
           quantidade: quantidade,
           precoUn: precoUn,
@@ -135,15 +166,18 @@ const ProposalView = () => {
         proposals.push(proposal);
       });
 
-      // Salvando propostas no contexto
       proposals.forEach(proposal => {
         addProposal(proposal);
       });
     };
 
-    // Chama a função sempre que as variáveis que afetam os cálculos mudarem
+
     handleSaveProposal();
   }, [minData, ecoData, simples, margem, comprimento, altura, largura, pedidoMinimo]);
+
+  
+
+
 
   return (
     <div className="listWrapper" id="print">
@@ -163,15 +197,15 @@ const ProposalView = () => {
         <div className="table-body">
           {minData.map((product) => {
             const custo = calculateCost(product['onda'], product['precoM2']);
-            const costWithoutTax = (custo * 0.93).toFixed(2);
+            const costWithoutTax = (custo * 0.93).toFixed(3);
             const quantidade = Math.ceil(pedidoMinimo / custo);
 
 
             return (
               <div key={product.id} className="table-row">
-                <div className="table-cell">{costWithoutTax}</div>
+                <div className={`table-cell ${!hasAccess ? 'blurred' : ''}`}>{costWithoutTax}</div>
                 <div className="table-cell">{product['fornecedor']}</div>
-                <div className="table-cell">{custo.toFixed(2)}</div>
+                <div className="table-cell">{custo.toFixed(3)}</div>
                 <div className="table-cell">{quantidade}</div>
                 <div className="table-cell">{product['material']}</div>
                 <div className="table-cell">{calculateFinalValue(custo)}</div>
@@ -197,14 +231,14 @@ const ProposalView = () => {
         <div className="table-body">
           {ecoData.map((product) => {
             const custo = calculateCost(product['onda'], product['precoM2']);
-            const costWithoutTax = (custo * 0.93).toFixed(2);
-            const quantidade = Math.ceil(pedidoMinimo / custo);
+            const costWithoutTax = (custo * 0.93).toFixed(3);
+            const quantidade = Math.ceil(lote / calculateAreaLote(product['onda']));
 
             return (
               <div key={product.id} className="table-row">
                 <div className="table-cell">{costWithoutTax}</div>
                 <div className="table-cell">{product['fornecedor']}</div>
-                <div className="table-cell">{custo.toFixed(2)}</div>
+                <div className="table-cell">{custo.toFixed(3)}</div>
                 <div className="table-cell">{quantidade}</div>
                 <div className="table-cell">{product['material']}</div>
                 <div className="table-cell">{calculateFinalValue(custo)}</div>

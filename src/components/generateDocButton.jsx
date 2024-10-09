@@ -39,7 +39,7 @@ const GenerateDocButton = ({ buttonText }) => {
 
     const totalItens = proposals.length;
     const quantidadeTotal = proposals.reduce((total, proposal) => total + proposal.quantidade, 0);
-    const valorTotal =  proposals.reduce((acc, proposal) => acc + parseFloat(proposal.valor || 0), 0);
+    const valorTotal =  proposals.reduce((acc, proposal) => acc + parseFloat(proposal.valor || 0), 0).toFixed(2);
   
     const rows = proposals.map((proposal) => `
       <tr>
@@ -75,9 +75,9 @@ const GenerateDocButton = ({ buttonText }) => {
         <div style="display: flex; justify-content: space-between; align-items: start;">  
             <div>      
                 <h4 style="margin: 0;">Dimensões</h4>
-                <p style="font-size: 14px; margin: 2px 0;">Comprimento: ${comprimento}</p>
-                <p style="font-size: 14px; margin: 2px 0;">Altura: ${altura}</p>
-                <p style="font-size: 14px; margin: 2px 0;">Largura: ${largura}</p>
+                <p style="font-size: 14px; margin: 2px 0;">Comprimento: ${comprimento} cm</p>
+                <p style="font-size: 14px; margin: 2px 0;">Altura: ${altura} cm</p>
+                <p style="font-size: 14px; margin: 2px 0;">Largura: ${largura} cm</p>
             </div>
             
             <div>      
@@ -96,10 +96,10 @@ const GenerateDocButton = ({ buttonText }) => {
               <tr>
                 <th style="padding: 20px; text-align: center; border: 1px solid black;">Nº</th>
                 <th style="padding: 20px; text-align: center; border: 1px solid black;">MATERIAL</th>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">Modalidade</th>
+                <th style="padding: 20px; text-align: center; border: 1px solid black;">MODALIDADE</th>
                 <th style="padding: 20px; text-align: center; border: 1px solid black;">QUANTIDADE</th>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">PREÇO un</th>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">Valor</th>
+                <th style="padding: 20px; text-align: center; border: 1px solid black;">PREÇO UN</th>
+                <th style="padding: 20px; text-align: center; border: 1px solid black;">VALOR</th>
               </tr>
             </thead>
             <tbody style="text-align: center;">

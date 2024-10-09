@@ -7,6 +7,8 @@ import '../styles/Styles.css';
 const UpdateOptionsInputs = () => {
   const [lote, setLote] = useState('');
   const [pedidoMinimo, setPedidoMinimo] = useState('');
+  const [simples, setSimples] = useState('');
+  const [margem, setMargem] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,6 +20,8 @@ const UpdateOptionsInputs = () => {
         if (docSnap.exists()) {
           setLote(docSnap.data().lote || ''); 
           setPedidoMinimo(docSnap.data().pedido_minimo || '');
+          setSimples(docSnap.data().simples || '');
+          setMargem(docSnap.data().margem || '');
         } else {
           console.log('Nenhum documento encontrado!');
         }
@@ -38,6 +42,10 @@ const UpdateOptionsInputs = () => {
       const updates = {};
       if (lote !== '') updates.lote = lote;
       if (pedidoMinimo !== '') updates.pedido_minimo = pedidoMinimo;
+      if (simples !== '') updates.simples = simples;
+      if (margem !== '') updates.margem = margem;
+
+
       if (Object.keys(updates).length > 0) {
         await updateDoc(docRef, updates);
         console.log('Documento atualizado com ID: ', docRef.id);
@@ -58,43 +66,70 @@ const UpdateOptionsInputs = () => {
 
     <div>
 
-    <div className="center">
-      <h2 className="viewTitle">OPÇÕES</h2>      
-    </div>
-    
-    <div className="input-wrapper">
-      <div id="createProduct_CGP_wrap" className="wrap">
-      {/* Grupo PEDIDO MÍNIMO */}
-      <div className="groupBox">
-        <h3>PEDIDO MÍNIMO<span className="unit">(R$)</span></h3>
-        <div className="shortInput">
-        <input
-          type="number"
-          value={pedidoMinimo}
-          onChange={(e) => setPedidoMinimo(e.target.value)}
-          required
-        />
-        </div>
-      </div>
+          <div className="center">
+            <h2 className="viewTitle">OPÇÕES</h2>      
+          </div>
+          
+          <div className="input-wrapper">
+            <div id="createProduct_CGP_wrap" className="wrap">
+            {/* Grupo PEDIDO MÍNIMO */}
+            <div className="groupBox">
+              <h3 className="sectionTitle">Pedido Mínimo<span className="unit">(R$)</span></h3>
+              <div className="shortInput">
+              <input
+                type="number"
+                value={pedidoMinimo}
+                onChange={(e) => setPedidoMinimo(e.target.value)}
+                required
+              />
+              </div>
+            </div>
 
-      {/* Grupo LOTE */}
-      <div className="groupBox">
-        <h3>LOTE <span className="unit">(m²)</span></h3>
-        <div className="shortInput">
-        <input
-          type="text"
-          value={lote}
-          onChange={(e) => setLote(e.target.value)}
-          required
-        />
-        </div>
-      </div>
+            {/* Grupo LOTE */}
+            <div className="groupBox">
+              <h3 className="sectionTitle">Lote <span className="unit">(m²)</span></h3>
+              <div className="shortInput">
+              <input
+                type="text"
+                value={lote}
+                onChange={(e) => setLote(e.target.value)}
+                required
+              />
+              </div>
+            </div>
+
+            {/* Grupo ALÍQUOTAS */}
+            <div className="groupBox">
+                      <h3 className="sectionTitle">Simples <span className="unit">(%)</span></h3>
+                      <div className="shortInput">
+                        <input
+                          type="number"
+                          onChange={(e) => setSimples(e.target.value)}
+                          value={simples}
+                          required
+                        />
+                      </div>
+            </div>
+
+            <div className="groupBox" id="mco">
+                <h3 className="sectionTitle">Margem Contrib. Objetiva <span className="unit">(%)</span></h3>
+                <div className="shortInput">
+                  <input
+                    type="number"
+                    onChange={(e) => setMargem(e.target.value)}
+                    value={margem}
+                    required
+                  />
+                  </div>
+              </div>
+
+
       </div>
 
 
       {/* Botão de Atualizar */}
       <div className="groupBox">
-        <button  id="saveBtn" onClick={handleUpdate} disabled={lote === '' || pedidoMinimo === ''}>
+        <button  id="saveBtn" onClick={handleUpdate} disabled={lote === '' || pedidoMinimo === '' || simples === '' || margem === ''}>
           Atualizar
         </button>
       </div>

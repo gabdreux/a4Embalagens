@@ -76,3 +76,10 @@
 .table-body {
   width: 1280px;
 }
+
+.blurred {
+  filter: blur(5px);
+  pointer-events: none;
+  user-select: none;
+}
+

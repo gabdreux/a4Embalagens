@@ -33,6 +33,20 @@ const Login = () => {
 
         await signInWithEmailAndPassword(auth, email, password);
         alert('Bem-Vindo!');
+
+        // if (email === 'user@gmail.com') {
+        //   localStorage.setItem('role', 'adm');
+        // } else {
+        //   localStorage.removeItem('role');
+        // }
+
+        if (email === 'loja@a4embalagens.com') {
+          localStorage.setItem('role', 'adm');
+        } else {
+          localStorage.removeItem('role');
+        }
+
+
         navigate('/');
       } else {
         if (password !== confirmPassword) {
@@ -40,7 +54,7 @@ const Login = () => {
           return;
         }
         await createUserWithEmailAndPassword(auth, email, password);
-        alert('Usuário registrado com sucesso!');
+        alert('Usuário registrado com sucesso!');   
         navigate('/');
       }
     } catch (err) {
