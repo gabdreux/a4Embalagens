@@ -1,36 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Inputs.css';
 import '../styles/Styles.css';
 import { db } from '../firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import { useInputContext } from '../context/InputsContext';
 import GenerateDocButton from './generateDocButton';
+import { useProposalContext } from '../context/ProposalContext';
 
 
 const ProposalInputs = () => {
   const { handleInputChange, inputValues, resetInputs } = useInputContext();
+  const { proposals, resetProposals } = useProposalContext();
+
+  const [proposalNumber, setProposalNumber] = useState(1);
+
+
+  useEffect(() => {
+    const fetchLastProposalNumber = async () => {
+      try {
+        const q = query(collection(db, "orcamentos"), orderBy("numero", "desc"), limit(1));
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+          const lastProposal = querySnapshot.docs[0].data();
+          setProposalNumber(lastProposal.numero + 1); // Incrementa o último número encontrado
+        }
+      } catch (e) {
+        console.error("Erro ao buscar o último número da proposta: ", e);
+      }
+    };
+
+    fetchLastProposalNumber();
+  }, []);
+
 
   const logInputChange = (name, value) => {
     handleInputChange(name, value);
   };
+
 
   const handleSave = async () => {
     try {
 
       const proposalData = {
         ...inputValues,
+        propostas: proposals,
         dataCriacao: new Date().toISOString(),
+        numero: proposalNumber,
       };
 
       const docRef = await addDoc(collection(db, "orcamentos"), proposalData);
       console.log("Documento escrito com ID: ", docRef.id);
       alert("Orçamento salvo com sucesso!");
       resetInputs();
+      resetProposals();
     } catch (e) {
       console.error("Erro ao adicionar documento: ", e);
       alert("Erro ao salvar orçamento.");
     }
   };
+
 
   return (
     <div>
@@ -43,8 +72,10 @@ const ProposalInputs = () => {
 
           <div className="input-wrapper wrap">
                   
-                 {/* Grupo NOME CLIENTE */}
+                 
                   <div className="infosNewProposal">
+
+                    {/* Grupo NOME CLIENTE */}
                     <div className="groupBox">
                       <h3 className="sectionTitle">Nome do Cliente</h3>
                       <input
@@ -54,19 +85,47 @@ const ProposalInputs = () => {
                       />
                     </div>
               
-                    {/* Grupo NOME PRODUTO */}
+                    {/* Grupo CNPJ*/}
                     <div className="groupBox">
-                      <h3 className="sectionTitle">Nome do Produto</h3>
+                      <h3 className="sectionTitle">CNPJ</h3>
                       <input
                         type="text"
-                        onChange={(e) => logInputChange('nomeProduto', e.target.value)}
-                        value={inputValues.nomeProduto || ''}
+                        onChange={(e) => logInputChange('cnpj', e.target.value)}
+                        value={inputValues.cnpj || ''}
                       />
                     </div>
               
 
                   </div>
-              
+
+
+
+
+                  <div className="infosNewProposal">
+
+                    {/* Grupo Contato */}
+                    <div className="groupBox">
+                      <h3 className="sectionTitle">Contato</h3>
+                      <input
+                        type="text"
+                        onChange={(e) => logInputChange('contato', e.target.value)}
+                        value={inputValues.contato || ''} 
+                      />
+                    </div>
+
+                    {/* Grupo Endereço*/}
+                    <div className="groupBox">
+                      <h3 className="sectionTitle">Endereço</h3>
+                      <input
+                        type="text"
+                        onChange={(e) => logInputChange('endereco', e.target.value)}
+                        value={inputValues.endereco || ''}
+                      />
+                    </div>
+
+
+                    </div>
+                                  
 
 
 
