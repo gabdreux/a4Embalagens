@@ -39,7 +39,11 @@
 }
 
 
+.table-cell.proposalView select {
+  width: 170px;
+  text-align: center;
 
+}
 
 
 .table-cell:nth-child(1).proposalView {

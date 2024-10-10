@@ -41,6 +41,13 @@ const ProposalView = () => {
   }, []);
 
 
+  useEffect(() => {
+    setCheckboxes({});
+    setDropdowns({});
+  }, [inputValues]);
+
+
+
 
   const calculateFinalValue = (cost) => {
     const simplesPercentual = simples / 100;
@@ -204,11 +211,13 @@ const ProposalView = () => {
                   />
                 </div>
 
-                <select onChange={(e) => handleDropdownChange(product.id, e.target.value)}>
-                  <option value=""></option>
-                  <option value="normal">NORMAL</option>
-                  <option value="corte-vinco">CORTE E VINCO</option>
-                </select>
+                <div className="table-cell proposalView">
+                  <select onChange={(e) => handleDropdownChange(product.id, e.target.value)} value={dropdowns[product.id] || ''}>
+                    <option value=""></option>
+                    <option value="normal">NORMAL</option>
+                    <option value="corte-vinco">CORTE E VINCO</option>
+                  </select>
+                </div>
 
 
                 <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
@@ -255,12 +264,25 @@ const ProposalView = () => {
                 <div className="table-cell proposalView">{custo.toFixed(3)}</div>
                 <div className="table-cell proposalView">{quantidade}</div>
                 <div className="table-cell proposalView">{product['material']}</div>
-                <input  className="table-cell proposalView" type="checkbox" id="impressao" name="option" value="selected"></input>
-                <select  className="table-cell proposalView" id="modelo" name="tipo">
-                  <option value=""></option>
-                  <option value="normal">NORMAL</option>
-                  <option value="corte-vinco">CORTE E VINCO</option>
-                </select>
+
+
+                <div className="table-cell proposalView">
+                  <input
+                    type="checkbox"
+                    checked={checkboxes[product.id] || false}
+                    onChange={(e) => handleCheckboxChange(product.id, e.target.checked)}
+                  />
+                </div>
+
+                <div className="table-cell proposalView">
+                  <select onChange={(e) => handleDropdownChange(product.id, e.target.value)}>
+                    <option value=""></option>
+                    <option value="normal">NORMAL</option>
+                    <option value="corte-vinco">CORTE E VINCO</option>
+                  </select>
+                </div>
+
+
                 <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
                 <div className="table-cell proposalView">
                   <button onClick={() => handleAddProposal(product, 'economico')}>ADD</button>
