@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/Inputs.css';
 import '../styles/Styles.css';
 import { db } from '../firebase';
-import { collection, addDoc, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, orderBy, limit, onSnapshot  } from 'firebase/firestore';
 import { useInputContext } from '../context/InputsContext';
 import GenerateDocButton from './generateDocButton';
 import { useProposalContext } from '../context/ProposalContext';
@@ -16,21 +16,19 @@ const ProposalInputs = () => {
 
 
   useEffect(() => {
-    const fetchLastProposalNumber = async () => {
-      try {
-        const q = query(collection(db, "orcamentos"), orderBy("numero", "desc"), limit(1));
-        const querySnapshot = await getDocs(q);
-        
-        if (!querySnapshot.empty) {
-          const lastProposal = querySnapshot.docs[0].data();
-          setProposalNumber(lastProposal.numero + 1); // Incrementa o último número encontrado
-        }
-      } catch (e) {
-        console.error("Erro ao buscar o último número da proposta: ", e);
+    const unsubscribe = onSnapshot(collection(db, "orcamentos"), (snapshot) => {
+      if (!snapshot.empty) {
+        const lastProposal = snapshot.docs.reduce((max, doc) => {
+          const data = doc.data();
+          return data.numero > max ? data.numero : max;
+        }, 0);
+        setProposalNumber(lastProposal + 1); // Incrementa o maior número encontrado
+      } else {
+        setProposalNumber(1); // Se não houver propostas, começa em 1
       }
-    };
+    });
 
-    fetchLastProposalNumber();
+    return () => unsubscribe(); // Limpa o listener quando o componente é desmontado
   }, []);
 
 
