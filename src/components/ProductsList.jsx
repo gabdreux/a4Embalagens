@@ -91,49 +91,49 @@ const ProductsList = () => {
 
     return (
       <div key={product.id} className="table-row">
-        <div className="table-cell">
+        <div className="table-cell productsView">
           <input 
             type="text"
             value={isEditing.material || product.material}
             onChange={(e) => handleEditChange(e, product.id, 'material')}
           />
         </div>
-        <div className="table-cell">
+        <div className="table-cell productsView">
           <input 
             type="text"
             value={isEditing.fornecedor || product.fornecedor}
             onChange={(e) => handleEditChange(e, product.id, 'fornecedor')}
           />
         </div>
-        <div className="table-cell">
+        <div className="table-cell productsView">
           <input 
             type="text"
             value={isEditing.coluna || product.coluna}
             onChange={(e) => handleEditChange(e, product.id, 'coluna')}
           />
         </div>
-        <div className="table-cell">
+        <div className="table-cell productsView">
           <input 
             type="text"
             value={isEditing.gramagem || product.gramagem}
             onChange={(e) => handleEditChange(e, product.id, 'gramagem')}
           />
         </div>
-        <div className="table-cell">
+        <div className="table-cell productsView">
           <input 
             type="text"
             value={isEditing.precoM2 || product.precoM2}
             onChange={(e) => handleEditChange(e, product.id, 'precoM2')}
           />
         </div>
-        <div className="table-cell">
+        <div className="table-cell productsView">
           <input 
             type="text"
             value={isEditing.infos || product.infos}
             onChange={(e) => handleEditChange(e, product.id, 'infos')}
           />
         </div>
-        <div className="table-cell">
+        <div className="table-cell productsView">
           <select 
             value={isEditing.onda || product.onda || ''} // Valor inicial pode ser vazio
             onChange={(e) => handleEditChange(e, product.id, 'onda')}
@@ -145,14 +145,14 @@ const ProductsList = () => {
           </select>
         </div>
 
-        <div className="table-cell">
+        <div className="table-cell productsView">
           <FontAwesomeIcon 
             icon={faSave} 
             onClick={() => handleSave(product.id, category)} 
             className="save-icon"
           />
         </div>
-        <div className="table-cell">
+        <div className="table-cell productsView">
           <FontAwesomeIcon 
             icon={faTrash} 
             onClick={() => handleDelete(product.id, category)} 
@@ -174,15 +174,15 @@ const ProductsList = () => {
         <div className="list-container">
           <div className="table-header">
             <div className="table-row">
-              <div className="table-cell"><span>MATERIAL</span></div>
-              <div className="table-cell"><span>FORNECEDOR</span></div>
-              <div className="table-cell"><span>COLUNA</span></div>
-              <div className="table-cell"><span>GRAMATURA</span></div>
-              <div className="table-cell"><span>VALOR M²</span></div>
-              <div className="table-cell"><span>INFOS</span></div>
-              <div className="table-cell"><span>ONDA</span></div>
-              <div className="table-cell"><span>SALVAR</span></div>
-              <div className="table-cell"><span>DELETAR</span></div>
+              <div className="table-cell productsView"><span>MATERIAL</span></div>
+              <div className="table-cell productsView"><span>FORNECEDOR</span></div>
+              <div className="table-cell productsView"><span>COLUNA</span></div>
+              <div className="table-cell productsView"><span>GRAMATURA</span></div>
+              <div className="table-cell productsView"><span>VALOR M²</span></div>
+              <div className="table-cell productsView"><span>INFOS</span></div>
+              <div className="table-cell productsView"><span>ONDA</span></div>
+              <div className="table-cell productsView"><span>SALVAR</span></div>
+              <div className="table-cell productsView"><span>DELETAR</span></div>
             </div>
           </div>
           <div className="table-body">
@@ -194,20 +194,24 @@ const ProductsList = () => {
         <div className="list-container">
           <div className="table-header">
             <div className="table-row">
-              <div className="table-cell"><span>MATERIAL</span></div>
-              <div className="table-cell"><span>FORNECEDOR</span></div>
-              <div className="table-cell"><span>COLUNA</span></div>
-              <div className="table-cell"><span>GRAMATURA</span></div>
-              <div className="table-cell"><span>VALOR M²</span></div>
-              <div className="table-cell"><span>INFOS</span></div>
-              <div className="table-cell"><span>ONDA</span></div>
-              <div className="table-cell"><span>SALVAR</span></div>
-              <div className="table-cell"><span>DELETAR</span></div>
+              <div className="table-cell productsView"><span>MATERIAL</span></div>
+              <div className="table-cell productsView"><span>FORNECEDOR</span></div>
+              <div className="table-cell productsView"><span>COLUNA</span></div>
+              <div className="table-cell productsView"><span>GRAMATURA</span></div>
+              <div className="table-cell productsView"><span>VALOR M²</span></div>
+              <div className="table-cell productsView"><span>INFOS</span></div>
+              <div className="table-cell productsView"><span>ONDA</span></div>
+              <div className="table-cell productsView"><span>SALVAR</span></div>
+              <div className="table-cell productsView"><span>DELETAR</span></div>
             </div>
           </div>
+
+
           <div className="table-body">
             {ecoData.map((product) => renderProductRow(product, 'economico'))}
           </div>
+
+          
         </div>
       </div>
     </div>

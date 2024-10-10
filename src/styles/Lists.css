@@ -40,11 +40,19 @@
 
 .table-cell input {
   border: none;
-  
+  text-align: center;
+
 }
 
 
+
 .table-cell.proposalView select {
+  width: 170px;
+  text-align: center;
+
+}
+
+.table-cell.productsView select {
   width: 170px;
   text-align: center;
 
@@ -97,6 +105,61 @@
 
 
 .table-cell:nth-child(9).proposalView {
+  min-width: 60px;
+  text-align: center; 
+}
+
+
+
+
+
+
+.table-cell:nth-child(1).productsView {
+  min-width: 120px;
+  text-align: center; 
+  
+}
+
+.table-cell:nth-child(2).productsView {
+  min-width: 180px;
+  text-align: center;
+  font-weight: 600; 
+}
+
+.table-cell:nth-child(3).productsView {
+  min-width: 140px;
+  text-align: center; 
+}
+
+.table-cell:nth-child(4).productsView {
+  min-width: 140px;
+  text-align: center; 
+}
+
+.table-cell:nth-child(5).productsView {
+  min-width: 110px;
+  text-align: center;
+  font-weight: 600; 
+}
+
+.table-cell:nth-child(6).productsView {
+  min-width: 230px;
+  text-align: center; 
+}
+
+.table-cell:nth-child(7).productsView {
+  min-width: 170px;
+  text-align: center; 
+}
+
+.table-cell:nth-child(8).productsView {
+  min-width: 60px;
+  text-align: center;
+  font-weight: 600;
+}
+
+
+.table-cell:nth-child(9).productsView {
   min-width: 60px;
   text-align: center; 
 }
