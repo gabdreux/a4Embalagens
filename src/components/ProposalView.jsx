@@ -11,8 +11,8 @@ const ProposalView = () => {
   
   const [minData, setMinData] = useState([]);
   const [ecoData, setEcoData] = useState([]);
-  const { inputValues } = useInputContext();
-  const { addProposal, resetProposals } = useProposalContext();
+  const { handleInputChange, inputValues, resetInputs } = useInputContext();
+  const { proposals, addProposal, resetProposals } = useProposalContext();
 
 
 
@@ -29,6 +29,7 @@ const ProposalView = () => {
 
 
   const [hasAccess, setHasAccess] = useState(false);
+
 
 
   useEffect(() => {
@@ -121,62 +122,96 @@ const ProposalView = () => {
   
 
 
-  useEffect(() => {
-    const handleSaveProposal = () => {
-      resetProposals();
-      let proposals = [];
+  // useEffect(() => {
+  //   const handleSaveProposal = () => {
+  //     resetProposals();
+  //     let proposals = [];
 
-      // Coletando dados para a tabela MÍNIMO
-      minData.forEach((product, index) => {
-        const custo = calculateCost(product['onda'], product['precoM2']);
-        const costWithoutTax = (custo * 0.93).toFixed(3);
-        const quantidade = Math.ceil(pedidoMinimo / custo);
-        const finalValue = calculateFinalValue(custo);
-        const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
+  //     // Coletando dados para a tabela MÍNIMO
+  //     minData.forEach((product, index) => {
+  //       const custo = calculateCost(product['onda'], product['precoM2']);
+  //       const costWithoutTax = (custo * 0.93).toFixed(3);
+  //       const quantidade = Math.ceil(pedidoMinimo / custo);
+  //       const finalValue = calculateFinalValue(custo);
+  //       const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
 
-        const proposal = {
-          index: index + 1, // Nº começando em 1
-          material: product['material'],
-          quantidade: quantidade,
-          precoUn: precoUn,
-          valor: finalValue,
-          modalidade: product['categoria'],
-        };
+  //       const proposal = {
+  //         index: index + 1, // Nº começando em 1
+  //         material: product['material'],
+  //         quantidade: quantidade,
+  //         precoUn: precoUn,
+  //         valor: finalValue,
+  //         modalidade: product['categoria'],
+  //         comprimento: comprimento,
+  //         largura: largura,
+  //         altura: altura,
+  //       };
 
-        proposals.push(proposal);
-      });
+  //       proposals.push(proposal);
+  //     });
 
-      // Coletando dados para a tabela ECONÔMICO
-      ecoData.forEach((product, index) => {
-        const custo = calculateCost(product['onda'], product['precoM2']);
-        const costWithoutTax = (custo * 0.93).toFixed(3);
-        const quantidade = Math.ceil(lote / calculateAreaLote(product['onda']));
-        const finalValue = calculateFinalValue(custo);
-        const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
+  //     // Coletando dados para a tabela ECONÔMICO
+  //     ecoData.forEach((product, index) => {
+  //       const custo = calculateCost(product['onda'], product['precoM2']);
+  //       const costWithoutTax = (custo * 0.93).toFixed(3);
+  //       const quantidade = Math.ceil(lote / calculateAreaLote(product['onda']));
+  //       const finalValue = calculateFinalValue(custo);
+  //       const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
 
-        const proposal = {
-          index: minData.length + index + 1,
-          material: product['material'],
-          quantidade: quantidade,
-          precoUn: precoUn,
-          valor: finalValue,
-          modalidade: product['categoria'],
-        };
+  //       const proposal = {
+  //         index: minData.length + index + 1,
+  //         material: product['material'],
+  //         quantidade: quantidade,
+  //         precoUn: precoUn,
+  //         valor: finalValue,
+  //         modalidade: product['categoria'],
+  //         comprimento: comprimento,
+  //         largura: largura,
+  //         altura: altura,
+  //       };
 
-        proposals.push(proposal);
-      });
+  //       proposals.push(proposal);
+  //     });
 
-      proposals.forEach(proposal => {
-        addProposal(proposal);
-      });
-    };
+  //     proposals.forEach(proposal => {
+  //       addProposal(proposal);
+  //     });
+
+  //     console.log(proposals);
+  //   };
 
 
-    handleSaveProposal();
-  }, [minData, ecoData, simples, margem, comprimento, altura, largura, pedidoMinimo]);
+  //   handleSaveProposal();
+  // }, [minData, ecoData, simples, margem, comprimento, altura, largura, pedidoMinimo]);
 
   
 
+
+  const handleAddProposal = (product, tipo) => {
+    const custo = calculateCost(product['onda'], product['precoM2']);
+    const finalValue = calculateFinalValue(custo);
+    const quantidade = tipo === 'minimo' ? Math.ceil(pedidoMinimo / custo) : Math.ceil(lote / calculateAreaLote(product['onda']));
+    const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
+
+    const proposal = {
+      material: product['material'],
+      quantidade: quantidade,
+      precoUn: precoUn,
+      valor: finalValue,
+      modalidade: product['categoria'],
+      comprimento: comprimento,
+      largura: largura,
+      altura: altura,
+    };
+
+    addProposal(proposal);
+    console.log('Proposta adicionada:', proposal);
+  };
+
+
+  useEffect(() => {
+    console.log('Lista completa de propostas:', proposals);
+}, [proposals]);
 
 
   return (
@@ -211,19 +246,30 @@ const ProposalView = () => {
                 <div className="table-cell proposalView">{custo.toFixed(3)}</div>
                 <div className="table-cell proposalView">{quantidade}</div>
                 <div className="table-cell proposalView">{product['material']}</div>
-                <input  className="table-cell proposalView" type="checkbox" id="checkbox" name="option" value="selected"></input>
-                <select  className="table-cell proposalView" id="dropdown" name="tipo">
+
+                <input  className="table-cell proposalView" type="checkbox" id="impressao" name="option" value="selected"></input>
+
+                <select  className="table-cell proposalView" id="modelo" name="tipo">
                   <option value=""></option>
                   <option value="normal">NORMAL</option>
                   <option value="corte-vinco">CORTE E VINCO</option>
                 </select>
+
+
                 <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
-                <input  className="table-cell proposalView" type="checkbox" id="checkbox" name="option" value="selected"></input>
+
+                <div className="table-cell proposalView">
+                  <button onClick={() => handleAddProposal(product, 'minimo')}>ADD</button>
+                </div>
+
+
               </div>
             );
           })}
         </div>
       </div>
+
+
 
       {/* Tabela ECONÔMICO */}
       <h2>ECONÔMICO</h2>
@@ -254,14 +300,14 @@ const ProposalView = () => {
                 <div className="table-cell proposalView">{custo.toFixed(3)}</div>
                 <div className="table-cell proposalView">{quantidade}</div>
                 <div className="table-cell proposalView">{product['material']}</div>
-                <input  className="table-cell proposalView" type="checkbox" id="checkbox" name="option" value="selected"></input>
-                <select  className="table-cell proposalView" id="dropdown" name="tipo">
+                <input  className="table-cell proposalView" type="checkbox" id="impressao" name="option" value="selected"></input>
+                <select  className="table-cell proposalView" id="modelo" name="tipo">
                   <option value=""></option>
                   <option value="normal">NORMAL</option>
                   <option value="corte-vinco">CORTE E VINCO</option>
                 </select>
                 <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
-                <input  className="table-cell proposalView" type="checkbox" id="checkbox" name="option" value="selected"></input>
+                <input  className="table-cell proposalView" type="checkbox" id="add" name="option" value="selected"></input>
               </div>
             );
           })}
@@ -270,5 +316,6 @@ const ProposalView = () => {
     </div>
   );
 };
+
 
 export default ProposalView;

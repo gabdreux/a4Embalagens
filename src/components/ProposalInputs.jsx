@@ -6,6 +6,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { useInputContext } from '../context/InputsContext';
 import GenerateDocButton from './generateDocButton';
 
+
 const ProposalInputs = () => {
   const { handleInputChange, inputValues, resetInputs } = useInputContext();
 
