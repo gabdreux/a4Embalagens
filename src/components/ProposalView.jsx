@@ -12,7 +12,7 @@ const ProposalView = () => {
   const [minData, setMinData] = useState([]);
   const [ecoData, setEcoData] = useState([]);
   const { handleInputChange, inputValues, resetInputs } = useInputContext();
-  const { proposals, addProposal, resetProposals } = useProposalContext();
+  const { proposals, addProposal, resetProposals, removeProposal } = useProposalContext();
 
 
 
@@ -34,6 +34,9 @@ const ProposalView = () => {
   const [checkboxes, setCheckboxes] = useState({}); // Estado para checkboxes
   const [dropdowns, setDropdowns] = useState({});
 
+  const [addCheckboxes, setAddCheckboxes] = useState({});
+
+
 
   useEffect(() => {
     const storedKey = localStorage.getItem('role');
@@ -44,6 +47,7 @@ const ProposalView = () => {
   useEffect(() => {
     setCheckboxes({});
     setDropdowns({});
+    setAddCheckboxes({});
   }, [inputValues]);
 
 
@@ -140,6 +144,27 @@ const ProposalView = () => {
   };
 
 
+  const handleAddCheckboxChange = (productId, isChecked, type, product, id) => {
+    setAddCheckboxes(prev => ({ ...prev, [productId]: isChecked }));
+    if (isChecked) {
+      console.log("PRODUCT:", product);
+      handleAddProposal(product, type); // Adiciona a proposta quando marcado
+    } else {
+      console.log("ID:", id);
+      removeProposal(id); // Remove a proposta quando desmarcado
+    }
+  };
+
+
+
+  const handleRemoveProposal = (id) => {
+    removeProposal(id);
+    console.log('Proposta removida:', id);
+  };
+
+  
+
+
   const handleAddProposal = (product, tipo) => {
     const custo = calculateCost(product['onda'], product['precoM2']);
     const finalValue = calculateFinalValue(custo);
@@ -157,6 +182,7 @@ const ProposalView = () => {
         altura: altura,
         impressao: checkboxes[product.id] || false,
         modelo: dropdowns[product.id] || '',
+        id: product['material'] + comprimento + "X" + largura + "X" + altura,
     };
 
     addProposal(proposal);
@@ -221,9 +247,14 @@ const ProposalView = () => {
 
 
                 <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
+                
 
                 <div className="table-cell proposalView">
-                  <button onClick={() => handleAddProposal(product, 'minimo')}>ADD</button>
+                  <input
+                    type="checkbox"
+                    checked={addCheckboxes[product.id] || false}
+                    onChange={(e) => handleAddCheckboxChange(product.id, e.target.checked, 'minimo', product, (product.material + comprimento + "X" + largura + "X" + altura))} // Passando 'minimo'
+                  />
                 </div>
 
 
@@ -232,6 +263,14 @@ const ProposalView = () => {
           })}
         </div>
       </div>
+
+
+
+
+
+
+
+
 
 
 
@@ -284,9 +323,13 @@ const ProposalView = () => {
 
 
                 <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
+
+
                 <div className="table-cell proposalView">
                   <button onClick={() => handleAddProposal(product, 'economico')}>ADD</button>
                 </div>
+
+                
               </div>
             );
           })}
