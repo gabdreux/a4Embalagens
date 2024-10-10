@@ -31,6 +31,9 @@ const ProposalView = () => {
   const [hasAccess, setHasAccess] = useState(false);
 
 
+  const [checkboxes, setCheckboxes] = useState({}); // Estado para checkboxes
+  const [dropdowns, setDropdowns] = useState({});
+
 
   useEffect(() => {
     const storedKey = localStorage.getItem('role');
@@ -119,94 +122,40 @@ const ProposalView = () => {
   }, []);
 
 
-  
+ 
 
+  const handleCheckboxChange = (productId, isChecked) => {
+    setCheckboxes(prev => ({ ...prev, [productId]: isChecked }));
+  };
 
-  // useEffect(() => {
-  //   const handleSaveProposal = () => {
-  //     resetProposals();
-  //     let proposals = [];
-
-  //     // Coletando dados para a tabela MÍNIMO
-  //     minData.forEach((product, index) => {
-  //       const custo = calculateCost(product['onda'], product['precoM2']);
-  //       const costWithoutTax = (custo * 0.93).toFixed(3);
-  //       const quantidade = Math.ceil(pedidoMinimo / custo);
-  //       const finalValue = calculateFinalValue(custo);
-  //       const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
-
-  //       const proposal = {
-  //         index: index + 1, // Nº começando em 1
-  //         material: product['material'],
-  //         quantidade: quantidade,
-  //         precoUn: precoUn,
-  //         valor: finalValue,
-  //         modalidade: product['categoria'],
-  //         comprimento: comprimento,
-  //         largura: largura,
-  //         altura: altura,
-  //       };
-
-  //       proposals.push(proposal);
-  //     });
-
-  //     // Coletando dados para a tabela ECONÔMICO
-  //     ecoData.forEach((product, index) => {
-  //       const custo = calculateCost(product['onda'], product['precoM2']);
-  //       const costWithoutTax = (custo * 0.93).toFixed(3);
-  //       const quantidade = Math.ceil(lote / calculateAreaLote(product['onda']));
-  //       const finalValue = calculateFinalValue(custo);
-  //       const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
-
-  //       const proposal = {
-  //         index: minData.length + index + 1,
-  //         material: product['material'],
-  //         quantidade: quantidade,
-  //         precoUn: precoUn,
-  //         valor: finalValue,
-  //         modalidade: product['categoria'],
-  //         comprimento: comprimento,
-  //         largura: largura,
-  //         altura: altura,
-  //       };
-
-  //       proposals.push(proposal);
-  //     });
-
-  //     proposals.forEach(proposal => {
-  //       addProposal(proposal);
-  //     });
-
-  //     console.log(proposals);
-  //   };
-
-
-  //   handleSaveProposal();
-  // }, [minData, ecoData, simples, margem, comprimento, altura, largura, pedidoMinimo]);
-
-  
+  const handleDropdownChange = (productId, value) => {
+    setDropdowns(prev => ({ ...prev, [productId]: value }));
+  };
 
 
   const handleAddProposal = (product, tipo) => {
     const custo = calculateCost(product['onda'], product['precoM2']);
     const finalValue = calculateFinalValue(custo);
     const quantidade = tipo === 'minimo' ? Math.ceil(pedidoMinimo / custo) : Math.ceil(lote / calculateAreaLote(product['onda']));
-    const precoUn = (finalValue > 0 ? (quantidade / finalValue) : 0).toFixed(3);
+    const precoUn = (finalValue / quantidade).toFixed(5);
 
     const proposal = {
-      material: product['material'],
-      quantidade: quantidade,
-      precoUn: precoUn,
-      valor: finalValue,
-      modalidade: product['categoria'],
-      comprimento: comprimento,
-      largura: largura,
-      altura: altura,
+        material: product['material'],
+        quantidade: quantidade,
+        precoUn: precoUn,
+        valor: finalValue,
+        modalidade: product['categoria'],
+        comprimento: comprimento,
+        largura: largura,
+        altura: altura,
+        impressao: checkboxes[product.id] || false,
+        modelo: dropdowns[product.id] || '',
     };
 
     addProposal(proposal);
     console.log('Proposta adicionada:', proposal);
-  };
+};
+
 
 
   useEffect(() => {
@@ -247,9 +196,15 @@ const ProposalView = () => {
                 <div className="table-cell proposalView">{quantidade}</div>
                 <div className="table-cell proposalView">{product['material']}</div>
 
-                <input  className="table-cell proposalView" type="checkbox" id="impressao" name="option" value="selected"></input>
+                <div className="table-cell proposalView">
+                  <input
+                    type="checkbox"
+                    checked={checkboxes[product.id] || false}
+                    onChange={(e) => handleCheckboxChange(product.id, e.target.checked)}
+                  />
+                </div>
 
-                <select  className="table-cell proposalView" id="modelo" name="tipo">
+                <select onChange={(e) => handleDropdownChange(product.id, e.target.value)}>
                   <option value=""></option>
                   <option value="normal">NORMAL</option>
                   <option value="corte-vinco">CORTE E VINCO</option>
@@ -307,7 +262,9 @@ const ProposalView = () => {
                   <option value="corte-vinco">CORTE E VINCO</option>
                 </select>
                 <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
-                <input  className="table-cell proposalView" type="checkbox" id="add" name="option" value="selected"></input>
+                <div className="table-cell proposalView">
+                  <button onClick={() => handleAddProposal(product, 'economico')}>ADD</button>
+                </div>
               </div>
             );
           })}
