@@ -38,6 +38,11 @@
   box-sizing: border-box;
 }
 
+.table-cell input {
+  border: none;
+  
+}
+
 
 .table-cell.proposalView select {
   width: 170px;

@@ -6,6 +6,7 @@ import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useInputContext } from '../context/InputsContext';
+import { useProposalContext } from '../context/ProposalContext';
 
 
 const HeaderItens = () => {
@@ -13,6 +14,8 @@ const HeaderItens = () => {
   const navigate = useNavigate();
   const { resetInputs } = useInputContext();
   const [hasAccess, setHasAccess] = useState(false);
+
+  const { resetProposals } = useProposalContext();
 
   useEffect(() => {
     const storedKey = localStorage.getItem('role');
@@ -34,6 +37,7 @@ const HeaderItens = () => {
 
   const handleCreateBudget = () => {
     resetInputs();
+    resetProposals();
     changeView('CRIAR ORÇAMENTO');
   };
 

@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.4a10d788.css",
-    "main.js": "/static/js/main.ff4c3004.js",
+    "main.css": "/static/css/main.4eeec232.css",
+    "main.js": "/static/js/main.a4eebd09.js",
     "static/js/213.de1b7b22.chunk.js": "/static/js/213.de1b7b22.chunk.js",
     "static/js/732.78c950e0.chunk.js": "/static/js/732.78c950e0.chunk.js",
     "static/media/LOGO A4 Embalagens .png": "/static/media/LOGO A4 Embalagens .1b507c46deff85d24e0f.png",
     "static/media/LOGO A4 Embalagens -Cortada.png": "/static/media/LOGO A4 Embalagens -Cortada.86eb1d6885088a7b5591.png",
     "index.html": "/index.html",
-    "main.4a10d788.css.map": "/static/css/main.4a10d788.css.map",
-    "main.ff4c3004.js.map": "/static/js/main.ff4c3004.js.map",
+    "main.4eeec232.css.map": "/static/css/main.4eeec232.css.map",
+    "main.a4eebd09.js.map": "/static/js/main.a4eebd09.js.map",
     "213.de1b7b22.chunk.js.map": "/static/js/213.de1b7b22.chunk.js.map",
     "732.78c950e0.chunk.js.map": "/static/js/732.78c950e0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a10d788.css",
-    "static/js/main.ff4c3004.js"
+    "static/css/main.4eeec232.css",
+    "static/js/main.a4eebd09.js"
   ]
 }
