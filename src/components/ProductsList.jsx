@@ -134,6 +134,18 @@ const ProductsList = () => {
           />
         </div>
         <div className="table-cell">
+          <select 
+            value={isEditing.onda || product.onda || ''} // Valor inicial pode ser vazio
+            onChange={(e) => handleEditChange(e, product.id, 'onda')}
+          >
+            <option value="">Selecione</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="BC">BC</option>
+          </select>
+        </div>
+
+        <div className="table-cell">
           <FontAwesomeIcon 
             icon={faSave} 
             onClick={() => handleSave(product.id, category)} 
@@ -168,6 +180,7 @@ const ProductsList = () => {
               <div className="table-cell"><span>GRAMATURA</span></div>
               <div className="table-cell"><span>VALOR M²</span></div>
               <div className="table-cell"><span>INFOS</span></div>
+              <div className="table-cell"><span>ONDA</span></div>
               <div className="table-cell"><span>SALVAR</span></div>
               <div className="table-cell"><span>DELETAR</span></div>
             </div>
@@ -187,6 +200,7 @@ const ProductsList = () => {
               <div className="table-cell"><span>GRAMATURA</span></div>
               <div className="table-cell"><span>VALOR M²</span></div>
               <div className="table-cell"><span>INFOS</span></div>
+              <div className="table-cell"><span>ONDA</span></div>
               <div className="table-cell"><span>SALVAR</span></div>
               <div className="table-cell"><span>DELETAR</span></div>
             </div>
