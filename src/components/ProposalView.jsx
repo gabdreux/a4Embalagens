@@ -182,9 +182,9 @@ const ProposalView = () => {
       <div className="list-container">
         <div className="table-header">
           <div className="table-row">
-            <div className="table-cell proposalView"><span>CUSTO S/ NF</span></div>
-            <div className="table-cell proposalView"><span>FORNECEDOR</span></div>
-            <div className="table-cell proposalView"><span>CUSTO</span></div>
+            <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}><span>CUSTO S/ NF</span></div>
+            <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}><span>FORNECEDOR</span></div>
+            <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}><span>CUSTO</span></div>
             <div className="table-cell proposalView"><span>QUANTIDADE</span></div>
             <div className="table-cell proposalView"><span>MATERIAL</span></div>
             <div className="table-cell proposalView"><span>IMPRESSÃO</span></div>
@@ -203,8 +203,8 @@ const ProposalView = () => {
             return (
               <div key={product.id} className="table-row">
                 <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{costWithoutTax}</div>
-                <div className="table-cell proposalView">{product['fornecedor']}</div>
-                <div className="table-cell proposalView">{custo.toFixed(3)}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{product['fornecedor']}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{custo.toFixed(3)}</div>
                 <div className="table-cell proposalView">{quantidade}</div>
                 <div className="table-cell proposalView">{product['material']}</div>
 
@@ -245,9 +245,9 @@ const ProposalView = () => {
       <div className="list-container">
         <div className="table-header">
           <div className="table-row">
-            <div className="table-cell proposalView"><span>CUSTO S/ NF</span></div>
-            <div className="table-cell proposalView"><span>FORNECEDOR</span></div>
-            <div className="table-cell proposalView"><span>CUSTO</span></div>
+            <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}><span>CUSTO S/ NF</span></div>
+            <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}><span>FORNECEDOR</span></div>
+            <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}><span>CUSTO</span></div>
             <div className="table-cell proposalView"><span>QUANTIDADE</span></div>
             <div className="table-cell proposalView"><span>MATERIAL</span></div>
             <div className="table-cell proposalView"><span>IMPRESSÃO</span></div>
@@ -264,9 +264,9 @@ const ProposalView = () => {
 
             return (
               <div key={product.id} className="table-row">
-                <div className="table-cell proposalView">{costWithoutTax}</div>
-                <div className="table-cell proposalView">{product['fornecedor']}</div>
-                <div className="table-cell proposalView">{custo.toFixed(3)}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{costWithoutTax}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{product['fornecedor']}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{custo.toFixed(3)}</div>
                 <div className="table-cell proposalView">{quantidade}</div>
                 <div className="table-cell proposalView">{product['material']}</div>
 

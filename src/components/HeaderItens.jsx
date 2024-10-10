@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPlus, FaList, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import { useView } from '../context/ViewContext';
 import '../styles/Header.css';
@@ -12,6 +12,12 @@ const HeaderItens = () => {
   const { changeView } = useView();
   const navigate = useNavigate();
   const { resetInputs } = useInputContext();
+  const [hasAccess, setHasAccess] = useState(false);
+
+  useEffect(() => {
+    const storedKey = localStorage.getItem('role');
+    setHasAccess(!!storedKey);
+  }, []);
 
 
   const handleLogout = async () => {
@@ -50,10 +56,12 @@ const HeaderItens = () => {
           <FaList className="icon" />
           <h5 className="budget-title">PRODUTOS</h5>
         </li>
-        <li className="budget-item" onClick={() => changeView('OPÇÕES')}>
-          <FaCog className="icon" />
-          <h5 className="budget-title">OPÇÕES</h5>
-        </li>
+        {hasAccess && (
+          <li className="budget-item" onClick={() => changeView('OPÇÕES')}>
+            <FaCog className="icon" />
+            <h5 className="budget-title">OPÇÕES</h5>
+          </li>
+        )}
         <li className="budget-item logout" onClick={handleLogout}>
           <FaSignOutAlt className="icon" />
           <h5 className="budget-title">Sair</h5>
