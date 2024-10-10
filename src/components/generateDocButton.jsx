@@ -43,12 +43,15 @@ const GenerateDocButton = ({ buttonText }) => {
   
     const rows = proposals.map((proposal) => `
       <tr>
-        <td style="border: 1px solid black; padding: 5px;">${proposal.index}</td>
-        <td style="border: 1px solid black; padding: 5px;">${proposal.material}</td>
-        <td style="border: 1px solid black; padding: 5px;">${formatModalidade(proposal.modalidade)}</td>
-        <td style="border: 1px solid black; padding: 5px;">${proposal.quantidade}</td>
-        <td style="border: 1px solid black; padding: 5px;">${proposal.precoUn}</td>
-        <td style="border: 1px solid black; padding: 5px;">${proposal.valor}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.index}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.medida}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${formatModalidade(proposal.modalidade)}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.quantidade}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.precoUn}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.modelo}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.material}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.impressao}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.valor}</td>
       </tr>
   `).join('');
   
@@ -74,13 +77,6 @@ const GenerateDocButton = ({ buttonText }) => {
 
         <div style="display: flex; justify-content: space-between; align-items: start;">  
             <div>      
-                <h4 style="margin: 0;">Dimensões</h4>
-                <p style="font-size: 14px; margin: 2px 0;">Comprimento: ${comprimento} cm</p>
-                <p style="font-size: 14px; margin: 2px 0;">Altura: ${altura} cm</p>
-                <p style="font-size: 14px; margin: 2px 0;">Largura: ${largura} cm</p>
-            </div>
-            
-            <div>      
                 <h4 style="margin: 0;">Cliente</h4>
                 <p style="margin: 2px 0;">${nomeCliente}</p>
             </div>
@@ -91,22 +87,25 @@ const GenerateDocButton = ({ buttonText }) => {
         </div>  
 
 
-          <table style="width: 100%; border-collapse: collapse; border: 1px solid black;">
-            <thead style="font-size: 14px; padding-bottom: 20px; margin-bottom: 20px !important;">
-              <tr>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">Nº</th>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">MATERIAL</th>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">MODALIDADE</th>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">QUANTIDADE</th>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">PREÇO UN</th>
-                <th style="padding: 20px; text-align: center; border: 1px solid black;">VALOR</th>
-              </tr>
-            </thead>
-            <tbody style="text-align: center;">
-              ${rows}
-            </tbody>
-          </table>
-          
+        <table style="width: 100%; max-width: 100%; border-collapse: collapse; border: 1px solid black; table-layout: fixed;">
+          <thead style="font-size: 10px;">
+            <tr>
+              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 4%;">Nº</th>
+              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 15%;">MEDIDA</th>
+              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 15%;">MODALIDADE</th>
+              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 8%;">QTD.</th>
+              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 10%;">PREÇO UN</th>
+              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 10%;">MODELO</th>
+              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 15%;">MATERIAL</th>
+              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 13%;">IMPRESSÃO</th>
+              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 10%;">VALOR</th>
+            </tr>
+          </thead>
+          <tbody style="text-align: center;">
+            ${rows}
+          </tbody>
+        </table>
+            
       </div>
 
 
@@ -120,7 +119,7 @@ const GenerateDocButton = ({ buttonText }) => {
       </div>
 
     
-    <div style="margin-top: 100px;">
+    <div style="margin-top: 10px;">
       <h4 style="margin-bottom: 10px">Outros Itens:</h4>
       <div style="height: 150px; border: solid; border-width: 1px;">
       <p style="font-weight: 400; white-space: pre-wrap;">${outrosItens}</p>

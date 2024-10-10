@@ -17,10 +17,13 @@ export const ProposalProvider = ({ children }) => {
     // console.log('Proposals reset.');
   };
 
-  const removeProposal = (id) => {
-    setProposals((prevProposals) => prevProposals.filter((proposal) => proposal.id !== id));
-    // console.log('Proposal removed:', id);
+
+  const removeProposal = (index) => {
+    setProposals((prevProposals) => prevProposals.filter((_, i) => i !== index));
   };
+
+
+
 
   return (
     <ProposalContext.Provider value={{ proposals, addProposal, resetProposals, removeProposal }}>
