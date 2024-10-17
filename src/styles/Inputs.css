@@ -1,8 +1,6 @@
 .input-wrapper {
   padding: 20px;
   margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
   min-width: 680px;
 }
 
@@ -83,6 +81,16 @@ select {
   margin-bottom: 40px;
 }
 
+.pagamento {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.colunaTres {
+  min-width: 220px;
+
+}
 
 @media (max-width: 768px) {
 

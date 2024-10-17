@@ -210,6 +210,42 @@ const ProposalInputs = () => {
 
           </div>
 
+
+          <div className="input-wrapper wrap pagamento">
+            
+                     <div className="groupBox">
+                        <h3 className="sectionTitle">Forma de Pagamento</h3>
+                        <select>
+                          <option value=""></option>
+                          <option value="normal">BOLETO</option>
+                          <option value="corte-vinco">CARTÃO DE CRÉDITO</option>
+                        </select>
+                    </div>
+
+                    <div className="groupBox">
+                        <h3 className="sectionTitle">Parcelas</h3>
+                        <select>
+                          <option value=""></option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                      </select>
+                    </div>
+
+                    <div className='colunaTres'></div>
+
+          </div>
+
+
           {/* <div className="center">
             <div id="outrosItens" className="groupBox">
               <h3 className="sectionTitle">Condições Comerciais</h3>

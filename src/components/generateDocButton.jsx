@@ -184,6 +184,10 @@ const GenerateDocButton = ({ buttonText }) => {
                   </li>
                 </ol>
         </div>
+
+        <div style="display: flex; flex-direction: column; gap: 5px">
+            <p style="font-size: 10px; font-weight: 600;">Atenciosamente, Fagner Franco - A4 Embalagens </br> Departamento de vendas.</p>
+        </div>
         
         
 
