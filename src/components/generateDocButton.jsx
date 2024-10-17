@@ -16,6 +16,10 @@ const GenerateDocButton = ({ buttonText }) => {
   const nomeCliente = inputValues.nomeCliente || "Nome do Cliente";
   const outrosItens = inputValues.outrosItens || "";
   const modalidade = inputValues.modalidade || "";
+  const cnpj = inputValues.cnpj || "CNPJ não fornecido";
+  const contato = inputValues.contato || "Contato não fornecido";
+  const endereco = inputValues.endereco || "Endereço não fornecido";
+  // const condicoesComerciais = inputValues.condicoesComerciais || "";
 
   const currentDate = new Date().toLocaleString('pt-BR', {
     day: '2-digit',
@@ -33,6 +37,10 @@ const GenerateDocButton = ({ buttonText }) => {
         return modalidade; // Retorna o valor original se não houver formatação
     }
   };
+
+  const formatImpressao = (impressao) => {
+    return impressao === true ? 'Sim' : 'Não';
+  };
   
 
   const generateTableHTML = () => {
@@ -40,6 +48,7 @@ const GenerateDocButton = ({ buttonText }) => {
     const totalItens = proposals.length;
     const quantidadeTotal = proposals.reduce((total, proposal) => total + proposal.quantidade, 0);
     const valorTotal =  proposals.reduce((acc, proposal) => acc + parseFloat(proposal.valor || 0), 0).toFixed(2);
+    
   
     const rows = proposals.map((proposal) => `
       <tr>
@@ -50,7 +59,7 @@ const GenerateDocButton = ({ buttonText }) => {
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.precoUn}</td>
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.modelo}</td>
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.material}</td>
-        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.impressao}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${formatImpressao(proposal.impressao)}</td>
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.valor}</td>
       </tr>
   `).join('');
@@ -59,26 +68,29 @@ const GenerateDocButton = ({ buttonText }) => {
     return `
 
       <div style=" display: flex; justify-content: space-between; align-items: start">
-        <img src="${logo}" alt="Logo" style="width: 160px; height: auto"/>
+        <img src="${logo}" alt="Logo" style="width: 130px; height: auto"/>
         <div style="text-align: right;">
-          <p style="margin: 0; font-size:12px">A4 EMBALAGENS E E-COMMERCE LTDA</p>
-          <p style="margin: 0; font-size:12px">55.131.707/0001-29</p>
-          <p style="margin: 0; font-size:12px">RUA TUCUMÃ, 538</p>
-          <p style="margin: 0; font-size:12px">EUCALIPTOS, Fazenda Rio Grande - PR</p>
-          <p style="margin: 0; font-size:12px">83.820-200</p>
-          <p style="margin: 0; font-size:12px">91072097-08</p>
+          <p style="margin: 0; font-size:10px">A4 EMBALAGENS E E-COMMERCE LTDA</p>
+          <p style="margin: 0; font-size:10px">55.131.707/0001-29</p>
+          <p style="margin: 0; font-size:10px">RUA TUCUMÃ, 538</p>
+          <p style="margin: 0; font-size:10px">EUCALIPTOS, Fazenda Rio Grande - PR</p>
+          <p style="margin: 0; font-size:10px">83.820-200</p>
+          <p style="margin: 0; font-size:10px">91072097-08</p>
         </div>
       </div>
 
 
 
-      <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
 
 
         <div style="display: flex; justify-content: space-between; align-items: start;">  
             <div>      
-                <h4 style="margin: 0;">Cliente</h4>
-                <p style="margin: 2px 0;">${nomeCliente}</p>
+                <h5 style="margin: 0;">Cliente</h5>
+                <p style="margin: 2px 0; font-size: 14px">${nomeCliente}</p>
+                <p style="margin: 2px 0; font-size: 12px">CNPJ: ${cnpj}</p>
+                <p style="margin: 2px 0; font-size: 12px">Contato: ${contato}</p>
+                <p style="margin: 2px 0; font-size: 12px">Endereço: ${endereco}</p>
             </div>
 
             <div>      
@@ -90,15 +102,15 @@ const GenerateDocButton = ({ buttonText }) => {
         <table style="width: 100%; max-width: 100%; border-collapse: collapse; border: 1px solid black; table-layout: fixed;">
           <thead style="font-size: 10px;">
             <tr>
-              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 4%;">Nº</th>
-              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 15%;">MEDIDA</th>
-              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 15%;">MODALIDADE</th>
-              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 8%;">QTD.</th>
-              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 10%;">PREÇO UN</th>
-              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 10%;">MODELO</th>
-              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 15%;">MATERIAL</th>
-              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 13%;">IMPRESSÃO</th>
-              <th style="padding: 20px; text-align: center; border: 1px solid black; width: 10%;">VALOR</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid black; width: 4%;">Nº</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid black; width: 15%;">MEDIDA</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid black; width: 15%;">MODALIDADE</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid black; width: 8%;">QTD.</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid black; width: 10%;">PREÇO UN</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid black; width: 10%;">MODELO</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid black; width: 15%;">MATERIAL</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid black; width: 10%;">IMPRESSÃO</th>
+              <th style="padding: 8px; text-align: center; border: 1px solid black; width: 10%;">VALOR</th>
             </tr>
           </thead>
           <tbody style="text-align: center;">
@@ -110,23 +122,29 @@ const GenerateDocButton = ({ buttonText }) => {
 
 
       
-      <div style="display: flex; justify-content: space-between; align-items: start;">
+      <div style="display: flex; justify-content: space-between; align-items: start; margin-top: 0px; margin-bottom: 0px;">
         <div>
-          <h4>Total de itens: <span style="font-weight: 400;">${totalItens}</span></h4>
-          <h4>Quantidade total: <span style="font-weight: 400;">${quantidadeTotal}</span></h4>
+          <h5 style="margin-top: 8px; margin-bottom: 0">Total de itens: <span style="font-weight: 400;">${totalItens}</span></h5>
+          <h5 style="margin-top: 0;">Quantidade total: <span style="font-weight: 400;">${quantidadeTotal}</span></h5>
         </div>
-        <h4>Valor total: <span style="font-weight: 400;">R$ ${valorTotal}</span></h4>
+        <h5 style="margin-top: 5px; margin-bottom: 0;">Valor total: <span style="font-weight: 400;">R$ ${valorTotal}</span></h5>
       </div>
 
-    
-    <div style="margin-top: 10px;">
-      <h4 style="margin-bottom: 10px">Outros Itens:</h4>
-      <div style="height: 150px; border: solid; border-width: 1px;">
-      <p style="font-weight: 400; white-space: pre-wrap;">${outrosItens}</p>
-    </div>
+
+      <h5 style="margin-top: 0; margin-bottom: 8px;">Condições Comerciais:</h5>
+      <div style="border: solid; border-width: 1px; padding: 0">
+        
+      </div>
+      
+
+      
+      <h5 style="margin-top: 8px; margin-bottom: 8px;">Outros Itens:</h5>
+      <div style="height: 100px; border: solid; border-width: 1px;">
+        <p style="font-weight: 400; white-space: pre-wrap; font-size: 14px; padding: 8px;">${outrosItens}</p>
+      </div>
 
 
-      <div style="font-size: 12px;">
+      <div style="font-size: 10px;">
                 <h3>Observações</h3>
                 <p>Validade deste orçamento: 15 dias</p>
                 <ol style={{ paddingLeft: '20px' }}>

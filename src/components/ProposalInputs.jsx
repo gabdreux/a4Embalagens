@@ -22,19 +22,60 @@ const ProposalInputs = () => {
           const data = doc.data();
           return data.numero > max ? data.numero : max;
         }, 0);
-        setProposalNumber(lastProposal + 1); // Incrementa o maior número encontrado
+        setProposalNumber(lastProposal + 1);
       } else {
-        setProposalNumber(1); // Se não houver propostas, começa em 1
+        setProposalNumber(1);
       }
     });
 
-    return () => unsubscribe(); // Limpa o listener quando o componente é desmontado
+    return () => unsubscribe();
   }, []);
 
 
   const logInputChange = (name, value) => {
     handleInputChange(name, value);
   };
+
+
+
+    const formatPhoneNumber = (value) => {
+      const cleaned = value.replace(/\D/g, '');
+      const match = cleaned.match(/^(\d{2})(\d{1})(\d{4})(\d{4})$/);
+  
+      if (match) {
+        return `(${match[1]}) ${match[2]} ${match[3]}-${match[4]}`;
+      } else if (cleaned.length <= 10) {
+        return cleaned.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+      } else {
+        return cleaned.replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})$/, '($1) $2 $3-$4');
+      }
+    };
+  
+
+    const handleContactChange = (e) => {
+      const formattedValue = formatPhoneNumber(e.target.value);
+      logInputChange('contato', formattedValue);
+    };
+
+
+
+    const formatCNPJ = (value) => {
+      const cleaned = value.replace(/\D/g, '');
+      const match = cleaned.match(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/);
+      
+      if (match) {
+        return `${match[1]}.${match[2]}.${match[3]}/${match[4]}-${match[5]}`;
+      } else {
+        return cleaned;
+      }
+    };
+    
+    
+    
+    const handleCNPJChange = (e) => {
+      const formattedCNPJ = formatCNPJ(e.target.value);
+      logInputChange('cnpj', formattedCNPJ);
+    };
 
 
   const handleSave = async () => {
@@ -88,8 +129,9 @@ const ProposalInputs = () => {
                       <h3 className="sectionTitle">CNPJ</h3>
                       <input
                         type="text"
-                        onChange={(e) => logInputChange('cnpj', e.target.value)}
+                        onChange={handleCNPJChange}
                         value={inputValues.cnpj || ''}
+                        maxLength={18}
                       />
                     </div>
               
@@ -106,8 +148,9 @@ const ProposalInputs = () => {
                       <h3 className="sectionTitle">Contato</h3>
                       <input
                         type="text"
-                        onChange={(e) => logInputChange('contato', e.target.value)}
-                        value={inputValues.contato || ''} 
+                        onChange={handleContactChange}
+                        value={inputValues.contato || ''}
+                        maxLength={15} 
                       />
                     </div>
 
@@ -166,6 +209,18 @@ const ProposalInputs = () => {
 
 
           </div>
+
+          {/* <div className="center">
+            <div id="outrosItens" className="groupBox">
+              <h3 className="sectionTitle">Condições Comerciais</h3>
+              <textarea
+                onChange={(e) => logInputChange('condicoesComerciais', e.target.value)}
+                value={inputValues.condicoesComerciais || 'Boleto | 30 Dias | R$ 00,00 | 00/00/0000\n\nBoleto | 30 Dias | R$ 00,00 | 00/00/0000\n\nBoleto | 30 Dias | R$ 00,00 | 00/00/0000\n\n'}
+                rows={6}
+                style={{ width: '100%', resize: 'vertical' }}
+              />
+            </div>
+          </div> */}
 
 
           <div className="center">
