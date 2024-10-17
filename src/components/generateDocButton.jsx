@@ -239,9 +239,11 @@ const GenerateDocButton = ({ buttonText }) => {
   const handleGeneratePDF = () => {
     const content = generateTableHTML();
 
+    const fileName = `${nomeCliente}_${currentDate}.pdf`;
+
     const options = {
       margin: 0.2,
-      filename: 'pagina.pdf',
+      filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 1 },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
@@ -252,12 +254,13 @@ const GenerateDocButton = ({ buttonText }) => {
 
   const handleClick = async () => {
     const pdfBlob = await handleGeneratePDF();
+    const fileName = `${nomeCliente}_${currentDate}.pdf`;
 
     if (buttonText === "Visualizar") {
       const pdfUrl = URL.createObjectURL(pdfBlob);
       window.open(pdfUrl);
     } else {
-      saveAs(pdfBlob, 'pagina.pdf');
+      saveAs(pdfBlob, fileName);
     }
   };
 
