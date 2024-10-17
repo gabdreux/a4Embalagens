@@ -64,6 +64,10 @@ const ProposalView = () => {
 
 
   const calculateCost = (onda, precoM2) => {
+    if (comprimento === 0 || altura === 0 || largura === 0) {
+      return 0;
+    }
+
     let area = 0;
     if (onda === "B") {
       area = (((comprimento * 2) + (largura * 2) + 40) * (altura + largura + 10)) / 1000000;
@@ -77,6 +81,9 @@ const ProposalView = () => {
   };
 
   const calculateAreaLote = (onda) => {
+    if (comprimento === 0 || altura === 0 || largura === 0) {
+      return 0;
+    }
     let area = 0;
     if (onda === "B") {
       area = (((comprimento * 2) + (largura * 2) + 40) * (altura + largura + 10)) / 1000000;
@@ -196,7 +203,7 @@ const ProposalView = () => {
         <div className="table-body">
           {minData.map((product) => {
             const custo = calculateCost(product['onda'], product['precoM2']);
-            const costWithoutTax = (custo * 0.93).toFixed(3);
+            const costWithoutTax = comprimento === 0 || altura === 0 || largura === 0 ? 0 : (custo * 0.93).toFixed(3);
             const quantidade = Math.ceil(pedidoMinimo / custo);
 
 
@@ -259,7 +266,7 @@ const ProposalView = () => {
         <div className="table-body">
           {ecoData.map((product) => {
             const custo = calculateCost(product['onda'], product['precoM2']);
-            const costWithoutTax = (custo * 0.93).toFixed(3);
+            const costWithoutTax = comprimento === 0 || altura === 0 || largura === 0 ? 0 : (custo * 0.93).toFixed(3);
             const quantidade = Math.ceil(lote / calculateAreaLote(product['onda']));
 
             return (
