@@ -37,6 +37,21 @@ const ProposalView = () => {
 
   const [proposalIndex, setProposalIndex] = useState(1);
 
+  const [formattedValues, setFormattedValues] = useState({
+    pedidoMinimo: '',
+    lote: '',
+    simples: '',
+    margem: '',
+  });
+
+  const formatNumber = (value) => {
+    return Number(value).toLocaleString('pt-BR', {
+      minimumFractionDigits: 3,
+      maximumFractionDigits: 3,
+    });
+  };
+
+
 
   useEffect(() => {
     const storedKey = localStorage.getItem('role');
@@ -50,6 +65,8 @@ const ProposalView = () => {
   }, [inputValues]);
 
 
+  
+  
 
 
   const calculateFinalValue = (cost) => {
@@ -181,6 +198,22 @@ const ProposalView = () => {
 }, [proposals]);
 
 
+useEffect(() => {
+  // Atualiza os valores formatados sempre que os inputs de medidas mudarem
+  const pedidoMinimo = formatNumber(/* lógica para calcular pedidoMinimo */);
+  const loteFormatted = formatNumber(/* lógica para calcular lote */);
+  const simplesFormatted = formatNumber(/* lógica para calcular simples */);
+  const margemFormatted = formatNumber(/* lógica para calcular margem */);
+
+  setFormattedValues({
+    pedidoMinimo,
+    lote: loteFormatted,
+    simples: simplesFormatted,
+    margem: margemFormatted,
+  });
+}, [comprimento, altura, largura, lote]);
+
+
   return (
     <div className="listWrapper">
       <SelectedProposals/>
@@ -209,9 +242,9 @@ const ProposalView = () => {
 
             return (
               <div key={product.id} className="table-row">
-                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{costWithoutTax}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{formatNumber(costWithoutTax)}</div>
                 <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{product['fornecedor']}</div>
-                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{custo.toFixed(3)}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{formatNumber(custo)}</div>
                 <div className="table-cell proposalView">{quantidade}</div>
                 <div className="table-cell proposalView">{product['material']}</div>
 
@@ -232,7 +265,7 @@ const ProposalView = () => {
                 </div>
 
 
-                <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
+                <div className="table-cell proposalView">{formatNumber(calculateFinalValue(custo))}</div>
 
                 <div className="table-cell proposalView">
                   <button onClick={() => handleAddProposal(product, 'minimo')}>ADD</button>
@@ -271,9 +304,9 @@ const ProposalView = () => {
 
             return (
               <div key={product.id} className="table-row">
-                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{costWithoutTax}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{formatNumber(costWithoutTax)}</div>
                 <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{product['fornecedor']}</div>
-                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{custo.toFixed(3)}</div>
+                <div className={`table-cell proposalView ${!hasAccess ? 'blurred' : ''}`}>{formatNumber(custo)}</div>
                 <div className="table-cell proposalView">{quantidade}</div>
                 <div className="table-cell proposalView">{product['material']}</div>
 
@@ -295,7 +328,7 @@ const ProposalView = () => {
                 </div>
 
 
-                <div className="table-cell proposalView">{calculateFinalValue(custo)}</div>
+                <div className="table-cell proposalView">{formatNumber(calculateFinalValue(custo))}</div>
                 <div className="table-cell proposalView">
                   <button onClick={() => handleAddProposal(product, 'economico')}>ADD</button>
                 </div>

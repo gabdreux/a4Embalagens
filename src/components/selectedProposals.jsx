@@ -7,6 +7,13 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 const SelectedProposals = () => {
     const { proposals, removeProposal } = useProposalContext();
 
+    const formatNumber = (value) => {
+      return Number(value).toLocaleString('pt-BR', {
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3,
+      });
+    };
+
   return (
     <>
       <h2>ITENS SELECIONADOS</h2>
@@ -30,11 +37,11 @@ const SelectedProposals = () => {
               <div className="table-cell proposalView">{proposal.medida}</div>
               <div className="table-cell proposalView">{proposal.modalidade}</div>
               <div className="table-cell proposalView">{proposal.quantidade}</div>
-              <div className="table-cell proposalView">{proposal.precoUn}</div>
+              <div className="table-cell proposalView">{formatNumber(proposal.precoUn)}</div>
               <div className="table-cell proposalView">{proposal.modelo}</div>
               <div className="table-cell proposalView">{proposal.material}</div>
               <div className="table-cell proposalView">{proposal.impressao ? 'Sim' : 'Não'}</div>
-              <div className="table-cell proposalView">{proposal.valor}</div>
+              <div className="table-cell proposalView">{formatNumber(proposal.valor)}</div>
               <div className="table-cell proposalView">
               <FontAwesomeIcon 
                   icon={faTimes} 

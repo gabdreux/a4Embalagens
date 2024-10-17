@@ -42,13 +42,30 @@ const GenerateDocButton = ({ buttonText }) => {
     return impressao === true ? 'Sim' : 'Não';
   };
   
+  const formatNumber = (value) => {
+    return Number(value).toLocaleString('pt-BR', {
+      minimumFractionDigits: 3,
+      maximumFractionDigits: 3,
+    });
+  };
+
+  const formatValorTotal = (value) => {
+    const valorSemArredondar = Math.floor(value * 100) / 100;
+    return valorSemArredondar.toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
+
+
 
   const generateTableHTML = () => {
 
     const totalItens = proposals.length;
     const quantidadeTotal = proposals.reduce((total, proposal) => total + proposal.quantidade, 0);
-    const valorTotal =  proposals.reduce((acc, proposal) => acc + parseFloat(proposal.valor || 0), 0).toFixed(2);
-    
+    // const valorTotal =  proposals.reduce((acc, proposal) => acc + parseFloat(proposal.valor || 0), 0).toFixed(3);
+    const valorTotal = proposals.reduce((acc, proposal) => acc + parseFloat(proposal.valor || 0), 0);
+    const valorTotalFormatado = formatValorTotal(valorTotal);
   
     const rows = proposals.map((proposal) => `
       <tr>
@@ -56,11 +73,11 @@ const GenerateDocButton = ({ buttonText }) => {
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.medida}</td>
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${formatModalidade(proposal.modalidade)}</td>
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.quantidade}</td>
-        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.precoUn}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${formatNumber(proposal.precoUn)}</td>
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.modelo}</td>
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.material}</td>
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${formatImpressao(proposal.impressao)}</td>
-        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${proposal.valor}</td>
+        <td style="border: 1px solid black; padding: 5px; font-size: 12px">${formatNumber(proposal.valor)}</td>
       </tr>
   `).join('');
   
@@ -127,7 +144,7 @@ const GenerateDocButton = ({ buttonText }) => {
           <h5 style="margin-top: 8px; margin-bottom: 0">Total de itens: <span style="font-weight: 400;">${totalItens}</span></h5>
           <h5 style="margin-top: 0;">Quantidade total: <span style="font-weight: 400;">${quantidadeTotal}</span></h5>
         </div>
-        <h5 style="margin-top: 5px; margin-bottom: 0;">Valor total: <span style="font-weight: 400;">R$ ${valorTotal}</span></h5>
+        <h5 style="margin-top: 5px; margin-bottom: 0;">Valor total: <span style="font-weight: 400;">R$ ${valorTotalFormatado}</span></h5>
       </div>
 
 
