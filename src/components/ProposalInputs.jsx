@@ -215,16 +215,27 @@ const ProposalInputs = () => {
             
                      <div className="groupBox">
                         <h3 className="sectionTitle">Forma de Pagamento</h3>
-                        <select>
+                        <select             
+                        onChange={(e) => logInputChange('formaPagamento', e.target.value)}
+                        value={inputValues.formaPagamento || ''}
+                        style={{ 
+                          textAlign: 'center',
+                        }}>
                           <option value=""></option>
-                          <option value="normal">BOLETO</option>
-                          <option value="corte-vinco">CARTÃO DE CRÉDITO</option>
+                          <option value="BOLETO">BOLETO</option>
+                          <option value="CARTÃO DE CRÉDITO">CARTÃO DE CRÉDITO</option>
                         </select>
                     </div>
 
                     <div className="groupBox">
                         <h3 className="sectionTitle">Parcelas</h3>
-                        <select>
+                        <select
+                        onChange={(e) => logInputChange('parcelas', e.target.value)}
+                        value={inputValues.parcelas || ''}
+                        style={{ 
+                          textAlign: 'center',
+                        }}
+                        >
                           <option value=""></option>
                           <option value="1">1</option>
                           <option value="2">2</option>

@@ -20,6 +20,8 @@ const GenerateDocButton = ({ buttonText }) => {
   const contato = inputValues.contato || "Contato não fornecido";
   const endereco = inputValues.endereco || "Endereço não fornecido";
   // const condicoesComerciais = inputValues.condicoesComerciais || "";
+  const formaPagamento = inputValues.formaPagamento || "Não Escolhido";
+  const parcelas = inputValues.parcelas || 1;
 
   const currentDate = new Date().toLocaleString('pt-BR', {
     day: '2-digit',
@@ -66,6 +68,10 @@ const GenerateDocButton = ({ buttonText }) => {
     // const valorTotal =  proposals.reduce((acc, proposal) => acc + parseFloat(proposal.valor || 0), 0).toFixed(3);
     const valorTotal = proposals.reduce((acc, proposal) => acc + parseFloat(proposal.valor || 0), 0);
     const valorTotalFormatado = formatValorTotal(valorTotal);
+
+
+    const valorPorParcela = valorTotal / parcelas;
+    
   
     const rows = proposals.map((proposal) => `
       <tr>
@@ -80,7 +86,24 @@ const GenerateDocButton = ({ buttonText }) => {
         <td style="border: 1px solid black; padding: 5px; font-size: 12px">${formatNumber(proposal.valor)}</td>
       </tr>
   `).join('');
-  
+
+
+    const pagamentosRows = Array.from({ length: parcelas }, (_, index) => {
+      const currentDate = new Date();
+      const dias = (index + 1) * 30; // Para cada parcela, define o vencimento a cada 30 dias
+      const dataVencimento = new Date(currentDate);
+      dataVencimento.setDate(currentDate.getDate() + dias);
+      return `
+        <tr>
+          <td style="border: 1px solid black; padding: 5px; font-size: 12px">${formaPagamento}</td>
+          <td style="border: 1px solid black; padding: 5px; font-size: 12px">${dias}</td>
+          <td style="border: 1px solid black; padding: 5px; font-size: 12px">${formatValorTotal(valorPorParcela)}</td>
+          <td style="border: 1px solid black; padding: 5px; font-size: 12px">${dataVencimento.toLocaleDateString('pt-BR')}</td>
+        </tr>
+      `;
+    }).join('');
+
+
 
     return `
 
@@ -139,26 +162,44 @@ const GenerateDocButton = ({ buttonText }) => {
 
 
       
-      <div style="display: flex; justify-content: space-between; align-items: start; margin-top: 0px; margin-bottom: 0px;">
-        <div>
-          <h5 style="margin-top: 8px; margin-bottom: 0">Total de itens: <span style="font-weight: 400;">${totalItens}</span></h5>
-          <h5 style="margin-top: 0;">Quantidade total: <span style="font-weight: 400;">${quantidadeTotal}</span></h5>
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-top: 0px; margin-bottom: 0px;">
+          <div>
+            <h5 style="margin-top: 8px; margin-bottom: 0">Total de itens: <span style="font-weight: 400;">${totalItens}</span></h5>
+            <h5 style="margin-top: 0;">Quantidade total: <span style="font-weight: 400;">${quantidadeTotal}</span></h5>
+          </div>
+          <h5 style="margin-top: 5px; margin-bottom: 0;">Valor total: <span style="font-weight: 400;">R$ ${valorTotalFormatado}</span></h5>
         </div>
-        <h5 style="margin-top: 5px; margin-bottom: 0;">Valor total: <span style="font-weight: 400;">R$ ${valorTotalFormatado}</span></h5>
-      </div>
 
 
-      <h5 style="margin-top: 0; margin-bottom: 8px;">Condições Comerciais:</h5>
-      <div style="border: solid; border-width: 1px; padding: 0">
-        
-      </div>
+        <h5 style="margin-top: 0; margin-bottom: 8px;">Condições Comerciais:</h5>
+        <div style="border: solid; border-width: 1px; padding: 0">
+
+                <table style="width: 100%; max-width: 100%; border-collapse: collapse; border: 1px solid black; table-layout: fixed;">
+
+                <thead style="font-size: 10px;">
+                  <tr>
+                    <th style="padding: 8px; text-align: center; border: 1px solid black; width: 25%;">FORMA DE PAGAMENTO</th>
+                    <th style="padding: 8px; text-align: center; border: 1px solid black; width: 10%;">DIAS</th>
+                    <th style="padding: 8px; text-align: center; border: 1px solid black; width: 20%;">VALOR</th>
+                    <th style="padding: 8px; text-align: center; border: 1px solid black; width: 25%;">DATA</th>
+                  </tr>
+                </thead>
+
+                <tbody style="text-align: center;">
+                  ${pagamentosRows}
+                </tbody>
+
+              </table>
+
+        </div>
       
 
       
       <h5 style="margin-top: 8px; margin-bottom: 8px;">Outros Itens:</h5>
-      <div style="height: 100px; border: solid; border-width: 1px;">
-        <p style="font-weight: 400; white-space: pre-wrap; font-size: 14px; padding: 8px;">${outrosItens}</p>
+      <div style="height: 100px; border: solid; border-width: 1px; display: flex; align-items: flex-start;">
+        <p style="font-weight: 400; white-space: pre-wrap; font-size: 12px; padding: 8px; margin: 0;">${outrosItens}</p>
       </div>
+
 
 
       <div style="font-size: 10px;">

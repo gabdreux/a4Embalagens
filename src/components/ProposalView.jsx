@@ -20,6 +20,10 @@ const ProposalView = () => {
   const comprimento = parseFloat(inputValues.comprimento || 0);
   const altura = parseFloat(inputValues.altura || 0);
   const largura = parseFloat(inputValues.largura || 0);
+  const formaPagamento = inputValues.formaPagamento
+  const parcelas = parseFloat(inputValues.parcelas || 0);
+  
+
 
 
   const [pedidoMinimo, setPedidoMinimo] = useState(0);
@@ -183,6 +187,8 @@ const ProposalView = () => {
         medida: (comprimento + "X" + largura + "X" + altura),
         impressao: checkboxes[product.id] || false,
         modelo: dropdowns[product.id] || 'Não selecionado',
+        formaPagamento: formaPagamento,
+        parcelas: parcelas,
     };
 
     addProposal(proposal);
